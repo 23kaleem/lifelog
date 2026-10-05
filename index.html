@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Life Log</title>
+<meta name="description" content="Personal daily tracker: water, prayers, Quran, training and habits.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Life Log">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>:root{
+  color-scheme:light;
+  --page:#f2f2f7; --card:#ffffff; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984;
+  --line:#e6e5e1; --chip:#efefef; --chip2:#e3e3e8; --sheet:#ffffff; --scrim:rgba(0,0,0,.38);
+  --water:#2a78d6; --run:#eb6834; --gym:#1baf7a; --foot:#4a3aa7; --habit:#3a3a38;
+  --good:#0ca30c; --warn:#fab219; --bad:#d03b3b; --none:#d9d8d4;
+  --accent:#2a78d6; --accent-soft:#e8f0fb; --onaccent:#ffffff;
+  --banner:#fff6e0; --bannerline:#f3dc9c;
+  --tabbar:rgba(255,255,255,.92); --segon:#ffffff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#000000; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86;
+    --line:#2e2e2c; --chip:#2b2b29; --chip2:#232322; --sheet:#1f1f1e; --scrim:rgba(0,0,0,.6);
+    --water:#3987e5; --run:#d95926; --gym:#199e70; --foot:#9085e9; --habit:#d6d5cf;
+    --none:#3a3a37;
+    --accent:#3987e5; --accent-soft:#1d2a3d;
+    --banner:#2e2610; --bannerline:#5a4a1c;
+    --tabbar:rgba(22,22,21,.92); --segon:#4a4a47;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#000000; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86;
+  --line:#2e2e2c; --chip:#2b2b29; --chip2:#232322; --sheet:#1f1f1e; --scrim:rgba(0,0,0,.6);
+  --water:#3987e5; --run:#d95926; --gym:#199e70; --foot:#9085e9; --habit:#d6d5cf;
+  --none:#3a3a37;
+  --accent:#3987e5; --accent-soft:#1d2a3d;
+  --banner:#2e2610; --bannerline:#5a4a1c;
+  --tabbar:rgba(22,22,21,.92); --segon:#4a4a47;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--page);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Inter,sans-serif;font-size:15px;line-height:1.35;
+  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink)}
+[hidden]{display:none!important}
+
+#app{max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 8px) 14px calc(env(safe-area-inset-bottom) + 88px)}
+
+/* header */
+.hdr{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 12px;gap:10px}
+.hdr h1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.hdr .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+.arrows{display:flex;gap:8px;align-items:center}
+.circ{width:34px;height:34px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:17px;color:var(--ink2)}
+.circ:disabled{opacity:.3}
+.todaybtn{font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:7px 11px;border-radius:17px}
+
+/* cards */
+.card{background:var(--card);border-radius:16px;padding:13px;margin-bottom:10px}
+.ct{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:8px}
+.ct b{font-size:15px}
+.ct span{font-size:13px;color:var(--ink2);text-align:right}
+.bar{height:8px;border-radius:4px;background:var(--chip);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;transition:width .25s}
+.btns{display:flex;gap:6px;margin-top:11px}
+.btn{flex:1;text-align:center;font-size:15px;font-weight:600;padding:10px 0;border-radius:11px;background:var(--chip)}
+.btn.pri{background:var(--water);color:#fff}
+.btn.ghost{flex:0 0 44px;color:var(--ink2)}
+.btn:active,.circ:active,.add:active,.segb:active{transform:scale(.96)}
+.ok{color:var(--good);font-weight:700}
+
+/* score ring */
+.score{display:flex;align-items:center;gap:13px}
+.score svg{width:58px;height:58px;flex:none}
+.score b{font-size:15px}
+.score .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+
+/* prayers */
+.pr{display:flex;align-items:center;justify-content:space-between;padding:5px 0;gap:8px}
+.pr .n{font-size:15px}
+.seg{display:flex;gap:4px}
+.segb{font-size:12.5px;padding:7px 9px;border-radius:9px;background:var(--chip);color:var(--ink2);white-space:nowrap}
+.segb.s-on{background:var(--good);color:#fff;font-weight:600}
+.segb.s-late{background:var(--warn);color:#2b2100;font-weight:600}
+.segb.s-miss{background:var(--bad);color:#fff;font-weight:600}
+
+/* habits */
+.hrow{display:flex;align-items:center;justify-content:space-between;padding:7px 0;gap:10px;min-height:44px}
+.hrow + .hrow{border-top:1px solid var(--line)}
+.hname{font-size:15px}
+.hgoal{font-size:12px;color:var(--ink2)}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:34px;height:34px;border-radius:50%;background:var(--chip);font-size:20px;font-weight:600;display:grid;place-items:center}
+.stepper b{font-size:20px;min-width:34px;text-align:center}
+.sw{width:51px;height:31px;border-radius:16px;background:var(--none);position:relative;flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:left .2s}
+.sw.on{background:var(--good)}.sw.on::after{left:22px}
+
+/* week */
+.wk{display:grid;grid-template-columns:1fr auto;gap:12px 10px;align-items:center}
+.wk .lbl{display:flex;align-items:center;gap:8px;font-size:15px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
+.wk .bar{margin:6px 0 0 18px;height:6px}
+.wk .small{font-size:12px;color:var(--ink2);margin:4px 0 0 18px}
+.add{font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:7px 11px;border-radius:9px;white-space:nowrap}
+
+/* log list */
+.li{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:15px}
+.li + .li{border-top:1px solid var(--line)}
+.li .main{flex:1;min-width:0}
+.li .meta{font-size:12px;color:var(--muted)}
+.li .x{width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--ink2);font-size:13px;flex:none}
+.empty{font-size:13px;color:var(--muted);padding:4px 0}
+
+/* summary */
+.segctl{display:flex;background:var(--chip2);border-radius:10px;padding:2px;margin-bottom:12px}
+.segctl button{flex:1;text-align:center;font-size:14px;padding:7px 0;border-radius:8px;color:var(--ink2)}
+.segctl .on{background:var(--segon);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.tile{background:var(--card);border-radius:14px;padding:10px 11px}
+.tile .l{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.tile .v{font-size:20px;font-weight:700;margin-top:3px;letter-spacing:-.01em}
+.tile .g{font-size:12px;color:var(--muted);margin-top:1px}
+.legend{display:flex;gap:12px;font-size:12px;color:var(--ink2);margin-top:8px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.chart{width:100%;display:block;overflow:visible}
+.chart text{font-family:inherit}
+.ax{font-size:10px;fill:var(--muted)}
+.lab{font-size:11px;fill:var(--ink)}
+.val{font-size:10px;fill:var(--ink2)}
+.hit{cursor:pointer}
+.tip{position:fixed;z-index:60;background:var(--ink);color:var(--card);font-size:12px;padding:6px 9px;border-radius:8px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl th{font-size:11px;color:var(--ink2);font-weight:600;text-align:right;padding:5px 4px;border-bottom:1px solid var(--line)}
+.tbl td{text-align:right;padding:6px 4px;border-bottom:1px solid var(--line)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl tr:last-child td{border-bottom:0}
+.note{font-size:12px;color:var(--muted);text-align:center;margin:6px 0 10px}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .h{font-size:10px;color:var(--muted);text-align:center;padding-bottom:2px}
+.cal .d{aspect-ratio:1;border-radius:8px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;background:var(--chip)}
+.cal .d.f{opacity:.35}
+.cal .d .ds{display:flex;gap:2px;position:absolute;bottom:4px}
+.cal .d .ds i{width:5px;height:5px;border-radius:50%}
+.cal .d.today{outline:2px solid var(--ink);outline-offset:-2px}
+
+/* settings */
+.banner{background:var(--banner);border:1px solid var(--bannerline);border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.banner button{color:var(--accent);font-weight:600;white-space:nowrap}
+.sh{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;margin:16px 6px 6px}
+.set{background:var(--card);border-radius:14px;overflow:hidden}
+.set .r{display:flex;justify-content:space-between;align-items:center;padding:13px 13px;border-bottom:1px solid var(--line);font-size:15px;gap:10px;width:100%;text-align:left}
+.set .r:last-child{border-bottom:0}
+.set .r em{font-style:normal;color:var(--ink2);text-align:right}
+.set .r.blue{color:var(--accent);font-weight:500}
+.set .r.red{color:var(--bad);font-weight:500}
+.foot{font-size:12px;color:var(--muted);margin:6px 8px 0;line-height:1.4}
+
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;background:var(--tabbar);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:7px 0 calc(env(safe-area-inset-bottom) + 6px);z-index:20}
+.tabbar .in{display:flex;width:100%;max-width:560px;justify-content:space-around}
+.tab{display:flex;flex-direction:column;align-items:center;font-size:10.5px;color:var(--muted);gap:2px;padding:2px 18px;font-weight:500}
+.tab svg{width:25px;height:25px}
+.tab.on{color:var(--accent)}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;opacity:0;transition:opacity .2s}
+.scrim.show{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);border-radius:20px 20px 0 0;max-height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;
+  padding:8px 16px calc(env(safe-area-inset-bottom) + 18px);transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);max-width:560px;margin:0 auto}
+.sheet.show{transform:none}
+.grab{width:38px;height:5px;border-radius:3px;background:var(--none);margin:0 auto 10px}
+.sheet h3{font-size:19px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.sheet h3 button{font-size:15px;font-weight:500;color:var(--accent)}
+.types{display:flex;gap:6px;margin-bottom:14px}
+.types button{flex:1;text-align:center;font-size:14px;font-weight:600;padding:9px 0;border-radius:10px;background:var(--chip);color:var(--ink2)}
+.types button.on{background:var(--accent);color:#fff}
+.types.run button.on{background:var(--run)}
+.types.gym button.on{background:var(--gym)}
+.types.football button.on{background:var(--foot)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field{border:1px solid var(--line);border-radius:12px;padding:7px 12px;margin-bottom:10px;display:block;background:var(--card)}
+.field span{display:block;font-size:12px;color:var(--ink2)}
+.field input,.field select,.field textarea{width:100%;border:0;outline:0;background:transparent;font-size:19px;font-weight:600;padding:2px 0}
+.field textarea{font-size:16px;font-weight:400;resize:none}
+.field select{-webkit-appearance:none;appearance:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips button{padding:8px 13px;border-radius:18px;background:var(--chip);font-size:14px;font-weight:500;color:var(--ink2)}
+.chips button.on{background:var(--ink);color:var(--card)}
+.calc{font-size:13px;color:var(--ink2);margin:0 2px 12px}
+.save{width:100%;color:#fff;background:var(--accent);text-align:center;font-weight:700;font-size:16px;padding:14px;border-radius:13px;margin-top:4px}
+.save.run{background:var(--run)}.save.gym{background:var(--gym)}.save.football{background:var(--foot)}
+.danger{width:100%;color:var(--bad);font-weight:600;padding:13px;margin-top:6px}
+.tgl{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 12px;font-size:15px;gap:10px}
+.hint{font-size:12px;color:var(--muted);margin:-4px 2px 12px;line-height:1.4}
+
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:20px;font-size:14px;z-index:70;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<nav class="tabbar"><div class="in">
+  <button class="tab" data-tab="today"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 3 10v11h6v-6h6v6h6V10z"/></svg>Today</button>
+  <button class="tab" data-tab="summary"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="11" width="4.5" height="10" rx="1.3"/><rect x="9.75" y="4" width="4.5" height="17" rx="1.3"/><rect x="16" y="8" width="4.5" height="13" rx="1.3"/></svg>Summary</button>
+  <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3" fill="none" stroke="currentColor" stroke-width="3.4" stroke-dasharray="3.26 3.26"/><path fill="currentColor" fill-rule="evenodd" d="M12 4.8a7.2 7.2 0 1 0 0 14.4a7.2 7.2 0 1 0 0-14.4zm0 4.3a2.9 2.9 0 1 1 0 5.8a2.9 2.9 0 1 1 0-5.8z"/></svg>Settings</button>
+</div></nav>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+<div class="tip" id="tip" hidden></div>
+<input type="file" id="fileIn" accept=".json,application/json" hidden>
+
+<script>'use strict';
+/* Life Log — personal daily tracker. All data is stored on this device (localStorage). */
+const VERSION = '1.0.0';
+const KEY = 'lifelog.v1';
+const PRAYERS = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha']];
+const ACT = {
+  run:      {name:'Run',      plural:'Runs',     color:'var(--run)',  emoji:'🏃'},
+  gym:      {name:'Gym',      plural:'Gym',      color:'var(--gym)',  emoji:'🏋️'},
+  football: {name:'Football', plural:'Football', color:'var(--foot)', emoji:'⚽'}
+};
+const SPLITS = ['Upper','Lower','Full','Other'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DOW1 = ['M','T','W','T','F','S','S'];
+
+/* ---------------- dates ---------------- */
+const pad = n => String(n).padStart(2,'0');
+const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseKey = k => { const [y,m,d] = k.split('-').map(Number); return new Date(y, m-1, d); };
+const todayKey = () => keyOf(new Date());
+const addDays = (k,n) => { const d = parseKey(k); d.setDate(d.getDate()+n); return keyOf(d); };
+const weekStart = k => { const d = parseKey(k); d.setDate(d.getDate() - (d.getDay()+6)%7); return keyOf(d); };
+const range = (a,b) => { const out=[]; for (let k=a; k<=b; k=addDays(k,1)) out.push(k); return out; };
+const maxK = (a,b) => a>b?a:b, minK = (a,b) => a<b?a:b;
+const fmtDay = (k,o) => parseKey(k).toLocaleDateString('en-GB', o || {weekday:'long', day:'numeric', month:'long'});
+const shortDate = k => { const d = parseKey(k); return `${d.getDate()} ${MONTHS[d.getMonth()]}`; };
+
+/* ---------------- formatting ---------------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = (n,dp=1) => (Math.round(n*10**dp)/10**dp).toLocaleString('en-GB',{maximumFractionDigits:dp});
+const L = ml => num(ml/1000, 2);
+const pct = (a,b) => b ? Math.round(a/b*100) : 0;
+const dur = sec => { sec = Math.round(sec||0); const h=Math.floor(sec/3600), m=Math.floor(sec%3600/60), s=sec%60; return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`; };
+const pace = (sec,km) => km>0 && sec>0 ? dur(sec/km) + ' /km' : '–';
+const plural = (n,w,p) => `${n} ${n===1?w:(p||w+'s')}`;
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+
+/* ---------------- state ---------------- */
+function defaults(){
+  return {
+    v:1, start: todayKey(),
+    settings:{
+      waterGoal:2500, quick:[250,500,750],
+      prayerGoal:5, lateCounts:false,
+      runGoal:3, kmGoal:25, gymGoal:3, footGoal:1,
+      lastBackup:null, installDismissed:false,
+      trackers:[
+        {id:'quran',    name:'Quran',          emoji:'📖', type:'count', unit:'pages', step:1, goal:2, period:'day',  builtin:true, show:true},
+        {id:'creatine', name:'Creatine',       emoji:'💊', type:'check', goal:7, period:'week', builtin:true, show:true},
+        {id:'skincare', name:'Night skincare', emoji:'🧴', type:'check', goal:7, period:'week', builtin:true, show:true}
+      ]
+    },
+    days:{}, acts:[]
+  };
+}
+function normalise(raw){
+  const d = defaults();
+  if (!raw || typeof raw !== 'object') return d;
+  const s = Object.assign({}, d.settings, raw.settings || {});
+  if (!Array.isArray(s.trackers)) s.trackers = d.settings.trackers;
+  if (!Array.isArray(s.quick) || s.quick.length !== 3) s.quick = d.settings.quick;
+  const out = { v:1, start: raw.start || d.start, settings:s, days: raw.days || {}, acts: Array.isArray(raw.acts) ? raw.acts : [] };
+  // make sure start covers the earliest data we hold (e.g. after a restore)
+  const keys = Object.keys(out.days).concat(out.acts.map(a => a.d)).filter(Boolean).sort();
+  if (keys.length && keys[0] < out.start) out.start = keys[0];
+  return out;
+}
+let S;
+try { S = normalise(JSON.parse(localStorage.getItem(KEY))); } catch(e){ S = defaults(); }
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){ toast('Couldn’t save — storage full or blocked'); }
+}
+
+const EMPTY = Object.freeze({w:[], p:{}, v:{}});
+const day = k => S.days[k] || EMPTY;
+const dayW = k => { let d = S.days[k]; if (!d){ d = S.days[k] = {w:[], p:{}, v:{}}; } d.w ||= []; d.p ||= {}; d.v ||= {}; return d; };
+const trackers = () => S.settings.trackers;
+const shownTrackers = () => trackers().filter(t => t.show !== false);
+const tById = id => trackers().find(t => t.id === id);
+
+/* ---------------- metrics ---------------- */
+const waterTotal = k => (day(k).w || []).reduce((s,e) => s + e[1], 0);
+const waterHit = k => S.settings.waterGoal > 0 && waterTotal(k) >= S.settings.waterGoal;
+function prayerCounts(k){
+  const p = day(k).p || {}, c = {on:0, late:0, missed:0, none:0};
+  PRAYERS.forEach(([id]) => { const s = p[id]; if (s==='on') c.on++; else if (s==='late') c.late++; else if (s==='missed') c.missed++; else c.none++; });
+  return c;
+}
+const prayerHit = k => { const c = prayerCounts(k); return c.on + (S.settings.lateCounts ? c.late : 0) >= S.settings.prayerGoal; };
+const tVal = (k,id) => +((day(k).v || {})[id] || 0);
+const isDaily = t => t.type === 'check' ? t.goal >= 7 : t.period === 'day';
+const tDayHit = (t,k) => t.type === 'check' ? tVal(k,t.id) > 0 : (t.period === 'day' ? tVal(k,t.id) >= t.goal : tVal(k,t.id) > 0);
+const actsOn = k => S.acts.filter(a => a.d === k);
+const actsIn = (a,b,type) => S.acts.filter(x => x.d >= a && x.d <= b && (!type || x.type === type));
+const sumKm = list => list.reduce((s,a) => s + (+a.km || 0), 0);
+const sumMin = list => list.reduce((s,a) => s + (+a.min || 0), 0);
+
+function weekProgress(ws){
+  const we = addDays(ws,6), runs = actsIn(ws,we,'run');
+  return { runs:runs.length, km:sumKm(runs), gym:actsIn(ws,we,'gym').length, foot:actsIn(ws,we,'football').length };
+}
+const runWeekHit  = ws => { const p = weekProgress(ws), g = S.settings; return p.runs >= g.runGoal && p.km >= (g.kmGoal||0) && (g.runGoal>0 || g.kmGoal>0); };
+const gymWeekHit  = ws => S.settings.gymGoal  > 0 && weekProgress(ws).gym  >= S.settings.gymGoal;
+const footWeekHit = ws => S.settings.footGoal > 0 && weekProgress(ws).foot >= S.settings.footGoal;
+function tWeekValue(t,ws){
+  const days = range(ws, addDays(ws,6));
+  return t.type === 'check' ? days.filter(k => tVal(k,t.id) > 0).length : days.reduce((s,k) => s + tVal(k,t.id), 0);
+}
+const tWeekHit = (t,ws) => tWeekValue(t,ws) >= t.goal;
+
+function dailyGoals(k){
+  const g = [];
+  if (S.settings.waterGoal > 0) g.push({name:'water', hit:waterHit(k)});
+  g.push({name:'prayers', hit:prayerHit(k)});
+  shownTrackers().filter(isDaily).forEach(t => g.push({name:t.name, hit:tDayHit(t,k)}));
+  return g;
+}
+function streakDays(fn){
+  let k = todayKey(); if (!fn(k)) k = addDays(k,-1);
+  let n = 0; while (k >= S.start && fn(k)){ n++; k = addDays(k,-1); }
+  return n;
+}
+function streakWeeks(fn){
+  let ws = weekStart(todayKey()); if (!fn(ws)) ws = addDays(ws,-7);
+  let n = 0; while (addDays(ws,6) >= S.start && fn(ws)){ n++; ws = addDays(ws,-7); }
+  return n;
+}
+
+/* ---------------- UI state ---------------- */
+const UI = { tab:'today', date: todayKey(), per:'week', anchor: todayKey(), lastToday: todayKey() };
+const $app = document.getElementById('app');
+const isStandalone = () => window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+function render(){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === UI.tab));
+  hideTip();
+  if (UI.tab === 'today') $app.innerHTML = renderToday();
+  else if (UI.tab === 'summary') $app.innerHTML = renderSummary();
+  else $app.innerHTML = renderSettings();
+}
+
+function backupDue(){
+  const hasData = Object.keys(S.days).length || S.acts.length;
+  if (!hasData) return null;
+  const last = S.settings.lastBackup ? S.settings.lastBackup.slice(0,10) : S.start;
+  const days = Math.round((parseKey(todayKey()) - parseKey(last)) / 864e5);
+  return days >= 7 ? {days, never: !S.settings.lastBackup} : null;
+}
+function backupBanner(){
+  const due = backupDue(); if (!due) return '';
+  const msg = due.never ? `You haven’t backed up yet` : `Last backup ${due.days} days ago`;
+  return `<div class="banner"><span>⚠️ ${msg}</span><button data-act="backup">Back up now</button></div>`;
+}
+
+/* ---------------- TODAY ---------------- */
+function renderToday(){
+  const k = UI.date, tk = todayKey(), g = S.settings;
+  const title = k === tk ? 'Today' : k === addDays(tk,-1) ? 'Yesterday' : fmtDay(k,{weekday:'long'});
+  let h = `<div class="hdr"><div><h1>${title}</h1><div class="sub">${fmtDay(k,{weekday:'long',day:'numeric',month:'long',year: k.slice(0,4)!==tk.slice(0,4)?'numeric':undefined})}</div></div>
+    <div class="arrows">${k!==tk?`<button class="todaybtn" data-act="goToday">Today</button>`:''}
+    <button class="circ" data-act="prevDay" aria-label="Previous day">‹</button>
+    <button class="circ" data-act="nextDay" aria-label="Next day" ${k>=tk?'disabled':''}>›</button></div></div>`;
+
+  if (isIOS && !isStandalone() && !g.installDismissed){
+    h += `<div class="banner"><span>📲 <b>Install first:</b> tap <b>Share</b> → <b>Add to Home Screen</b>, then use the app from there. Data logged here in Safari isn’t shared with the home-screen app.</span><button data-act="dismissInstall">OK</button></div>`;
+  }
+  h += backupBanner();
+
+  // score ring
+  const goals = dailyGoals(k), done = goals.filter(x => x.hit).length, C = 2*Math.PI*24;
+  const left = goals.filter(x => !x.hit).map(x => x.name);
+  h += `<div class="card score"><svg viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="var(--chip)" stroke-width="7"/>
+    ${done?'':'<!--'}<circle cx="29" cy="29" r="24" fill="none" stroke="var(--good)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${goals.length?C*done/goals.length:0} ${C}" transform="rotate(-90 29 29)"/>${done?'':'-->'}
+    <text x="29" y="33.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">${done}/${goals.length}</text></svg>
+    <div><b>${done===goals.length?'All daily goals done 🎉':'Daily goals done'}</b><div class="sub">${left.length?esc(capFirst(listJoin(left)))+' to go':'Nice work.'}</div></div></div>`;
+
+  // water
+  const wt = waterTotal(k);
+  h += `<div class="card"><div class="ct"><b>💧 Water</b><span>${L(wt)} / ${L(g.waterGoal)} L ${waterHit(k)?'<span class="ok">✓</span>':''}</span></div>
+    <div class="bar"><i style="width:${Math.min(100,pct(wt,g.waterGoal))}%;background:var(--water)"></i></div>
+    <div class="btns">${g.quick.map(ml => `<button class="btn pri" data-act="water" data-ml="${ml}">+${ml}</button>`).join('')}
+    <button class="btn ghost" data-act="waterOther" aria-label="Other amount">＋</button>
+    <button class="btn ghost" data-act="undoWater" aria-label="Undo last" ${day(k).w.length?'':'disabled style="opacity:.4"'}>↶</button></div></div>`;
+
+  // prayers
+  const pc = prayerCounts(k), p = day(k).p || {};
+  h += `<div class="card"><div class="ct"><b>🕌 Prayers</b><span>${5-pc.none-pc.missed}/5 prayed · ${pc.on} on time ${prayerHit(k)?'<span class="ok">✓</span>':''}</span></div>`;
+  PRAYERS.forEach(([id,name]) => {
+    const s = p[id];
+    h += `<div class="pr"><span class="n">${name}</span><div class="seg">
+      <button class="segb ${s==='on'?'s-on':''}" data-act="prayer" data-p="${id}" data-s="on">On time</button>
+      <button class="segb ${s==='late'?'s-late':''}" data-act="prayer" data-p="${id}" data-s="late">Late</button>
+      <button class="segb ${s==='missed'?'s-miss':''}" data-act="prayer" data-p="${id}" data-s="missed">Missed</button></div></div>`;
+  });
+  h += `</div>`;
+
+  // simple trackers
+  const ts = shownTrackers();
+  if (ts.length){
+    h += `<div class="card">`;
+    ts.forEach(t => {
+      const v = tVal(k,t.id);
+      const goalTxt = t.type==='check' ? (t.goal>=7?'every day':`${t.goal} days a week`) : `goal ${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
+      const hit = tDayHit(t,k) && (t.type==='check' || t.period==='day');
+      h += `<div class="hrow"><div><div class="hname">${esc(t.emoji||'')} ${esc(t.name)} ${hit?'<span class="ok">✓</span>':''}</div><div class="hgoal">${goalTxt}</div></div>`;
+      if (t.type === 'check') h += `<button class="sw ${v?'on':''}" data-act="check" data-id="${t.id}" role="switch" aria-checked="${!!v}" aria-label="${esc(t.name)}"></button>`;
+      else h += `<div class="stepper"><button data-act="step" data-id="${t.id}" data-dir="-1" aria-label="Less">−</button><b>${num(v,2)}</b><button data-act="step" data-id="${t.id}" data-dir="1" aria-label="More">+</button></div>`;
+      h += `</div>`;
+    });
+    h += `</div>`;
+  }
+
+  // this week
+  const ws = weekStart(k), wp = weekProgress(ws);
+  const wrow = (color, label, val, goal, extra, type) => {
+    const done = goal>0 && val>=goal;
+    return `<div><div class="lbl"><i class="dot" style="background:${color}"></i><b>${label}</b> ${num(val,2)} / ${num(goal,2)} ${done?'<span class="ok">✓</span>':''}</div>
+      <div class="bar"><i style="width:${Math.min(100,pct(val,goal||1))}%;background:${color}"></i></div>${extra?`<div class="small">${extra}</div>`:''}</div>
+      ${type?`<button class="add" data-act="addAct" data-type="${type}">+ ${ACT[type].name}</button>`:'<span></span>'}`;
+  };
+  h += `<div class="card"><div class="ct"><b>📅 This week</b><span>${shortDate(ws)} – ${shortDate(addDays(ws,6))}</span></div><div class="wk">`;
+  h += wrow('var(--run)','Runs', wp.runs, g.runGoal, `${num(wp.km)} / ${num(g.kmGoal)} km`, 'run');
+  h += wrow('var(--gym)','Gym', wp.gym, g.gymGoal, '', 'gym');
+  h += wrow('var(--foot)','Football', wp.foot, g.footGoal, '', 'football');
+  shownTrackers().filter(t => !isDaily(t)).forEach(t => {
+    const v = tWeekValue(t,ws);
+    h += wrow('var(--habit)', `${esc(t.emoji||'')} ${esc(t.name)}`, v, t.goal, t.type==='check'?'days this week':esc(t.unit||''), null);
+  });
+  h += `</div></div>`;
+
+  // logged list
+  const items = [];
+  (day(k).w || []).forEach(([t,ml]) => items.push({t, html:`<div class="main">💧 ${ml} ml<div class="meta">${keyOf(new Date(t))===k?timeOf(t):'added later'}</div></div><button class="x" data-act="delWater" data-t="${t}" aria-label="Delete">✕</button>`}));
+  actsOn(k).forEach(a => items.push({t:a.t||0, html:`<button class="main" style="text-align:left" data-act="editAct" data-id="${a.id}">${ACT[a.type].emoji} ${actText(a)}<div class="meta">${a.note?esc(a.note)+' · ':''}tap to edit</div></button><button class="x" data-act="delAct" data-id="${a.id}" aria-label="Delete">✕</button>`}));
+  items.sort((a,b) => b.t - a.t);
+  h += `<div class="card"><div class="ct"><b>Logged ${k===tk?'today':'this day'}</b><span>${items.length?'':''}</span></div>
+    ${items.length ? items.map(i => `<div class="li">${i.html}</div>`).join('') : `<div class="empty">Nothing logged yet. Water and activities you add show here.</div>`}</div>`;
+
+  // streaks
+  const st = [];
+  if (g.waterGoal>0) st.push(['💧 Water goal', streakDays(waterHit), 'day']);
+  st.push(['🕌 Prayer goal', streakDays(prayerHit), 'day']);
+  shownTrackers().forEach(t => isDaily(t) ? st.push([`${t.emoji||''} ${t.name}`, streakDays(k2 => tDayHit(t,k2)), 'day']) : st.push([`${t.emoji||''} ${t.name} weekly goal`, streakWeeks(ws2 => tWeekHit(t,ws2)), 'week']));
+  st.push(['🏃 Runs weekly goal', streakWeeks(runWeekHit), 'week'], ['🏋️ Gym weekly goal', streakWeeks(gymWeekHit), 'week'], ['⚽ Football weekly goal', streakWeeks(footWeekHit), 'week']);
+  const live = st.filter(s => s[1] >= 2).sort((a,b) => b[1]-a[1]);
+  h += `<div class="card"><div class="ct"><b>🔥 Streaks</b></div>${live.length ? live.map(s => `<div class="hrow"><span class="hname">${esc(s[0])}</span><b>${plural(s[1],s[2])}</b></div>`).join('') : `<div class="empty">Hit a goal two days (or weeks) in a row and your streaks appear here.</div>`}</div>`;
+  return h;
+}
+const timeOf = t => { const d = new Date(t); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const capFirst = s => s.charAt(0).toUpperCase() + s.slice(1);
+const listJoin = a => a.length < 2 ? a.join('') : a.slice(0,-1).join(', ') + ' & ' + a[a.length-1];
+function actText(a){
+  if (a.type === 'run') return `Run · ${num(a.km)} km${a.sec?` · ${dur(a.sec)} · ${pace(a.sec,a.km)}`:''}`;
+  if (a.type === 'gym') return `Gym · ${esc(a.split||'Other')}${a.min?` · ${a.min} min`:''}`;
+  return `Football${a.min?` · ${a.min} min`:''}`;
+}
+
+/* ---------------- SUMMARY ---------------- */
+function periodRange(){
+  const k = UI.anchor, d = parseKey(k);
+  if (UI.per === 'week'){ const a = weekStart(k); return [a, addDays(a,6)]; }
+  if (UI.per === 'month') return [keyOf(new Date(d.getFullYear(), d.getMonth(), 1)), keyOf(new Date(d.getFullYear(), d.getMonth()+1, 0))];
+  return [`${d.getFullYear()}-01-01`, `${d.getFullYear()}-12-31`];
+}
+function periodLabel(a,b){
+  if (UI.per === 'week') return `${shortDate(a)} – ${shortDate(b)} ${b.slice(0,4)}`;
+  if (UI.per === 'month') return parseKey(a).toLocaleDateString('en-GB',{month:'long', year:'numeric'});
+  return a.slice(0,4);
+}
+function weeksIn(a,b){
+  const out = [], tk = todayKey();
+  let ws = weekStart(a);
+  for (; ws <= b; ws = addDays(ws,7)) if (ws <= tk && addDays(ws,6) >= S.start) out.push(ws);
+  return out;
+}
+// weeks that count towards "x of y weeks": finished weeks, or the current week if already hit
+const evalWeeks = (weeks, fn) => { const tk = todayKey(); const ev = weeks.filter(ws => addDays(ws,6) < tk || fn(ws)); return {hit: ev.filter(fn).length, of: ev.length}; };
+
+function renderSummary(){
+  const [a,b] = periodRange(), tk = todayKey(), g = S.settings;
+  const days = (a <= tk && b >= S.start) ? range(maxK(a,S.start), minK(b,tk)) : [];
+  const n = days.length, weeks = weeksIn(a,b);
+  let h = `<div class="hdr"><div><h1>Summary</h1><div class="sub">${periodLabel(a,b)}</div></div>
+    <div class="arrows"><button class="circ" data-act="prevPer" aria-label="Previous">‹</button><button class="circ" data-act="nextPer" aria-label="Next" ${b>=tk?'disabled':''}>›</button></div></div>
+    <div class="segctl">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}">${capFirst(p)}</button>`).join('')}</div>`;
+  if (!n) return h + `<div class="card"><div class="empty">No data for this period yet.</div></div>`;
+
+  // ---- tiles
+  const water = days.map(waterTotal), wHit = days.filter(waterHit).length;
+  const pcs = days.map(prayerCounts), P = pcs.reduce((s,c) => ({on:s.on+c.on, late:s.late+c.late, missed:s.missed+c.missed, none:s.none+c.none}), {on:0,late:0,missed:0,none:0});
+  const runs = actsIn(a,b,'run'), gyms = actsIn(a,b,'gym'), foots = actsIn(a,b,'football');
+  const tile = (color,label,v,gtxt) => `<div class="tile"><div class="l"><i class="dot" style="background:${color}"></i>${label}</div><div class="v">${v}</div><div class="g">${gtxt}</div></div>`;
+  const wk = UI.per === 'week';
+  let t = '';
+  t += tile('var(--water)','Water', `${wHit}/${n} days`, `avg ${L(water.reduce((s,x)=>s+x,0)/n)} L · goal ${L(g.waterGoal)}`);
+  t += tile('var(--good)','Prayers on time', `${pct(P.on,n*5)}%`, `${pct(P.on+P.late,n*5)}% prayed · ${days.filter(prayerHit).length}/${n} days on goal`);
+  shownTrackers().forEach(tr => {
+    if (tr.type === 'check'){
+      const dn = days.filter(k => tVal(k,tr.id)>0).length;
+      const gw = tr.goal>=7 ? 'goal: every day' : (wk ? `goal ${tr.goal} a week` : (r => `${r.hit}/${r.of} weeks on goal`)(evalWeeks(weeks, ws => tWeekHit(tr,ws))));
+      t += tile('var(--habit)', `${esc(tr.emoji||'')} ${esc(tr.name)}`, `${dn}/${n} days`, gw);
+    } else {
+      const sum = days.reduce((s,k) => s + tVal(k,tr.id), 0);
+      const gw = tr.period==='day' ? `goal hit ${days.filter(k => tDayHit(tr,k)).length}/${n} days` : (r => wk ? `goal ${num(tr.goal,2)} a week` : `${r.hit}/${r.of} weeks on goal`)(evalWeeks(weeks, ws => tWeekHit(tr,ws)));
+      t += tile('var(--habit)', `${esc(tr.emoji||'')} ${esc(tr.name)}`, `${num(sum,2)} ${esc(tr.unit||'')}`, gw);
+    }
+  });
+  const wkTxt = fn => { const r = evalWeeks(weeks, fn); return `${r.hit}/${r.of} weeks on goal`; };
+  if (wk){
+    t += tile('var(--run)','Runs', `${runs.length}/${g.runGoal} ${runs.length>=g.runGoal?'<span class="ok">✓</span>':''}`, `${num(sumKm(runs))} / ${num(g.kmGoal)} km`);
+    const sp = SPLITS.map(s => [s, gyms.filter(x => (x.split||'Other')===s).length]).filter(x => x[1]).map(x => `${x[1]} ${x[0].toLowerCase()}`).join(' · ');
+    t += tile('var(--gym)','Gym', `${gyms.length}/${g.gymGoal} ${gyms.length>=g.gymGoal&&g.gymGoal?'<span class="ok">✓</span>':''}`, sp || 'no sessions');
+    t += tile('var(--foot)','Football', `${foots.length}/${g.footGoal} ${foots.length>=g.footGoal&&g.footGoal?'<span class="ok">✓</span>':''}`, `${sumMin(foots)} min`);
+  } else {
+    t += tile('var(--run)','Runs', `${runs.length} · ${num(sumKm(runs))} km`, wkTxt(runWeekHit));
+    t += tile('var(--gym)','Gym', plural(gyms.length,'session'), wkTxt(gymWeekHit));
+    t += tile('var(--foot)','Football', plural(foots.length,'session'), `${sumMin(foots)} min · ${wkTxt(footWeekHit)}`);
+  }
+  h += `<div class="tiles">${t}</div>`;
+
+  const allDays = range(a,b);
+  const counted = new Set(days);
+  if (UI.per !== 'year'){
+    // ---- calendar (month)
+    if (UI.per === 'month') h += calendarCard(a,b,counted);
+    // ---- water per day
+    const lab = allDays.map((k,i) => UI.per==='week' ? DOW1[i] : ((i===0 || (i+1)%5===0) ? String(i+1) : ''));
+    h += card('Water per day', 'litres · dashed line = goal', barChart({
+      labels: lab, values: allDays.map(k => counted.has(k) ? waterTotal(k)/1000 : null), color:'var(--water)',
+      goal: g.waterGoal/1000, tips: allDays.map(k => counted.has(k) ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${L(waterTotal(k))} L` : 'No data')}));
+    // ---- prayers per day
+    h += card('Prayers by day', 'tap a bar for detail', stackChart({
+      labels: lab, stacks: allDays.map(k => counted.has(k) ? (c => [c.on,c.late,c.missed,c.none])(prayerCounts(k)) : null), max:5,
+      tips: allDays.map(k => counted.has(k) ? (c => `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}`)(prayerCounts(k)) : 'No data')}) + prayerLegend());
+  } else {
+    // ---- year: monthly
+    const months = [...Array(12).keys()].map(m => { const y = a.slice(0,4); const ma = `${y}-${pad(m+1)}-01`, mb = keyOf(new Date(+y, m+1, 0)); return {m, a:ma, b:mb, days: days.filter(k => k>=ma && k<=mb)}; });
+    const mlab = months.map(x => MONTHS[x.m].charAt(0));
+    h += card('Water', 'daily average by month (L)', barChart({
+      labels: mlab, values: months.map(x => x.days.length ? x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length/1000 : null),
+      color:'var(--water)', goal:g.waterGoal/1000, tips: months.map(x => x.days.length ? `${MONTHS[x.m]}: avg ${L(x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length)} L · goal met ${x.days.filter(waterHit).length}/${x.days.length} days` : `${MONTHS[x.m]}: no data`)}));
+    h += card('Prayers by month', 'share of all prayers', stackChart({
+      labels: mlab, max:100, stacks: months.map(x => { if (!x.days.length) return null; const c = x.days.map(prayerCounts).reduce((s,c)=>({on:s.on+c.on,late:s.late+c.late,missed:s.missed+c.missed,none:s.none+c.none}),{on:0,late:0,missed:0,none:0}); const T = x.days.length*5; return [c.on/T*100, c.late/T*100, c.missed/T*100, c.none/T*100]; }),
+      tips: months.map(x => { if (!x.days.length) return `${MONTHS[x.m]}: no data`; const c = x.days.map(prayerCounts).reduce((s,c)=>({on:s.on+c.on,late:s.late+c.late,missed:s.missed+c.missed}),{on:0,late:0,missed:0}); const T=x.days.length*5; return `${MONTHS[x.m]}: ${pct(c.on,T)}% on time, ${pct(c.late,T)}% late, ${pct(c.missed,T)}% missed`; })}) + prayerLegend());
+    h += card('Run distance by month', 'km', barChart({labels:mlab, values: months.map(x => x.days.length ? sumKm(actsIn(x.a,x.b,'run')) : null), color:'var(--run)', showVals:true,
+      tips: months.map(x => { const r = actsIn(x.a,x.b,'run'); return `${MONTHS[x.m]}: ${r.length} runs · ${num(sumKm(r))} km`; })}));
+    h += card('Month by month', '', monthTable(months), true);
+  }
+
+  // ---- which prayer slips
+  h += card('Which prayer slips most', `on time out of ${n} ${n===1?'day':'days'}`, prayerByName(days));
+
+  if (UI.per === 'week'){
+    h += card('Habit grid', 'filled = done / goal hit', habitGrid(allDays, counted));
+    h += card('Run distance', 'km per day', barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
+      tips: allDays.map(k => { if (!counted.has(k)) return 'No data'; const r = actsOn(k).filter(x=>x.type==='run'); return `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${r.length?r.map(x=>`${num(x.km)} km${x.sec?' in '+dur(x.sec):''}`).join(', '):'no run'}`; })}));
+  }
+  if (UI.per === 'month'){
+    h += card('Weekly goals', 'Mon–Sun weeks', weekTable(weeks), true);
+    h += card('Run distance by week', 'km', barChart({labels: weeks.map(ws => shortDate(ws)), values: weeks.map(ws => weekProgress(ws).km), color:'var(--run)', showVals:true, goal: g.kmGoal||null,
+      tips: weeks.map(ws => { const p = weekProgress(ws); return `w/c ${shortDate(ws)}: ${p.runs} runs · ${num(p.km)} km`; })}));
+  }
+  return h;
+}
+const card = (title, sub, body, flush) => `<div class="card"><div class="ct"><b>${title}</b><span>${sub||''}</span></div>${flush?`<div style="overflow-x:auto">${body}</div>`:body}</div>`;
+const prayerLegend = () => `<div class="legend"><span><i style="background:var(--good)"></i>On time</span><span><i style="background:var(--warn)"></i>Late</span><span><i style="background:var(--bad)"></i>Missed</span><span><i style="background:var(--none)"></i>Not logged</span></div>`;
+
+/* ---------------- charts (hand-drawn SVG, no libraries) ---------------- */
+function topRound(x,y,w,h,r){
+  if (h <= 0) return '';
+  r = Math.min(r, w/2, h);
+  return `M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+}
+function barChart({labels, values, color, goal, tips, showVals, height=130}){
+  const W = 320, top = 14, bot = 18, H = height, ih = H-top-bot, n = values.length, slot = W/n;
+  const bw = Math.max(3, Math.min(28, slot*0.62));
+  const vmax = Math.max(goal ? goal*1.15 : 0, ...values.filter(v => v!=null), 0.0001);
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
+  s += `<line x1="0" x2="${W}" y1="${top+ih}" y2="${top+ih}" stroke="var(--line)"/>`;
+  values.forEach((v,i) => {
+    const x = i*slot + (slot-bw)/2;
+    if (v != null && v > 0){ const bh = v/vmax*ih; s += `<path d="${topRound(x, top+ih-bh, bw, bh, 4)}" fill="${color}"/>`;
+      if (showVals && n <= 12) s += `<text class="val" x="${x+bw/2}" y="${top+ih-bh-4}" text-anchor="middle">${num(v)}</text>`; }
+    if (labels[i]) s += `<text class="ax" x="${i*slot+slot/2}" y="${H-4}" text-anchor="middle">${labels[i]}</text>`;
+    if (tips) s += `<rect class="hit" x="${i*slot}" y="0" width="${slot}" height="${H}" fill="transparent" data-tip="${esc(tips[i])}"/>`;
+  });
+  if (goal){ const gy = top + ih - goal/vmax*ih; s += `<line x1="0" x2="${W}" y1="${gy}" y2="${gy}" stroke="var(--ink2)" stroke-dasharray="4 3" pointer-events="none"/>`; }
+  return s + `</svg>`;
+}
+function stackChart({labels, stacks, max, tips, height=110}){
+  const W = 320, top = 6, bot = 18, H = height, ih = H-top-bot, n = stacks.length, slot = W/n;
+  const bw = Math.max(3, Math.min(28, slot*0.62)), cols = ['var(--good)','var(--warn)','var(--bad)','var(--none)'];
+  const gap = n > 14 ? 1 : 2;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
+  stacks.forEach((st,i) => {
+    const x = i*slot + (slot-bw)/2;
+    if (st){ let y = top+ih; st.forEach((v,j) => { if (!v) return; const hh = v/max*ih; y -= hh; s += `<rect x="${x}" y="${y+gap/2}" width="${bw}" height="${Math.max(0,hh-gap)}" rx="${Math.min(3,bw/2)}" fill="${cols[j]}"/>`; }); }
+    if (labels[i]) s += `<text class="ax" x="${i*slot+slot/2}" y="${H-4}" text-anchor="middle">${labels[i]}</text>`;
+    if (tips) s += `<rect class="hit" x="${i*slot}" y="0" width="${slot}" height="${H}" fill="transparent" data-tip="${esc(tips[i])}"/>`;
+  });
+  return s + `</svg>`;
+}
+function prayerByName(days){
+  const W = 320, rowH = 24, cols = ['var(--good)','var(--warn)','var(--bad)','var(--none)'], n = days.length;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${PRAYERS.length*rowH}" role="img">`;
+  PRAYERS.forEach(([id,name],i) => {
+    const c = {on:0,late:0,missed:0,none:0};
+    days.forEach(k => { const v = (day(k).p||{})[id]; c[v==='on'?'on':v==='late'?'late':v==='missed'?'missed':'none']++; });
+    const y = i*rowH + 4, x0 = 62, bw = 214; let x = x0;
+    s += `<text class="lab" x="0" y="${y+11}">${name}</text>`;
+    [c.on,c.late,c.missed,c.none].forEach((v,j) => { if (!v) return; const w = v/n*bw; s += `<rect x="${x}" y="${y}" width="${Math.max(0,w-2)}" height="14" rx="3" fill="${cols[j]}"/>`; x += w; });
+    s += `<text class="val" x="${W}" y="${y+11}" text-anchor="end">${c.on}/${n}</text>`;
+    s += `<rect class="hit" x="0" y="${y-4}" width="${W}" height="${rowH}" fill="transparent" data-tip="${name}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}"/>`;
+  });
+  return s + `</svg>` + prayerLegend();
+}
+function habitGrid(allDays, counted){
+  const rows = [
+    ['Run','var(--run)', k => actsOn(k).some(a => a.type==='run')],
+    ['Gym','var(--gym)', k => actsOn(k).some(a => a.type==='gym')],
+    ['Football','var(--foot)', k => actsOn(k).some(a => a.type==='football')],
+    ['Water','var(--water)', waterHit],
+    ['Prayers','var(--habit)', prayerHit],
+    ...shownTrackers().map(t => [t.name, 'var(--habit)', k => tDayHit(t,k)])
+  ];
+  const W = 320, rh = 24, x0 = 100, step = (W-x0-10)/6;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${rows.length*rh+18}" role="img">`;
+  rows.forEach(([name,color,fn],i) => {
+    const y = i*rh + 12;
+    s += `<text class="lab" x="0" y="${y+4}">${esc(name.length>13?name.slice(0,12)+'…':name)}</text>`;
+    allDays.forEach((k,j) => {
+      const cx = x0 + j*step + 5, ok = counted.has(k) && fn(k);
+      s += ok ? `<circle cx="${cx}" cy="${y}" r="7.5" fill="${color}"/>` : `<circle cx="${cx}" cy="${y}" r="6.5" fill="none" stroke="var(--none)" stroke-width="1.5" ${counted.has(k)?'':'stroke-dasharray="2 2"'}/>`;
+    });
+  });
+  allDays.forEach((k,j) => s += `<text class="ax" x="${x0 + j*step + 5}" y="${rows.length*rh+14}" text-anchor="middle">${DOW1[j]}</text>`);
+  return s + `</svg>`;
+}
+function calendarCard(a,b,counted){
+  const first = parseKey(a), lead = (first.getDay()+6)%7, tk = todayKey();
+  let s = `<div class="cal">${DOW1.map(d => `<div class="h">${d}</div>`).join('')}${'<div></div>'.repeat(lead)}`;
+  range(a,b).forEach(k => {
+    const has = counted.has(k), goals = has ? dailyGoals(k) : [], r = goals.length ? goals.filter(x=>x.hit).length/goals.length : 0;
+    const bg = has ? `background:color-mix(in srgb, var(--good) ${Math.round(r*85)}%, var(--chip))` : '';
+    const acts = has ? ['run','gym','football'].filter(t => actsOn(k).some(x => x.type===t)) : [];
+    const tip = has ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${goals.filter(x=>x.hit).length}/${goals.length} daily goals${acts.length?' · '+acts.map(t=>ACT[t].name).join(', '):''}` : 'No data';
+    s += `<div class="d hit ${has?'':'f'} ${k===tk?'today':''}" style="${bg};${r>.55?'color:#fff':''}" data-tip="${esc(tip)}">${parseKey(k).getDate()}<span class="ds">${acts.map(t => `<i style="background:${ACT[t].color};box-shadow:0 0 0 1px var(--card)"></i>`).join('')}</span></div>`;
+  });
+  s += `</div><div class="legend"><span><i style="background:color-mix(in srgb, var(--good) 85%, var(--chip))"></i>All daily goals hit</span><span><i style="background:var(--run)"></i>Run</span><span><i style="background:var(--gym)"></i>Gym</span><span><i style="background:var(--foot)"></i>Football</span></div>`;
+  return card('Month at a glance', 'darker = more daily goals hit', s);
+}
+function weekTable(weeks){
+  if (!weeks.length) return `<div class="empty">No weeks yet.</div>`;
+  const g = S.settings, mark = ok => ok ? ' <span class="ok">✓</span>' : '';
+  let s = `<table class="tbl"><tr><th>Week of</th><th>Runs</th><th>km</th><th>Gym</th><th>Football</th></tr>`;
+  weeks.forEach(ws => { const p = weekProgress(ws);
+    s += `<tr><td>${shortDate(ws)}</td><td>${p.runs}/${g.runGoal}${mark(p.runs>=g.runGoal)}</td><td>${num(p.km)}${mark(g.kmGoal&&p.km>=g.kmGoal)}</td><td>${p.gym}/${g.gymGoal}${mark(gymWeekHit(ws))}</td><td>${p.foot}/${g.footGoal}${mark(footWeekHit(ws))}</td></tr>`; });
+  return s + `</table>`;
+}
+function monthTable(months){
+  const ts = shownTrackers();
+  let s = `<table class="tbl"><tr><th>Month</th><th>Runs</th><th>km</th><th>Gym</th><th>Foot.</th><th>On time</th>${ts.map(t => `<th title="${esc(t.name)}">${esc(t.emoji || t.name.slice(0,6))}</th>`).join('')}</tr>`;
+  months.filter(m => m.days.length).forEach(m => {
+    const pc = m.days.map(prayerCounts).reduce((s,c)=>s+c.on,0);
+    s += `<tr><td>${MONTHS[m.m]}</td><td>${actsIn(m.a,m.b,'run').length}</td><td>${num(sumKm(actsIn(m.a,m.b,'run')))}</td><td>${actsIn(m.a,m.b,'gym').length}</td><td>${actsIn(m.a,m.b,'football').length}</td><td>${pct(pc,m.days.length*5)}%</td>`
+      + ts.map(t => `<td>${t.type==='check' ? m.days.filter(k=>tVal(k,t.id)>0).length+'d' : num(m.days.reduce((s,k)=>s+tVal(k,t.id),0),2)}</td>`).join('') + `</tr>`;
+  });
+  return s + `</table><div class="foot" style="margin-left:0">On time = prayers on time. Tracker columns use their icons; yes/no trackers show days done (d).</div>`;
+}
+
+/* ---------------- SETTINGS ---------------- */
+function renderSettings(){
+  const g = S.settings;
+  const goalTxt = t => t.type==='check' ? (t.goal>=7?'every day':`${t.goal} days a week`) : `${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
+  let h = `<div class="hdr"><h1>Settings</h1></div>` + backupBanner();
+  h += `<div class="sh">Your goals</div><div class="set">
+    <button class="r" data-act="goal" data-g="water"><span>💧 Water</span><em>${L(g.waterGoal)} L a day ›</em></button>
+    <button class="r" data-act="goal" data-g="prayers"><span>🕌 Prayers</span><em>${g.prayerGoal} a day${g.lateCounts?' (late counts)':', on time'} ›</em></button>
+    ${trackers().map(t => `<button class="r" data-act="tracker" data-id="${t.id}"><span>${esc(t.emoji||'•')} ${esc(t.name)}</span><em>${t.show===false?'hidden · ':''}${goalTxt(t)} ›</em></button>`).join('')}
+    <button class="r" data-act="goal" data-g="run"><span>🏃 Runs</span><em>${g.runGoal} a week · ${num(g.kmGoal)} km ›</em></button>
+    <button class="r" data-act="goal" data-g="gym"><span>🏋️ Gym</span><em>${plural(g.gymGoal,'session')} a week ›</em></button>
+    <button class="r" data-act="goal" data-g="football"><span>⚽ Football</span><em>${plural(g.footGoal,'session')} a week ›</em></button>
+    <button class="r blue" data-act="tracker" data-id="">+ Add your own tracker</button></div>
+    <div class="foot">Tap any goal to change it. Your own trackers can be yes/no (e.g. stretching), a count (e.g. pages) or an amount (e.g. minutes).</div>`;
+  h += `<div class="sh">Water buttons</div><div class="set"><button class="r" data-act="goal" data-g="quick"><span>Quick-add amounts</span><em>${g.quick.join(' · ')} ml ›</em></button></div>`;
+  h += `<div class="sh">Your data</div><div class="set">
+    <button class="r blue" data-act="backup">Back up to Files / iCloud</button>
+    <button class="r blue" data-act="restore">Restore from backup</button>
+    <button class="r blue" data-act="csv">Export spreadsheet (CSV)</button></div>
+    <div class="foot">Last backup: ${g.lastBackup ? fmtDay(g.lastBackup.slice(0,10),{day:'numeric',month:'long',year:'numeric'}) : 'never'}. Your data is only stored on this iPhone. Back up weekly and keep the file in iCloud Drive so you can restore it on a new phone. <span id="persist"></span></div>`;
+  h += `<div class="sh">App</div><div class="set">
+    <div class="r"><span>Tracking since</span><em>${fmtDay(S.start,{day:'numeric',month:'long',year:'numeric'})}</em></div>
+    <div class="r"><span>Version</span><em>${VERSION}</em></div>
+    <button class="r red" data-act="erase">Erase all data</button></div>
+    <div class="foot">Light/dark mode follows your iPhone. Works offline.</div>`;
+  setTimeout(showPersist, 0);
+  return h;
+}
+async function showPersist(){
+  const el = document.getElementById('persist'); if (!el || !navigator.storage?.persisted) return;
+  try { el.textContent = (await navigator.storage.persisted()) ? 'Storage is protected from automatic clearing.' : ''; } catch(e){}
+}
+
+/* ---------------- sheets ---------------- */
+const $sheet = document.getElementById('sheet'), $scrim = document.getElementById('scrim');
+let sheetCtx = null;
+function openSheet(html, ctx){
+  sheetCtx = ctx || {};
+  $sheet.innerHTML = `<div class="grab"></div>` + html;
+  $sheet.hidden = false; $scrim.hidden = false;
+  requestAnimationFrame(() => { $sheet.classList.add('show'); $scrim.classList.add('show'); });
+}
+function closeSheet(){
+  $sheet.classList.remove('show'); $scrim.classList.remove('show');
+  setTimeout(() => { $sheet.hidden = true; $scrim.hidden = true; $sheet.innerHTML = ''; }, 260);
+  sheetCtx = null;
+}
+const fv = id => { const el = $sheet.querySelector('#'+id); return el ? el.value.trim() : ''; };
+const fn = (id, d=0) => { const v = parseFloat(fv(id).replace(',','.')); return isFinite(v) ? v : d; };
+const head = (title) => `<h3>${title}<button data-act="close">Cancel</button></h3>`;
+const field = (id,label,val,attrs='') => `<label class="field"><span>${label}</span><input id="${id}" value="${esc(val)}" ${attrs}></label>`;
+const numField = (id,label,val,dec) => field(id,label,val,`inputmode="${dec?'decimal':'numeric'}" autocomplete="off"`);
+const toggle = (id,label,on) => `<div class="tgl"><span>${label}</span><button class="sw ${on?'on':''}" id="${id}" data-act="tgl" role="switch" aria-checked="${!!on}"></button></div>`;
+const tglVal = id => $sheet.querySelector('#'+id)?.classList.contains('on');
+
+function actSheet(type, id){
+  const ex = id ? S.acts.find(a => a.id === id) : null;
+  const a = ex || {type, d: UI.date, km:'', sec:0, split:'Upper', min:'', note:''};
+  type = a.type;
+  const m = a.sec ? Math.floor(a.sec/60) : '', s = a.sec ? a.sec%60 : '';
+  let h = head(ex ? 'Edit activity' : 'Log activity');
+  h += `<div class="types ${type}">${Object.keys(ACT).map(t => `<button class="${t===type?'on':''}" data-act="actType" data-type="${t}">${ACT[t].name}</button>`).join('')}</div>`;
+  if (type === 'run'){
+    h += numField('fKm','Distance (km)',a.km,true);
+    h += `<div class="f2">${numField('fMin','Time — minutes',m)}${numField('fSec','seconds',s)}</div><div class="calc" id="paceOut"></div>`;
+  } else if (type === 'gym'){
+    h += `<div class="chips">${SPLITS.map(sp => `<button class="${(a.split||'Upper')===sp?'on':''}" data-act="split" data-s="${sp}">${sp}</button>`).join('')}</div>`;
+    h += numField('fMinOnly','Duration in minutes (optional)',a.min);
+  } else {
+    h += numField('fMinOnly','Minutes played',a.min);
+  }
+  h += field('fDate','Date',a.d,`type="date" max="${todayKey()}"`);
+  h += `<label class="field"><span>Note (optional)</span><textarea id="fNote" rows="2" placeholder="e.g. long run, felt good">${esc(a.note||'')}</textarea></label>`;
+  h += `<button class="save ${type}" data-act="saveAct">${ex?'Save changes':'Save '+ACT[type].name.toLowerCase()}</button>`;
+  if (ex) h += `<button class="danger" data-act="deleteAct">Delete</button>`;
+  openSheet(h, {kind:'act', id, type, split: a.split || 'Upper'});
+  updatePace();
+}
+function updatePace(){
+  const out = $sheet.querySelector('#paceOut'); if (!out) return;
+  const km = fn('fKm'), sec = fn('fMin')*60 + fn('fSec');
+  const ws = weekStart(fv('fDate') || UI.date), p = weekProgress(ws), ex = sheetCtx.id ? S.acts.find(a=>a.id===sheetCtx.id) : null;
+  const runs = p.runs + (ex && ex.type==='run' && weekStart(ex.d)===ws ? 0 : 1), kmT = p.km - (ex && ex.type==='run' && weekStart(ex.d)===ws ? +ex.km : 0) + km;
+  out.innerHTML = `Pace <b style="color:var(--ink)">${pace(sec,km)}</b> · that week becomes ${runs}/${S.settings.runGoal} runs, ${num(kmT)}/${num(S.settings.kmGoal)} km`;
+}
+function saveAct(){
+  const c = sheetCtx, d = fv('fDate') || UI.date;
+  if (d > todayKey()) return toast('Can’t log future days');
+  const a = {id: c.id || uid(), type: c.type, d, note: fv('fNote'), t: Date.now()};
+  if (c.type === 'run'){
+    a.km = fn('fKm'); if (!(a.km > 0)) return toast('Enter a distance');
+    a.sec = Math.round(fn('fMin')*60 + fn('fSec'));
+  } else if (c.type === 'gym'){ a.split = c.split; a.min = fn('fMinOnly') || 0; }
+  else { a.min = fn('fMinOnly') || 0; }
+  if (c.id){ const i = S.acts.findIndex(x => x.id === c.id); if (i >= 0){ a.t = S.acts[i].t || a.t; S.acts[i] = a; } }
+  else S.acts.push(a);
+  if (d < S.start) S.start = d;
+  save(); closeSheet(); render(); toast(`${ACT[a.type].name} saved`);
+}
+
+function goalSheet(g){
+  const s = S.settings; let h = '';
+  if (g === 'water') h = head('Water goal') + numField('gWater','Daily goal (ml)',s.waterGoal) + `<div class="hint">2500 ml = 2.5 L</div>`;
+  if (g === 'quick') h = head('Water buttons') + `<div class="f2" style="grid-template-columns:1fr 1fr 1fr">${s.quick.map((q,i) => numField('gQ'+i,`Button ${i+1} (ml)`,q)).join('')}</div>`;
+  if (g === 'prayers') h = head('Prayer goal') + `<label class="field"><span>Prayers a day</span><select id="gPr">${[1,2,3,4,5].map(n => `<option ${n===s.prayerGoal?'selected':''}>${n}</option>`).join('')}</select></label>` + toggle('gLate','Late prayers count towards the goal', s.lateCounts) + `<div class="hint">Off: only “On time” counts. On: “On time” and “Late” both count.</div>`;
+  if (g === 'run') h = head('Running goal') + `<div class="f2">${numField('gRuns','Runs a week',s.runGoal)}${numField('gKm','km a week',s.kmGoal,true)}</div><div class="hint">Set km to 0 if you only want to count runs.</div>`;
+  if (g === 'gym') h = head('Gym goal') + numField('gGym','Sessions a week',s.gymGoal);
+  if (g === 'football') h = head('Football goal') + numField('gFoot','Sessions a week',s.footGoal);
+  h += `<button class="save" data-act="saveGoal">Save</button>`;
+  openSheet(h, {kind:'goal', g});
+}
+function saveGoal(){
+  const s = S.settings, g = sheetCtx.g, int = (id,d,min=0,max=1e6) => Math.max(min, Math.min(max, Math.round(fn(id,d))));
+  if (g === 'water') s.waterGoal = int('gWater', s.waterGoal, 0, 20000);
+  if (g === 'quick') s.quick = [0,1,2].map(i => int('gQ'+i, s.quick[i], 10, 5000));
+  if (g === 'prayers'){ s.prayerGoal = int('gPr', 5, 1, 5); s.lateCounts = !!tglVal('gLate'); }
+  if (g === 'run'){ s.runGoal = int('gRuns', s.runGoal, 0, 50); s.kmGoal = Math.max(0, Math.round(fn('gKm', s.kmGoal)*10)/10); }
+  if (g === 'gym') s.gymGoal = int('gGym', s.gymGoal, 0, 50);
+  if (g === 'football') s.footGoal = int('gFoot', s.footGoal, 0, 50);
+  save(); closeSheet(); render(); toast('Goal saved');
+}
+
+function trackerSheet(id){
+  const t = id ? tById(id) : {id:'', name:'', emoji:'⭐', type:'check', unit:'', step:1, goal:7, period:'day', show:true};
+  const type = sheetCtx && sheetCtx.kind==='tracker' && sheetCtx.newType ? sheetCtx.newType : t.type;
+  let h = head(id ? 'Edit tracker' : 'New tracker');
+  h += `<div class="f2" style="grid-template-columns:72px 1fr">${field('tEmoji','Icon',t.emoji||'','maxlength="4" autocomplete="off"')}${field('tName','Name',t.name,'autocomplete="off" placeholder="e.g. Stretching"')}</div>`;
+  if (!id){
+    h += `<div class="types">${[['check','Yes / no'],['count','Count'],['amount','Amount']].map(([v,l]) => `<button class="${v===type?'on':''}" data-act="tType" data-v="${v}">${l}</button>`).join('')}</div>`;
+  }
+  if (type === 'check'){
+    h += `<label class="field"><span>Goal</span><select id="tGoal">${[7,6,5,4,3,2,1].map(n => `<option value="${n}" ${n===(+t.goal||7)?'selected':''}>${n===7?'Every day':n+' days a week'}</option>`).join('')}</select></label>`;
+  } else {
+    h += `<div class="f2">${field('tUnit','Unit',t.unit||(type==='count'?'times':'min'),'autocomplete="off" placeholder="e.g. pages"')}${numField('tStep','+/− step',t.step||1,true)}</div>`;
+    h += `<div class="f2">${numField('tGoalN','Goal',t.type===type && t.type!=='check' ? t.goal : (type==='count'?1:30),true)}<label class="field"><span>Per</span><select id="tPer"><option value="day" ${t.period==='day'?'selected':''}>day</option><option value="week" ${t.period==='week'?'selected':''}>week</option></select></label></div>`;
+  }
+  h += toggle('tShow','Show on Today', t.show !== false);
+  h += `<button class="save" data-act="saveTracker">Save</button>`;
+  if (id && !t.builtin) h += `<button class="danger" data-act="deleteTracker">Delete tracker</button>`;
+  if (id && t.builtin) h += `<div class="hint" style="text-align:center;margin-top:10px">Built-in trackers can be hidden but not deleted.</div>`;
+  openSheet(h, {kind:'tracker', id, newType: type});
+}
+function saveTracker(){
+  const c = sheetCtx, name = fv('tName');
+  if (!name) return toast('Give it a name');
+  const t = c.id ? tById(c.id) : {id:'c_'+uid(), type:c.newType};
+  t.name = name.slice(0,30); t.emoji = fv('tEmoji'); t.show = !!tglVal('tShow');
+  if (t.type === 'check'){ t.goal = Math.max(1, Math.min(7, parseInt(fv('tGoal'))||7)); t.period = 'week'; }
+  else { t.unit = fv('tUnit').slice(0,12); t.step = Math.max(0.01, fn('tStep',1)); t.goal = Math.max(0, fn('tGoalN',1)); t.period = fv('tPer') === 'week' ? 'week' : 'day'; }
+  if (!c.id) S.settings.trackers.push(t);
+  save(); closeSheet(); render(); toast('Tracker saved');
+}
+
+/* ---------------- backup / restore / csv ---------------- */
+async function shareOrDownload(name, text, mime){
+  const blob = new Blob([text], {type:mime});
+  try {
+    const file = new File([blob], name, {type:mime});
+    if (navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file], title:name}); return true; }
+  } catch(e){ if (e && e.name === 'AbortError') return false; }
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  return true;
+}
+async function backup(){
+  const payload = JSON.stringify({app:'lifelog', version:VERSION, exported:new Date().toISOString(), data:S});
+  const ok = await shareOrDownload(`lifelog-backup-${todayKey()}.json`, payload, 'application/json');
+  if (ok){ S.settings.lastBackup = new Date().toISOString(); save(); render(); toast('Backup saved'); }
+}
+function restoreFile(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const j = JSON.parse(r.result), data = j && j.app === 'lifelog' ? j.data : j;
+      if (!data || typeof data.days !== 'object' || !data.settings) throw new Error('bad');
+      const nDays = Object.keys(data.days).length;
+      if (!confirm(`Restore this backup${j.exported?` from ${new Date(j.exported).toLocaleDateString('en-GB')}`:''}? (${nDays} days of data)\n\nThis replaces everything currently in the app.`)) return;
+      S = normalise(data); save(); UI.date = todayKey(); render(); toast('Backup restored');
+    } catch(e){ alert('That file isn’t a Life Log backup.'); }
+  };
+  r.readAsText(file);
+}
+function csv(){
+  const ts = trackers(), cell = v => { v = String(v ?? ''); return /[",\n]/.test(v) ? `"${v.replace(/"/g,'""')}"` : v; };
+  const label = {on:'on time', late:'late', missed:'missed'};
+  const rows = [['date','water_ml',...PRAYERS.map(p=>p[0]),...ts.map(t => t.name + (t.type==='check'?' (1=yes)':t.unit?` (${t.unit})`:'')),'runs','run_km','run_minutes','gym_sessions','gym_type','football_sessions','football_minutes','notes']];
+  range(S.start, todayKey()).forEach(k => {
+    const ac = actsOn(k), r = ac.filter(a=>a.type==='run'), gy = ac.filter(a=>a.type==='gym'), fo = ac.filter(a=>a.type==='football');
+    rows.push([k, waterTotal(k), ...PRAYERS.map(([id]) => label[(day(k).p||{})[id]]||''), ...ts.map(t => tVal(k,t.id)),
+      r.length, num(sumKm(r),2), Math.round(r.reduce((s,a)=>s+(a.sec||0),0)/60), gy.length, gy.map(a=>a.split).join(' + '), fo.length, sumMin(fo), ac.map(a=>a.note).filter(Boolean).join(' | ')]);
+  });
+  shareOrDownload(`lifelog-${todayKey()}.csv`, rows.map(r => r.map(cell).join(',')).join('\n'), 'text/csv');
+}
+
+/* ---------------- tooltip & toast ---------------- */
+const $tip = document.getElementById('tip'), $toast = document.getElementById('toast');
+function showTip(el){
+  const r = el.getBoundingClientRect();
+  $tip.textContent = el.dataset.tip; $tip.hidden = false;
+  const x = Math.max(80, Math.min(innerWidth-80, r.left + r.width/2));
+  $tip.style.left = x + 'px'; $tip.style.top = Math.max(50, r.top - 6) + 'px';
+}
+function hideTip(){ $tip.hidden = true; }
+let toastT;
+function toast(msg){ $toast.textContent = msg; $toast.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => $toast.classList.remove('show'), 1800); }
+
+/* ---------------- actions ---------------- */
+const A = {
+  tab: el => { UI.tab = el.dataset.tab; render(); scrollTo(0,0); },
+  prevDay: () => { UI.date = addDays(UI.date,-1); render(); },
+  nextDay: () => { if (UI.date < todayKey()){ UI.date = addDays(UI.date,1); render(); } },
+  goToday: () => { UI.date = todayKey(); render(); },
+  water: el => { dayW(UI.date).w.push([Date.now(), +el.dataset.ml]); save(); render(); },
+  waterOther: () => openSheet(head('Add water') + numField('fMl','Amount (ml)','') + `<button class="save" data-act="saveWater">Add</button>`, {kind:'water'}),
+  saveWater: () => { const ml = Math.round(fn('fMl')); if (!(ml > 0)) return toast('Enter an amount'); dayW(UI.date).w.push([Date.now(), ml]); save(); closeSheet(); render(); },
+  undoWater: () => { const w = dayW(UI.date).w; if (!w.length) return; let i = 0; w.forEach((e,j) => { if (e[0] >= w[i][0]) i = j; }); const [, ml] = w.splice(i,1)[0]; save(); render(); toast(`Removed ${ml} ml`); },
+  delWater: el => { const w = dayW(UI.date).w, i = w.findIndex(e => String(e[0]) === el.dataset.t); if (i >= 0){ w.splice(i,1); save(); render(); } },
+  prayer: el => { const p = dayW(UI.date).p, id = el.dataset.p, s = el.dataset.s; if (p[id] === s) delete p[id]; else p[id] = s; save(); render(); },
+  check: el => { const v = dayW(UI.date).v, id = el.dataset.id; if (v[id]) delete v[id]; else v[id] = 1; save(); render(); },
+  step: el => { const t = tById(el.dataset.id), v = dayW(UI.date).v; const nv = Math.max(0, Math.round(((+v[t.id]||0) + (+el.dataset.dir)*(t.step||1))*100)/100); if (nv) v[t.id] = nv; else delete v[t.id]; save(); render(); },
+  addAct: el => actSheet(el.dataset.type),
+  editAct: el => actSheet(null, el.dataset.id),
+  delAct: el => { if (!confirm('Delete this activity?')) return; S.acts = S.acts.filter(a => a.id !== el.dataset.id); save(); render(); },
+  actType: el => { const c = sheetCtx; if (c.id){ const a = S.acts.find(x => x.id === c.id); if (a && a.type !== el.dataset.type){ toast('Delete and re-add to change type'); return; } } actSheet(el.dataset.type); },
+  split: el => { sheetCtx.split = el.dataset.s; $sheet.querySelectorAll('.chips button').forEach(b => b.classList.toggle('on', b === el)); },
+  saveAct, deleteAct: () => { if (!confirm('Delete this activity?')) return; S.acts = S.acts.filter(a => a.id !== sheetCtx.id); save(); closeSheet(); render(); },
+  close: closeSheet,
+  tgl: el => { el.classList.toggle('on'); el.setAttribute('aria-checked', el.classList.contains('on')); },
+  per: el => { UI.per = el.dataset.p; UI.anchor = todayKey(); render(); },
+  prevPer: () => shiftPer(-1), nextPer: () => shiftPer(1),
+  goal: el => goalSheet(el.dataset.g), saveGoal,
+  tracker: el => trackerSheet(el.dataset.id || null),
+  tType: el => { sheetCtx.newType = el.dataset.v; const name = fv('tName'), emoji = fv('tEmoji'); trackerSheet(null); $sheet.querySelector('#tName').value = name; $sheet.querySelector('#tEmoji').value = emoji; },
+  saveTracker,
+  deleteTracker: () => { const t = tById(sheetCtx.id); if (!confirm(`Delete “${t.name}” and all its logged data?`)) return; S.settings.trackers = trackers().filter(x => x.id !== t.id); Object.values(S.days).forEach(d => d.v && delete d.v[t.id]); save(); closeSheet(); render(); },
+  dismissInstall: () => { S.settings.installDismissed = true; save(); render(); },
+  backup, restore: () => document.getElementById('fileIn').click(), csv,
+  erase: () => { if (!confirm('Erase ALL data and settings? This can’t be undone.')) return; if (!confirm('Are you sure? Make a backup first if you might want this data.')) return; S = defaults(); save(); UI.date = todayKey(); render(); toast('All data erased'); }
+};
+function shiftPer(dir){
+  const d = parseKey(UI.anchor);
+  if (UI.per === 'week') UI.anchor = addDays(UI.anchor, 7*dir);
+  else if (UI.per === 'month') UI.anchor = keyOf(new Date(d.getFullYear(), d.getMonth()+dir, 1));
+  else UI.anchor = keyOf(new Date(d.getFullYear()+dir, 0, 1));
+  if (UI.anchor > todayKey()) UI.anchor = todayKey();
+  render();
+}
+
+document.addEventListener('click', e => {
+  const tipEl = e.target.closest('[data-tip]');
+  const el = e.target.closest('[data-act],[data-tab]');
+  if (tipEl && !el){ showTip(tipEl); return; }
+  hideTip();
+  if (!el) return;
+  if (el.dataset.tab) return A.tab(el);
+  const fnc = A[el.dataset.act]; if (fnc){ e.preventDefault(); fnc(el); }
+});
+$scrim.addEventListener('click', closeSheet);
+$sheet.addEventListener('input', e => { if (['fKm','fMin','fSec','fDate'].includes(e.target.id)) updatePace(); });
+document.getElementById('fileIn').addEventListener('change', e => { const f = e.target.files[0]; if (f) restoreFile(f); e.target.value = ''; });
+addEventListener('scroll', hideTip, {passive:true});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  const tk = todayKey();
+  if (tk !== UI.lastToday){ if (UI.date === UI.lastToday) UI.date = tk; UI.lastToday = tk; }
+  try { const fresh = localStorage.getItem(KEY); if (fresh) S = normalise(JSON.parse(fresh)); } catch(e){}
+  if (!sheetCtx) render();
+});
+
+/* ---------------- start ---------------- */
+try { if (!localStorage.getItem(KEY)) save(); } catch(e){}
+render();
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
