@@ -1,6 +1,6 @@
 ---
 name: Life Log
-description: A personal iOS daily tracker built to the Apple Fitness / Health craft bar.
+description: A personal iOS daily tracker in a bold, dark-first style (with a matching light mode), honest about misses.
 colors:
   page: "#f2f2f7"
   card: "#ffffff"
@@ -38,6 +38,19 @@ colors:
   bad-ink: "#b42e2e"
   miss-fill: "#d03b3b"
   banner: "#fff6e0"
+  em: "#1f6cc9"
+  em-dark: "#4a9bf5"
+  cal-hi: "#0b0b0f"
+  sky-top: "#6cc8f7"
+  sky-bottom: "#4fb2ef"
+  sky-ink: "#04223a"
+  stack-water-top: "#2a6fd0"
+  stack-water-bottom: "#1c58b8"
+  stack-goals-top: "#0f7f37"
+  stack-goals-bottom: "#0a6a2c"
+  stack-week-top: "#c4531f"
+  stack-week-bottom: "#a8441a"
+  late-ink: "#2b2100"
 typography:
   large-title:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI\", system-ui, sans-serif"
@@ -101,6 +114,11 @@ rounded:
   card: "22px"
   sheet: "26px"
   capsule: "34px"
+  pill-chip: "19px"
+  stack: "30px"
+  sky: "28px"
+  tile-lg: "24px"
+  key: "26px"
   full: "999px"
 spacing:
   xs: "6px"
@@ -195,7 +213,9 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Apple-Made Tracker"**
+**Creative North Star: "Bold, honest, one glance"**
+
+(1.3 onward. The earlier "Apple-Made Tracker" grouped-list look described below remains the base layer of tokens and components; the "1.3.0 bold layer" section at the end sets the composition.)
 
 Life Log should look as if Apple had shipped it next to Fitness and Health. It uses the iOS grouped-list world without changes: a pale grouped background (pure black in dark mode), solid content cards, SF Pro text and SF Pro Rounded numerals. The craft bar is Apple Fitness / Health and Apple's iOS 26 apps. The system succeeds when nothing reads as "a web page imitating iOS". It fails in the half-finished version of this look: emoji headers, grey chips everywhere, one flat accent colour and 12px type.
 
@@ -385,3 +405,18 @@ This layer was added on 2026-11-18, from Kaleem's screen recording of a modern f
 ## 1.3.1 restraint
 - **Summary period views stay short:** at most about five sections after the hero and tiles. Anything all-time (streaks, bests, perfect days) belongs on the **Records** chip, never in Week/Month/Year.
 - **Add-tracker circle:** a 64px circle with a 2px line ring and a plus in ink2 (`.ci.newt`). Never reuse the tinted `.add` pill class for it.
+
+## 1.3.2 critique fixes
+- **The first screen is title → open line → water stack (296px) → prayers.** The "Still open: …" line sits under the title on its own and never hides behind a swipe.
+- **Firm voice:**
+  - On past days the title reads "N of M missed" in bad-ink, misses use bad-ink at weight 600 or more, the water tag reads "missed by X L", and unlogged prayers read "Not logged".
+  - Streaks show "N live, N lost". A daily streak of 3+ days that broke in the last 3 days stays as a red "Lost at N days" row.
+  - Section emphasis states a fact ("2 of 3 done", "7 set"), never an instruction.
+- **Prayer input:**
+  - Tapping an open prayer marks it on time.
+  - Tapping a logged prayer opens the picker sheet (On time / Late / Missed / Clear).
+  - On a past day with open prayers, a "Mark the other N prayers missed" button replaces the hint. It comes with an Undo toast.
+- **Sheets:** every sheet uses the `.qhead` header (title plus a round X), takes focus, and closes on Esc. Water / Run / Gym / Football switch with one set of chips (`typeChips`). Field errors appear on the field (`fieldErr`), not in a toast.
+- **Toasts** are an aria-live status and can carry an Undo, used for deleting water and for "mark the rest missed".
+- **Text on fills:** never put white text on a mid-strength fill. Calendar cells jump between a pale band (≤45% green, ink text) and a strong band (≥89%, `--cal-hi` text). Blue text uses `--em`, never `--accent`.
+- **The flame badge** uses `--run-fill`, not the error red.

@@ -3,7 +3,7 @@
 ## What this is
 Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone home-screen web app (PWA)** hosted free on **GitHub Pages** from this repository. There's no backend, no accounts and no running costs; staying that way is a hard requirement. It's single-user (Kaleem, on iOS), with UK date formats and weeks starting on Monday.
 
-**Current version: 1.3.1** (`VERSION` in index.html) · service worker cache `lifelog-v6` (in `sw.js`).
+**Current version: 1.3.2** (`VERSION` in index.html) · service worker cache `lifelog-v7` (in `sw.js`).
 
 1.2.0 (2026-11-18) is a full redesign built from the 1.0.0 source. The 1.1.0 source wasn't to hand, so 1.1.0's changes were redone and then went further. It replaces the live 1.1.0 look. The data model is unchanged.
 
@@ -22,7 +22,7 @@ Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone
 
 ## Hard rules
 1. **Never break existing data.** All data lives in the phone's `localStorage` under the key `lifelog.v1`. Any new field must be optional; `normalise()` merges stored data over `defaults()`. Never rename or remove fields without a migration. Test with an old backup.
-2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v7`, `-v8`, …) and `VERSION` in index.html.
+2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v8`, `-v9`, …) and `VERSION` in index.html.
 3. **No external requests or dependencies.** It must work fully offline. Charts are hand-drawn SVG and icons are drawn SVG (the `I` set).
 4. **Keep the web address and icon stable.** On iOS, data belongs to the home-screen install at this URL. Renaming the repo or username, or changing the icon (which forces a reinstall), loses data unless Kaleem backs up and restores. Warn him before any change like that.
 5. **iOS Safari is the target.** Use `env(safe-area-inset-*)` and 16px+ input font (to stop zoom on focus). Don't rely on haptics or push notifications (not available to web apps).
@@ -73,7 +73,8 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
   - A two-tone title, e.g. "Today, 2 of 5 done".
   - A swipeable **card stack** (`setupStack`, `UI.card`): Water / Daily goals ring / This week. The dots switch cards.
   - **Habits** as tap-to-log circles. Check trackers toggle; count trackers open `stepSheet`; there are also Run, Gym and Add circles.
-  - **Prayers** as five circles that cycle on tap (`A.pcycle`: on time → late → missed → clear).
+  - **Prayers** as five circles: tapping an open prayer marks it on time; tapping a logged one opens `prayerSheet` (On time / Late / Missed / Clear). Past days with open prayers get `A.markRest` ("Mark the other N prayers missed", with Undo).
+  - The order is: title, "Still open / Missed" line, card stack, Prayers, Habits, Logged, Streaks (live + lost).
   - Logged, then Streaks (current + best/Record).
 - **Quick log**: the round **+** next to the tab bar opens `quickSheet()`. It's a keypad for water (presets, Undo last, Add), with chips to switch to Run / Gym / Football (`actSheet`).
 - **SUMMARY** `renderSummary()`:
@@ -108,6 +109,13 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
 - **Hosting:** GitHub Pages was chosen over a Claude-hosted artifact (no subscription dependency) and a Raspberry Pi (more upkeep; may be a future option for sync).
 - **Rejected for now:** prayer times and the Hijri date, supplements beyond creatine, reminders/notifications and Apple Health (not possible without a server or native app).
 - **Football:** off This week, Streaks and the Settings goals at Kaleem's request. It's still loggable via **Log another activity** and appears in Summary when present.
+- **1.3.2 (2026-11-18):** fixes from the first `/impeccable critique` (25/40):
+  - The first screen is now title, open line, the shorter stack, then prayers.
+  - The firm voice holds on past days: red misses, "Not logged", lost streaks.
+  - Prayer taps: an open prayer goes straight to on time, a logged one opens a picker, and past days get "mark the rest missed".
+  - Readability: contrast fixes, and field errors show on the field.
+  - Sheets: one header style and one set of chips, Esc closes them, and Undo toasts.
+  - Keypad presets come from Settings.
 - **1.3.1 (2026-11-18):** Summary decluttered, a Records tab for streaks and bests, the Add-tracker circle fixed (its class clashed with `.add`), and the habits row keeps its scroll position after a tap.
 - **1.3.0 (2026-11-18):** a bold dark-first style plus a light version, from Kaleem's screen recording and approved mockups (`.impeccable/mocks/bold-dark.png`). It added quick log, the card stack and prayer circles, and removed the water-timing card.
 - **1.2.0 redesign (2026-11-17/18):**

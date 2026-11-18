@@ -6,7 +6,7 @@ A personal daily tracker that runs as an iPhone home-screen app. It tracks water
 - Works offline once installed.
 - No cost and no accounts beyond this free GitHub page.
 
-**Version 1.3.1**
+**Version 1.3.2**
 - A bold new look, dark and light: swipeable cards, tap-to-log habit and prayer circles, and a round + button for quick logging.
 - A cleaner Summary (Week, Month, Year) with a daily-goals headline and trend arrows, plus a Records tab for perfect days, personal bests and streaks.
 - A black app icon (1.2.1).
@@ -23,7 +23,7 @@ In the app, go to **Settings → Back up to Files / iCloud** about once a week a
 
 ## Updating the app
 1. Upload the new files to this repository, replacing the old ones.
-2. In `sw.js`, raise the number in `CACHE = 'lifelog-v6'` (for example to `lifelog-v7`). In `index.html`, raise `VERSION`.
+2. In `sw.js`, raise the number in `CACHE = 'lifelog-v7'` (for example to `lifelog-v8`). In `index.html`, raise `VERSION`.
 3. On the phone, close and reopen the app once or twice. Your data isn't affected.
 
 ## Files

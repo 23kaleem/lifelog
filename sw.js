@@ -1,6 +1,6 @@
 /* Life Log service worker: makes the app work offline.
    When you upload a new version of the app, change CACHE (e.g. lifelog-v2) so phones pick it up. */
-const CACHE = 'lifelog-v6';
+const CACHE = 'lifelog-v7';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
