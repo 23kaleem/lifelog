@@ -224,10 +224,10 @@ input,select,textarea{font:inherit;font-size:16px;color:var(--ink)}
 .segctl .on{background:var(--segon);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 1px rgba(0,0,0,.04)}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .tiles > .tile:last-child:nth-child(odd){grid-column:1/-1}
-.tile{background:var(--card);border-radius:18px;padding:12px 13px;border:1px solid var(--card-line);box-shadow:var(--shadow)}
-.tile .l{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:6px;font-weight:500}
-.tile .v{font-family:var(--round);font-size:22px;font-weight:800;margin-top:4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tile .g{font-size:12.5px;color:var(--ink2);margin-top:2px;text-wrap:balance}
+.tile{background:var(--card);border-radius:18px;padding:11px 12px 12px;border:1px solid var(--card-line);box-shadow:var(--shadow)}
+.tile .l{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:6px;font-weight:500;min-height:24px}
+.tile .v{font-family:var(--round);font-size:22px;font-weight:800;margin-top:5px;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile .g{font-size:12.5px;color:var(--ink2);margin-top:3px;line-height:1.3;text-wrap:balance}
 .legend{display:flex;gap:12px;font-size:12.5px;color:var(--ink2);margin-top:10px;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:5px}
 .legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
@@ -272,7 +272,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 .ic.sm{width:24px;height:24px;border-radius:7px}.ic.sm svg{width:14px;height:14px}.ic.sm .em{font-size:13px}
 .ic.xs{width:22px;height:22px;border-radius:6px;display:inline-grid;vertical-align:middle}.ic.xs svg{width:13px;height:13px}.ic.xs .em{font-size:12px}
 .ic.solid{color:#fff;width:30px;height:30px;border-radius:8px}.ic.solid::before{opacity:1}.ic.solid svg{width:18px;height:18px}
-.tile .v small{font-size:15px;font-weight:700;color:var(--ink2);letter-spacing:0}
+.tile .v small{font-size:14px;font-weight:700;color:var(--ink2);letter-spacing:0}
 .tile .v .ok{margin-left:6px;vertical-align:1px}
 .tile .l span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .scrollx{overflow-x:auto;margin:0 -16px;padding:0 16px}
@@ -288,11 +288,14 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 .set .r .chev{color:var(--muted);display:grid;margin-left:-4px}.set .r .chev svg{width:14px;height:14px}
 
 /* summary: comparison badges, weekday heatmap, drink curve, pace, streak records, year, gym split */
-.delta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;margin-top:8px;padding:3px 8px 3px 6px;border-radius:10px;max-width:100%}
-.delta svg{width:11px;height:11px;flex:none}.delta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.delta.up{color:var(--good-ink);background:color-mix(in srgb,var(--good) 13%,transparent)}
-.delta.down{color:var(--bad-ink);background:color-mix(in srgb,var(--bad) 13%,transparent)}
-.delta.flat{color:var(--ink2);background:var(--chip)}
+.trend{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;flex:none;margin-left:auto}
+.trend svg{width:12px;height:12px}
+.trend.up{color:var(--good-ink);background:color-mix(in srgb,var(--good) 15%,transparent)}
+.trend.down{color:var(--bad-ink);background:color-mix(in srgb,var(--bad) 15%,transparent)}
+.trend.flat{color:var(--ink2);background:var(--chip)}
+.cmpnote{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2);margin:-4px 4px 10px;line-height:1.3}
+.cmpnote .trend{width:18px;height:18px;margin:0}.cmpnote .trend svg{width:10px;height:10px}
+.cmpnote span:last-child{margin-left:2px}
 .hm{display:grid;grid-template-columns:60px repeat(8,1fr);gap:4px;align-items:center}
 .hm .h{font-size:12px;font-weight:600;color:var(--ink2);text-align:center}
 .hm .n{font-size:13px;font-weight:600}
@@ -338,7 +341,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 /* tab bar: floating Liquid Glass capsule */
 .tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 16px calc(env(safe-area-inset-bottom) + 10px);z-index:20;pointer-events:none}
 .tabbar .in{position:relative;display:flex;width:100%;max-width:380px;padding:5px;border-radius:34px;pointer-events:auto}
-.tab-bubble{position:absolute;top:5px;bottom:5px;left:0;border-radius:29px;background:var(--bubble);transition:transform .45s cubic-bezier(.3,1.35,.5,1),width .45s cubic-bezier(.3,1.35,.5,1);will-change:transform}
+.tab-bubble{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px) / 3);border-radius:29px;background:var(--bubble);transition:transform .45s cubic-bezier(.3,1.35,.5,1);will-change:transform}
 .tab{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:var(--ink);gap:3px;height:54px;border-radius:29px;font-weight:600;transition:color .2s}
 .tab svg{width:24px;height:24px}
 .tab.on{color:var(--accent)}
@@ -399,7 +402,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 
 <script>'use strict';
 /* Life Log — personal daily tracker. All data is stored on this device (localStorage). */
-const VERSION = '1.2.0';
+const VERSION = '1.2.1';
 const KEY = 'lifelog.v1';
 const PRAYERS = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha']];
 const ACT = {
@@ -553,8 +556,10 @@ function render(){
 }
 let lastView = '';
 function placeBubble(){
-  const on = document.querySelector('.tab.on'), b = document.getElementById('bubble'); if (!on || !b) return;
-  b.style.width = on.offsetWidth + 'px'; b.style.transform = `translateX(${on.offsetLeft}px)`;
+  // position by index, not by measuring, so the bubble always sits exactly under its tab
+  const tabs = [...document.querySelectorAll('.tab')], i = tabs.findIndex(t => t.classList.contains('on')), b = document.getElementById('bubble');
+  if (i < 0 || !b) return;
+  b.style.transform = `translateX(${i * 100}%)`;
 }
 const $topbar = document.getElementById('topbar');
 function syncTopbar(){
@@ -769,13 +774,13 @@ function prevName(pa){
   if (UI.per === 'month') return MONTHS[parseKey(pa).getMonth()];
   return pa.slice(0,4);
 }
-// comparison badge: direction from rates, text shows the earlier period in the tile's own unit
-function delta(cur, prev, label, txt){
+// trend arrow: direction from rates; tapping shows the earlier figure
+function trend(cur, prev, tip){
   if (prev == null || !isFinite(prev)) return '';
   const diff = cur - prev, tol = Math.max(Math.abs(prev), Math.abs(cur), 1e-9) * 0.02;
   const dir = Math.abs(diff) <= tol ? 'flat' : diff > 0 ? 'up' : 'down';
-  const sym = dir === 'up' ? I.arrUp : dir === 'down' ? I.arrDown : I.minus;
-  return `<span class="delta ${dir}" title="Compared with ${esc(label)}">${sym}<span>${esc(capFirst(label))}: ${txt}</span></span>`;
+  const word = dir === 'up' ? 'Up' : dir === 'down' ? 'Down' : 'Level';
+  return `<span class="trend ${dir} hit" role="img" aria-label="${word} on ${esc(tip)}" data-tip="${esc(word + ' on ' + tip)}">${dir === 'up' ? I.arrUp : dir === 'down' ? I.arrDown : I.minus}</span>`;
 }
 // longest run of consecutive hits since tracking began
 function bestDays(fn){
@@ -930,9 +935,12 @@ function renderSummary(){
     <div class="segctl" role="tablist">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${capFirst(p)}</button>`).join('')}</div>`;
   if (!n) return h + `<div class="card"><div class="empty">No data for this period yet. Days you log show up here.</div></div>`;
 
-  // previous period, for the comparison badges
-  const [pa, pb] = prevRange(a), pdays = (pa <= tk && pb >= S.start) ? range(maxK(pa,S.start), minK(pb,tk)) : [], pn = pdays.length, pl = prevName(pa);
-  const cmp = (cur, prev, txt) => pn ? delta(cur, prev, pl, txt) : '';
+  // comparison: the same days of the previous period (e.g. 1–18 Oct against 1–18 Nov)
+  const [pa, pb] = prevRange(a), off0 = Math.round((parseKey(days[0]) - parseKey(a)) / 864e5);
+  const pFrom = addDays(pa, off0), pTo = minK(pb, addDays(pa, off0 + n - 1));
+  const pdays = (pFrom <= pTo && pFrom <= tk && pTo >= S.start) ? range(maxK(pFrom,S.start), minK(pTo,tk)) : [], pn = pdays.length;
+  const pLabel = pn ? `${shortDate(pdays[0])}${pn > 1 ? ' – ' + shortDate(pdays[pn-1]) : ''}${UI.per === 'year' ? ' ' + pdays[0].slice(0,4) : ''}` : '';
+  const cmp = (cur, prev, txt) => pn && (cur || prev) ? trend(cur, prev, `${pLabel}: ${txt}`) : '';
   const perWeek = (v, nd) => nd ? v / nd * 7 : 0;
 
   // ---- tiles
@@ -940,12 +948,12 @@ function renderSummary(){
   const sumP = list => list.map(prayerCounts).reduce((s,c) => ({on:s.on+c.on, late:s.late+c.late, missed:s.missed+c.missed, none:s.none+c.none}), {on:0,late:0,missed:0,none:0});
   const P = sumP(days), PP = sumP(pdays);
   const runs = actsIn(a,b,'run'), gyms = actsIn(a,b,'gym'), foots = actsIn(a,b,'football');
-  const pruns = actsIn(pa,pb,'run'), pgyms = actsIn(pa,pb,'gym');
-  const tile = (color,label,v,gtxt,icon,d) => `<div class="tile"><div class="l">${ic(icon||'star', color, 'sm')}<span>${label}</span></div><div class="v">${v}</div><div class="g">${gtxt}</div>${d||''}</div>`;
+  const pruns = pn ? actsIn(pdays[0], pdays[pn-1], 'run') : [], pgyms = pn ? actsIn(pdays[0], pdays[pn-1], 'gym') : [];
+  const tile = (color,label,v,gtxt,icon,d) => `<div class="tile"><div class="l">${ic(icon||'star', color, 'sm')}<span>${label}</span>${d||''}</div><div class="v">${v}</div><div class="g">${gtxt}</div></div>`;
   const wk = UI.per === 'week';
   let t = '';
   t += tile('var(--water)','Water', `${wHit}<small>/${n} days</small>`, `Avg ${L(water.reduce((s,x)=>s+x,0)/n)} L&nbsp;· goal ${L(g.waterGoal)} L`, 'drop', cmp(wHit/n, pwHit/pn, `${pwHit}/${pn} days`));
-  t += tile('var(--prayer)','Prayers on time', `${pct(P.on,n*5)}<small>%</small>`, `${pct(P.on+P.late,n*5)}% prayed&nbsp;· ${days.filter(prayerHit).length}/${n} days hit`, 'moon', cmp(P.on/(n*5), PP.on/(pn*5||1), `${pct(PP.on,pn*5)}%`));
+  t += tile('var(--prayer)','Prayers', `${pct(P.on,n*5)}<small>% on time</small>`, `${pct(P.on+P.late,n*5)}% prayed&nbsp;· ${days.filter(prayerHit).length}/${n} days hit`, 'moon', cmp(P.on/(n*5), PP.on/(pn*5||1), `${pct(PP.on,pn*5)}% on time`));
   shownTrackers().forEach(tr => {
     if (tr.type === 'check'){
       const dn = days.filter(k => tVal(k,tr.id)>0).length, pdn = pdays.filter(k => tVal(k,tr.id)>0).length;
@@ -954,23 +962,22 @@ function renderSummary(){
     } else {
       const sum = days.reduce((s,k) => s + tVal(k,tr.id), 0), psum = pdays.reduce((s,k) => s + tVal(k,tr.id), 0);
       const gw = tr.period==='day' ? `goal hit ${days.filter(k => tDayHit(tr,k)).length}/${n} days` : (r => wk ? `goal ${num(tr.goal,2)} a week` : `${r.hit}/${r.of} weeks hit`)(evalWeeks(weeks, ws => tWeekHit(tr,ws)));
-      t += tile(tCol(tr), esc(tr.name), `${num(sum,2)}<small> ${esc(tr.unit||'')}</small>`, `${capFirst(gw)}&nbsp;· ${num(sum/n,1)}/day`, tIc(tr), cmp(sum/n, psum/(pn||1), `${num(psum/(pn||1),1)}/day`));
+      t += tile(tCol(tr), esc(tr.name), `${num(sum,2)}<small> ${esc(tr.unit||'')}</small>`, `${capFirst(gw)}&nbsp;· ${num(sum/n,1)}/day`, tIc(tr), cmp(sum/n, psum/(pn||1), `${num(psum,2)} ${esc(tr.unit||'')}`));
     }
   });
   const wkTxt = fn => { const r = evalWeeks(weeks, fn); return `${r.hit}/${r.of} weeks hit`; };
+  const runCmp = cmp(sumKm(runs)/n, sumKm(pruns)/(pn||1), `${num(sumKm(pruns))} km`), gymCmp = cmp(gyms.length/n, pgyms.length/(pn||1), plural(pgyms.length,'session'));
   if (wk){
-    const done = n < 7, pEnd = addDays(pa, n - 1), byL = done ? `Last week by ${WD_NAMES[n-1].slice(0,3)}` : 'Last week';
-    const pr2 = actsIn(pa, done ? pEnd : pb, 'run'), pg2 = actsIn(pa, done ? pEnd : pb, 'gym');
-    const cmpW = (cur, prev, txt) => pn ? delta(cur, prev, byL, txt) : '';
-    t += tile('var(--run)','Runs', `${runs.length}<small>/${g.runGoal}</small>${runs.length>=g.runGoal?OKM:''}`, `${num(sumKm(runs))} of ${num(g.kmGoal)} km`, 'run', cmpW(sumKm(runs), sumKm(pr2), `${num(sumKm(pr2))} km`));
+    t += tile('var(--run)','Runs', `${runs.length}<small>/${g.runGoal}</small>${runs.length>=g.runGoal?OKM:''}`, `${num(sumKm(runs))} of ${num(g.kmGoal)} km`, 'run', runCmp);
     const sp = SPLITS.map(s => [s, gyms.filter(x => (x.split||'Other')===s).length]).filter(x => x[1]).map(x => `${x[1]} ${x[0].toLowerCase()}`).join(' · ');
-    t += tile('var(--gym)','Gym', `${gyms.length}<small>/${g.gymGoal}</small>${gyms.length>=g.gymGoal&&g.gymGoal?OKM:''}`, sp ? capFirst(sp) : 'No sessions', 'gym', cmpW(gyms.length, pg2.length, plural(pg2.length,'session')));
+    t += tile('var(--gym)','Gym', `${gyms.length}<small>/${g.gymGoal}</small>${gyms.length>=g.gymGoal&&g.gymGoal?OKM:''}`, sp ? capFirst(sp) : 'No sessions', 'gym', gymCmp);
     if (foots.length) t += tile('var(--foot)','Football', `${foots.length}<small> ${foots.length===1?'game':'games'}</small>`, `${sumMin(foots)} min`, 'ball');
   } else {
-    t += tile('var(--run)','Runs', `${runs.length}<small> · ${num(sumKm(runs))} km</small>`, `${capFirst(wkTxt(runWeekHit))}&nbsp;· ${num(perWeek(sumKm(runs),n))} km/wk`, 'run', cmp(perWeek(sumKm(runs),n), perWeek(sumKm(pruns),pn), `${num(perWeek(sumKm(pruns),pn))} km/wk`));
-    t += tile('var(--gym)','Gym', `${gyms.length}<small> ${gyms.length===1?'session':'sessions'}</small>`, `${capFirst(wkTxt(gymWeekHit))}&nbsp;· ${num(perWeek(gyms.length,n))}/wk`, 'gym', cmp(perWeek(gyms.length,n), perWeek(pgyms.length,pn), `${num(perWeek(pgyms.length,pn))}/wk`));
+    t += tile('var(--run)','Runs', `${runs.length}<small> · ${num(sumKm(runs))} km</small>`, `${capFirst(wkTxt(runWeekHit))}&nbsp;· ${num(perWeek(sumKm(runs),n))} km/wk`, 'run', runCmp);
+    t += tile('var(--gym)','Gym', `${gyms.length}<small> ${gyms.length===1?'session':'sessions'}</small>`, `${capFirst(wkTxt(gymWeekHit))}&nbsp;· ${num(perWeek(gyms.length,n))}/wk`, 'gym', gymCmp);
     if (foots.length) t += tile('var(--foot)','Football', `${foots.length}<small> ${foots.length===1?'game':'games'}</small>`, `${sumMin(foots)} min&nbsp;· ${wkTxt(footWeekHit)}`, 'ball');
   }
+  if (pn) h += `<div class="cmpnote"><span class="trend up">${I.arrUp}</span><span class="trend down">${I.arrDown}</span><span>Compared with the same days, ${esc(pLabel)}. Tap an arrow for the figure.</span></div>`;
   h += `<div class="tiles">${t}</div>`;
 
   const allDays = range(a,b), counted = new Set(days);

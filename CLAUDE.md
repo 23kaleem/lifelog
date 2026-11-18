@@ -3,7 +3,7 @@
 ## What this is
 Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone home-screen web app (PWA)** hosted free on **GitHub Pages** from this repository. There's no backend, no accounts and no running costs; staying that way is a hard requirement. It's single-user (Kaleem, on iOS), with UK date formats and weeks starting on Monday.
 
-**Current version: 1.2.0** (`VERSION` in index.html) · service worker cache `lifelog-v3` (in `sw.js`).
+**Current version: 1.2.1** (`VERSION` in index.html) · service worker cache `lifelog-v4` (in `sw.js`).
 
 1.2.0 (2026-11-18) is a full redesign built from the 1.0.0 source. The 1.1.0 source wasn't to hand, so 1.1.0's changes were redone and then went further. It replaces the live 1.1.0 look. The data model is unchanged.
 
@@ -13,7 +13,7 @@ Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone
 | `index.html` | The whole app: one `<style>` block, then one `<script>` block. Vanilla JS, no frameworks, no CDN, no build step. |
 | `sw.js` | Service worker. Page requests are network-first (falling back to cache offline); other files are cache-first. |
 | `manifest.webmanifest` | PWA name and icons. |
-| `icon-180.png` (apple-touch-icon), `icon-192.png`, `icon-512.png` | App icons (current: white concentric rings on a blue gradient). The Settings app card also shows `icon-180.png`. |
+| `icon-180.png` (apple-touch-icon), `icon-192.png`, `icon-512.png` | App icons (current, from 1.2.1: white concentric rings on black; before that on a blue gradient). The Settings app card also shows `icon-180.png`. |
 | `README.md` | User-facing install, backup and update notes. |
 | `PRODUCT.md` | Product truth: who it's for, the four ways it's used, the firm-accountability voice, constraints. |
 | `DESIGN.md` (+ `.impeccable/design.json`) | The design system: tokens, type, components, rules. Read it before any UI change. |
@@ -22,7 +22,7 @@ Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone
 
 ## Hard rules
 1. **Never break existing data.** All data lives in the phone's `localStorage` under the key `lifelog.v1`. Any new field must be optional; `normalise()` merges stored data over `defaults()`. Never rename or remove fields without a migration. Test with an old backup.
-2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v4`, `-v5`, …) and `VERSION` in index.html.
+2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v5`, `-v6`, …) and `VERSION` in index.html.
 3. **No external requests or dependencies.** It must work fully offline. Charts are hand-drawn SVG and icons are drawn SVG (the `I` set).
 4. **Keep the web address and icon stable.** On iOS, data belongs to the home-screen install at this URL. Renaming the repo or username, or changing the icon (which forces a reinstall), loses data unless Kaleem backs up and restores. Warn him before any change like that.
 5. **iOS Safari is the target.** Use `env(safe-area-inset-*)` and 16px+ input font (to stop zoom on focus). Don't rely on haptics or push notifications (not available to web apps).
@@ -70,7 +70,7 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
 - **icons**: `I` (drawn SVG set), `ic(icon, colour, size)` icon tiles (`sm`, `xs`, `lg`, `solid`). Built-in trackers map to icons via `T_ICON`/`T_COL`. Custom trackers show their emoji inside the tile.
 - **TODAY** `renderToday()`: title + date, glass ‹ › buttons, daily-goals hero (`goalRing`: one arc per goal, filled by progress), Water (big rounded litres, pill quick-adds), Prayers (segmented On time / Late / Missed), Habits, This week (Runs, Gym and weekly habits; football is logged via "Log another activity"), Logged today, Streaks (current + best/Record).
 - **SUMMARY** `renderSummary()`: Week/Month/Year with ‹ ›.
-  - Tiles with a comparison badge against the previous period (`prevRange`, `delta`).
+  - Tiles with a trend arrow (`trend`) against the same days of the previous period (e.g. 1–18 Oct vs 1–18 Nov). Tapping an arrow shows the earlier figure, and a note above the tiles names the compared dates.
   - Week: habit grid, prayers by day, which prayer slips, water per day, When you drink (`drinkCard`), run distance, Run pace (`paceCard`), Gym split (`gymSplitCard`).
   - Month: calendar, Prayers by weekday (`prayerWeekdayCard`), prayers by day, water per day, When you drink, Run pace, run distance by week, Gym split, weekly goals table.
   - Year: year at a glance (`yearCard`), Prayers by weekday, prayers by month, water by month, When you drink, run distance by month, Run pace, Gym split, month-by-month table.
@@ -100,7 +100,7 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
   - Kaleem compared bolder looks (prayer beads, departure board, transit map, timetable, form guide) and kept the iOS standard, polished.
   - It passed two independent design-review rounds.
   - Summary gained 7 cards from an approved mockup: period comparisons, prayer × weekday heatmap, when you drink, run pace + bests, streaks vs best, year at a glance, gym split.
-- **Icon:** three cleaner options were proposed (A: single blue ring on white; B: white ring and tick on blue; C: blue and green rings on white). **Not chosen yet.** Changing it needs a backup → re-add to Home Screen → restore.
+- **Icon:** in 1.2.1 Kaleem asked for a black background; the rings were kept. An installed home-screen icon only changes after a backup → delete → re-add to Home Screen → restore. Earlier, three cleaner options were proposed (A: single blue ring on white; B: white ring and tick on blue; C: blue and green rings on white). **Not chosen yet.** Changing it needs a backup → re-add to Home Screen → restore.
 - **Possible future idea:** a Raspberry Pi or other self-hosted sync, designed so the current app keeps working offline.
 
 ## Working with Kaleem

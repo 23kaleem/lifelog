@@ -335,10 +335,7 @@ A 96px ring split into one arc per daily goal, with gaps between arcs. Each arc 
 
 ### Summary data cards
 Each card is a standard card with an icon-tile title and a right-aligned secondary note. Charts are hand-drawn SVG in a 320-wide viewBox, with 12px axis labels, 13px row labels and 12px rounded tabular values. Hairline gridlines are drawn at 0.6 width.
-- **Comparison badge:** a 12px/700 pill under each tile's goal line. An arrow icon plus "Oct: 15/23 days" shows the earlier period's value in the tile's own unit.
-  - The direction comes from rates, not raw totals.
-  - Week Runs and Gym compare against last week up to the same weekday ("Last week by Wed").
-  - Colours: up uses good-ink on a good tint, down uses bad-ink on a bad tint, and flat uses chip.
+- **Trend arrow:** a 22px circle at the right of each tile's header row: arrow up on a good tint, arrow down on a bad tint, a dash on chip when level. It compares the tile's rate with the same days of the previous period, and tapping it shows the earlier figure. One 12.5px note above the tiles names the compared dates. This keeps tiles at three lines (header, value, goal line).
 - **Weekday heatmap:** prayer rows by Mon–Sun columns plus an outlined "All" column. Each cell is the prayer hue mixed into the track by its on-time %, showing the % in rounded 800. High cells use `--hm-hi` dark text. A red callout names the weakest slot.
 - **Callout:** a 14px/600 bad-ink sentence on a 10% bad tint with a warning icon. It is how the app states a slip plainly ("Fajr slips most on Saturdays: 40% on time.", "Last lower-body session: 19 days ago.").
 - **Stat chips:** well-coloured 14px-radius blocks with a 20px rounded value and a 12.5px label, in rows of two or three. They are used for drink stats and all-time bests.
