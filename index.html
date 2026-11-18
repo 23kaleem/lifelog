@@ -16,206 +16,376 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>:root{
   color-scheme:light;
-  --page:#f2f2f7; --card:#ffffff; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984;
-  --line:#e6e5e1; --chip:#efefef; --chip2:#e3e3e8; --sheet:#ffffff; --scrim:rgba(0,0,0,.38);
-  --water:#2a78d6; --run:#eb6834; --gym:#1baf7a; --foot:#4a3aa7; --habit:#3a3a38;
-  --good:#0ca30c; --warn:#fab219; --bad:#d03b3b; --none:#d9d8d4;
-  --accent:#2a78d6; --accent-soft:#e8f0fb; --onaccent:#ffffff;
+  --page:#f2f2f7;
+  --card:#ffffff; --card-line:rgba(0,0,0,.05); --shadow:0 1px 2px rgba(16,24,40,.04),0 6px 18px rgba(16,24,40,.05);
+  --ink:#0b0b0f; --ink2:#55555c; --muted:#6c6c72;
+  --line:rgba(60,60,67,.12); --chip:#ececf0; --chip2:#e3e3e8; --track:#e9e9ee;
+  --sheet:#ffffff; --scrim:rgba(0,0,0,.32);
+  --water:#2a78d6; --prayer:#0ca30c; --run:#eb6834; --gym:#1baf7a; --foot:#4a3aa7;
+  --quran:#d98a00; --creatine:#7b5cd6; --skincare:#d6457f; --habit:#3d5afe;
+  --good:#0ca30c; --warn:#fab219; --bad:#d03b3b; --none:#d1d1d6;
+  --good-ink:#0a7d0a; --bad-ink:#b42e2e;
+  --accent:#2a78d6; --accent-soft:rgba(42,120,214,.12); --onaccent:#ffffff;
   --banner:#fff6e0; --bannerline:#f3dc9c;
-  --tabbar:rgba(255,255,255,.92); --segon:#ffffff;
+  --glass:rgba(255,255,255,.62); --glass-line:rgba(255,255,255,.75); --glass-edge:rgba(0,0,0,.06);
+  --glass-shadow:0 1px 1px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.12); --glass-hi:inset 0 1px 0 rgba(255,255,255,.85);
+  --bubble:rgba(0,0,0,.065); --segon:#ffffff; --well:#f4f4f7;
+  --grey:#8e8e93; --hm-hi:#0b0b0f;
+  --on-fill:#0a7f0a; --on-text:#ffffff; --miss-fill:#d03b3b; --accent-fill:#1f6cc9; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#a84014; --gym-ink:#0b6e49;
+  --tint-a:.13;
+  --round:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --page:#000000; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86;
-    --line:#2e2e2c; --chip:#2b2b29; --chip2:#232322; --sheet:#1f1f1e; --scrim:rgba(0,0,0,.6);
-    --water:#3987e5; --run:#d95926; --gym:#199e70; --foot:#9085e9; --habit:#d6d5cf;
-    --none:#3a3a37;
-    --accent:#3987e5; --accent-soft:#1d2a3d;
+    --page:#000000;
+    --card:#1c1c1e; --card-line:rgba(255,255,255,.06); --shadow:0 1px 0 rgba(255,255,255,.03) inset;
+    --ink:#f5f5f7; --ink2:#b4b4bb; --muted:#9a9aa2;
+    --line:rgba(84,84,88,.5); --chip:#2c2c2e; --chip2:#1c1c1e; --track:#2c2c2e;
+    --sheet:#1c1c1e; --scrim:rgba(0,0,0,.6);
+    --water:#3d8ff0; --prayer:#30c048; --run:#f0743f; --gym:#25c48a; --foot:#9085e9;
+    --quran:#f0a52a; --creatine:#9b82f0; --skincare:#ee6a9c; --habit:#6f86ff;
+    --good:#30c048; --warn:#fab219; --bad:#ef4f4f; --none:#3a3a3f;
+    --good-ink:#5ad66e; --bad-ink:#ff7b7b;
+    --accent:#3d8ff0; --accent-soft:rgba(61,143,240,.18);
     --banner:#2e2610; --bannerline:#5a4a1c;
-    --tabbar:rgba(22,22,21,.92); --segon:#4a4a47;
+    --glass:rgba(38,38,44,.55); --glass-line:rgba(255,255,255,.14); --glass-edge:rgba(255,255,255,.06);
+    --glass-shadow:0 10px 30px rgba(0,0,0,.5); --glass-hi:inset 0 1px 0 rgba(255,255,255,.12);
+    --bubble:rgba(255,255,255,.12); --segon:#48484e; --well:#2c2c2e;
+    --grey:#636366; --hm-hi:#04210a;
+  --on-fill:#30c048; --on-text:#04210a; --miss-fill:#d63a3a; --accent-fill:#2a6fd0; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#ff9a6b; --gym-ink:#4fe0a8;
+    --tint-a:.2;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --page:#000000; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86;
-  --line:#2e2e2c; --chip:#2b2b29; --chip2:#232322; --sheet:#1f1f1e; --scrim:rgba(0,0,0,.6);
-  --water:#3987e5; --run:#d95926; --gym:#199e70; --foot:#9085e9; --habit:#d6d5cf;
-  --none:#3a3a37;
-  --accent:#3987e5; --accent-soft:#1d2a3d;
+  --page:#000000;
+  --card:#1c1c1e; --card-line:rgba(255,255,255,.06); --shadow:0 1px 0 rgba(255,255,255,.03) inset;
+  --ink:#f5f5f7; --ink2:#b4b4bb; --muted:#9a9aa2;
+  --line:rgba(84,84,88,.5); --chip:#2c2c2e; --chip2:#1c1c1e; --track:#2c2c2e;
+  --sheet:#1c1c1e; --scrim:rgba(0,0,0,.6);
+  --water:#3d8ff0; --prayer:#30c048; --run:#f0743f; --gym:#25c48a; --foot:#9085e9;
+  --quran:#f0a52a; --creatine:#9b82f0; --skincare:#ee6a9c; --habit:#6f86ff;
+  --good:#30c048; --warn:#fab219; --bad:#ef4f4f; --none:#3a3a3f;
+  --good-ink:#5ad66e; --bad-ink:#ff7b7b;
+  --accent:#3d8ff0; --accent-soft:rgba(61,143,240,.18);
   --banner:#2e2610; --bannerline:#5a4a1c;
-  --tabbar:rgba(22,22,21,.92); --segon:#4a4a47;
+  --glass:rgba(38,38,44,.55); --glass-line:rgba(255,255,255,.14); --glass-edge:rgba(255,255,255,.06);
+  --glass-shadow:0 10px 30px rgba(0,0,0,.5); --glass-hi:inset 0 1px 0 rgba(255,255,255,.12);
+  --bubble:rgba(255,255,255,.12); --segon:#48484e; --well:#2c2c2e;
+  --grey:#636366; --hm-hi:#04210a;
+  --on-fill:#30c048; --on-text:#04210a; --miss-fill:#d63a3a; --accent-fill:#2a6fd0; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#ff9a6b; --gym-ink:#4fe0a8;
+  --tint-a:.2;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--page);color:var(--ink)}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Inter,sans-serif;font-size:15px;line-height:1.35;
-  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
+html{background:var(--page)}
+body{background:var(--page);color:var(--ink);min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.35;
+  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;overscroll-behavior-y:none;caret-color:var(--accent)}
+::selection{background:var(--accent-soft);color:var(--ink)}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:12px}
 input,select,textarea{font:inherit;font-size:16px;color:var(--ink)}
 [hidden]{display:none!important}
+.num{font-family:var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 
-#app{max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 8px) 14px calc(env(safe-area-inset-bottom) + 88px)}
+#app{max-width:560px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 110px)}
+
+/* glass (floating controls only) */
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid var(--glass-line);box-shadow:var(--glass-hi),var(--glass-shadow)}
 
 /* header */
-.hdr{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 12px;gap:10px}
-.hdr h1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.hdr .sub{font-size:13px;color:var(--ink2);margin-top:2px}
-.arrows{display:flex;gap:8px;align-items:center}
-.circ{width:34px;height:34px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:17px;color:var(--ink2)}
-.circ:disabled{opacity:.3}
-.todaybtn{font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:7px 11px;border-radius:17px}
+.hdr{display:flex;align-items:flex-end;justify-content:space-between;margin:10px 4px 18px;gap:10px}
+.hdr h1{font-size:34px;font-weight:700;letter-spacing:-.025em;line-height:1.05}
+.hdr .sub{font-size:15px;color:var(--ink2);margin-top:4px;font-weight:500}
+.arrows{display:flex;gap:8px;align-items:center;padding-bottom:2px}
+.circ{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--ink);
+  background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid var(--glass-line);box-shadow:var(--glass-hi),0 1px 1px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.08);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.circ svg{width:18px;height:18px}
+.circ:disabled{opacity:.35;box-shadow:none}
+.todaybtn{font-size:14px;font-weight:600;color:var(--accent);height:40px;padding:0 15px;border-radius:20px;
+  background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid var(--glass-line);box-shadow:var(--glass-hi),0 4px 14px rgba(0,0,0,.08)}
+
+/* top bar that appears on scroll */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:25;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;text-align:center;font-size:17px;font-weight:700;
+  background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border-bottom:1px solid var(--glass-edge);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
+.topbar.show{opacity:1;transform:none}
 
 /* cards */
-.card{background:var(--card);border-radius:16px;padding:13px;margin-bottom:10px}
-.ct{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:8px}
-.ct b{font-size:15px}
-.ct span{font-size:13px;color:var(--ink2);text-align:right}
-.bar{height:8px;border-radius:4px;background:var(--chip);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:4px;transition:width .25s}
-.btns{display:flex;gap:6px;margin-top:11px}
-.btn{flex:1;text-align:center;font-size:15px;font-weight:600;padding:10px 0;border-radius:11px;background:var(--chip)}
-.btn.pri{background:var(--water);color:#fff}
-.btn.ghost{flex:0 0 44px;color:var(--ink2)}
-.btn:active,.circ:active,.add:active,.segb:active{transform:scale(.96)}
-.ok{color:var(--good);font-weight:700}
+.card{background:var(--card);border-radius:22px;padding:16px;margin-bottom:14px;border:1px solid var(--card-line);box-shadow:var(--shadow)}
+.ct{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;min-height:30px}
+.ct b{font-size:17px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;flex:none;white-space:nowrap}
+.ct > span{font-size:14px;color:var(--ink2);text-align:right}
+.ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;position:relative;color:var(--c)}
+.ic::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--c);opacity:var(--tint-a)}
+.ic svg{width:18px;height:18px;position:relative}
+.ic .em{position:relative;font-size:16px;line-height:1}
+.ic.lg{width:36px;height:36px;border-radius:11px}.ic.lg svg{width:20px;height:20px}
+.bar{height:10px;border-radius:5px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:5px;transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.btns{display:flex;gap:8px;margin-top:14px}
+.btn{flex:1;display:grid;place-items:center;height:46px;font-size:16px;font-weight:700;border-radius:23px;background:var(--chip);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.btn.pri{background:var(--accent-fill);color:#fff;font-family:var(--round)}
+.btn.ghost{flex:0 0 46px;color:var(--ink)}
+.btn.ghost svg{width:20px;height:20px}
+.btn:disabled{opacity:.4}
+.btn:active,.circ:active,.add:active,.segb:active,.todaybtn:active,.more:active,.stepper button:active{transform:scale(.94)}
+.ok{color:var(--good-ink);font-weight:700;display:inline-flex;vertical-align:-2px}
+.ok svg{width:15px;height:15px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:13px}
+.pill svg{width:13px;height:13px}
+.pill.good{color:var(--good-ink);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.pill.open{color:var(--ink2);background:var(--chip)}
 
-/* score ring */
-.score{display:flex;align-items:center;gap:13px}
-.score svg{width:58px;height:58px;flex:none}
-.score b{font-size:15px}
-.score .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+/* hero */
+.hero{display:flex;align-items:center;gap:18px;padding:18px}
+.ring{width:96px;height:96px;flex:none;position:relative}
+.ring svg{width:100%;height:100%;display:block}
+.ring .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .c b{font-family:var(--round);font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.ring .c small{display:block;font-size:12px;color:var(--ink2);font-weight:600;margin-top:2px}
+.hero h2{font-size:19px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+.hero .sub{font-size:14px;color:var(--ink2);margin-top:4px;line-height:1.35}
+.hero .sub b{color:var(--ink);font-weight:600}
+.keys{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px}
+.keys span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.keys i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.keys .miss{color:var(--ink2)}.keys .miss i{background:transparent;box-shadow:inset 0 0 0 2px var(--c)}
+
+/* water */
+.amt{display:flex;align-items:baseline;gap:6px;margin:-2px 0 12px}
+.amt .big{font-family:var(--round);font-size:40px;font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.amt .unit{font-family:var(--round);font-size:20px;font-weight:700;color:var(--ink2)}
+.amt .of{font-size:15px;color:var(--ink2);margin-left:4px}
 
 /* prayers */
-.pr{display:flex;align-items:center;justify-content:space-between;padding:5px 0;gap:8px}
-.pr .n{font-size:15px}
-.seg{display:flex;gap:4px}
-.segb{font-size:12.5px;padding:7px 9px;border-radius:9px;background:var(--chip);color:var(--ink2);white-space:nowrap}
-.segb.s-on{background:var(--good);color:#fff;font-weight:600}
-.segb.s-late{background:var(--warn);color:#2b2100;font-weight:600}
-.segb.s-miss{background:var(--bad);color:#fff;font-weight:600}
+.pr{display:flex;align-items:center;justify-content:space-between;padding:6px 0;gap:10px}
+.pr .n{font-size:16px;font-weight:500}
+.seg{display:flex;gap:2px;background:var(--chip);border-radius:12px;padding:3px}
+.segb{font-size:13px;font-weight:600;padding:8px 10px;border-radius:9px;color:var(--ink2);white-space:nowrap;transition:background .2s,color .2s,transform .2s}
+.segb.s-on{background:var(--on-fill);color:var(--on-text);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.segb.s-late{background:var(--warn);color:#2b2100;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.segb.s-miss{background:var(--miss-fill);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15)}
 
 /* habits */
-.hrow{display:flex;align-items:center;justify-content:space-between;padding:7px 0;gap:10px;min-height:44px}
+.hrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px;min-height:56px}
 .hrow + .hrow{border-top:1px solid var(--line)}
-.hname{font-size:15px}
-.hgoal{font-size:12px;color:var(--ink2)}
-.stepper{display:flex;align-items:center;gap:10px}
-.stepper button{width:34px;height:34px;border-radius:50%;background:var(--chip);font-size:20px;font-weight:600;display:grid;place-items:center}
-.stepper b{font-size:20px;min-width:34px;text-align:center}
-.sw{width:51px;height:31px;border-radius:16px;background:var(--none);position:relative;flex:none;transition:background .2s}
-.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:left .2s}
+.hl{display:flex;align-items:center;gap:12px;min-width:0}
+.hname{font-size:16px;font-weight:600;display:flex;align-items:center;gap:6px}
+.hgoal{font-size:13px;color:var(--ink2);margin-top:1px}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:36px;height:36px;border-radius:50%;background:var(--chip);display:grid;place-items:center;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.stepper button svg{width:16px;height:16px}
+.stepper b{font-family:var(--round);font-size:22px;font-weight:800;min-width:36px;text-align:center;font-variant-numeric:tabular-nums}
+.sw{width:51px;height:31px;border-radius:16px;background:var(--none);position:relative;flex:none;transition:background .25s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);transition:left .3s cubic-bezier(.2,.8,.2,1)}
 .sw.on{background:var(--good)}.sw.on::after{left:22px}
 
 /* week */
-.wk{display:grid;grid-template-columns:1fr auto;gap:12px 10px;align-items:center}
-.wk .lbl{display:flex;align-items:center;gap:8px;font-size:15px}
+.wk{display:flex;flex-direction:column}
+.wrow{display:flex;align-items:center;gap:12px;padding:10px 0}
+.wrow + .wrow{border-top:1px solid var(--line)}
+.wrow .wm{flex:1;min-width:0}
+.wrow .lbl{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:16px;font-weight:600;margin-bottom:7px}
+.wrow .lbl .v{font-family:var(--round);font-weight:700;font-size:15px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrow .bar{height:7px}
+.wrow .small{font-size:13px;color:var(--ink2);margin-top:5px}
+.add{display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:700;color:var(--ci,var(--c,var(--accent)));height:34px;padding:0 13px;border-radius:17px;white-space:nowrap;position:relative;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.add::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--c,var(--accent));opacity:var(--tint-a)}
+.add svg{width:14px;height:14px;position:relative}.add span{position:relative}
+.more{width:100%;margin-top:6px;height:44px;border-radius:14px;background:var(--chip);font-size:15px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .2s}
+.more svg{width:16px;height:16px}
 .dot{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
-.wk .bar{margin:6px 0 0 18px;height:6px}
-.wk .small{font-size:12px;color:var(--ink2);margin:4px 0 0 18px}
-.add{font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:7px 11px;border-radius:9px;white-space:nowrap}
+
+/* streaks */
+.str{display:flex;align-items:center;gap:12px;padding:9px 0;min-height:52px}
+.str + .str{border-top:1px solid var(--line)}
+.str .nm{flex:1;min-width:0;font-size:16px;font-weight:600}
+.str .v{font-family:var(--round);font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.str .v small{font-size:14px;font-weight:700;color:var(--ink2);margin-left:3px;letter-spacing:0}
 
 /* log list */
-.li{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:15px}
+.li{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:15px}
 .li + .li{border-top:1px solid var(--line)}
-.li .main{flex:1;min-width:0}
-.li .meta{font-size:12px;color:var(--muted)}
-.li .x{width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--ink2);font-size:13px;flex:none}
-.empty{font-size:13px;color:var(--muted);padding:4px 0}
+.li .main{flex:1;min-width:0;font-weight:600;text-align:left}
+.li .meta{font-size:13px;color:var(--ink2);font-weight:400;margin-top:1px}
+.li .x{width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--ink2);flex:none;display:grid;place-items:center}
+.li .x svg{width:12px;height:12px}
+.empty{font-size:14px;color:var(--ink2);padding:2px 0;line-height:1.4}
 
 /* summary */
-.segctl{display:flex;background:var(--chip2);border-radius:10px;padding:2px;margin-bottom:12px}
-.segctl button{flex:1;text-align:center;font-size:14px;padding:7px 0;border-radius:8px;color:var(--ink2)}
-.segctl .on{background:var(--segon);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.tile{background:var(--card);border-radius:14px;padding:10px 11px}
-.tile .l{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px}
-.tile .v{font-size:20px;font-weight:700;margin-top:3px;letter-spacing:-.01em}
-.tile .g{font-size:12px;color:var(--muted);margin-top:1px}
-.legend{display:flex;gap:12px;font-size:12px;color:var(--ink2);margin-top:8px;flex-wrap:wrap}
+.segctl{display:flex;border-radius:14px;padding:3px;margin-bottom:14px;background:var(--chip2)}
+.segctl button{flex:1;text-align:center;font-size:14px;padding:8px 0;border-radius:11px;color:var(--ink2);font-weight:600}
+.segctl .on{background:var(--segon);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 1px rgba(0,0,0,.04)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tiles > .tile:last-child:nth-child(odd){grid-column:1/-1}
+.tile{background:var(--card);border-radius:18px;padding:12px 13px;border:1px solid var(--card-line);box-shadow:var(--shadow)}
+.tile .l{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:6px;font-weight:500}
+.tile .v{font-family:var(--round);font-size:22px;font-weight:800;margin-top:4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile .g{font-size:12.5px;color:var(--ink2);margin-top:2px;text-wrap:balance}
+.legend{display:flex;gap:12px;font-size:12.5px;color:var(--ink2);margin-top:10px;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:5px}
-.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
 .chart{width:100%;display:block;overflow:visible}
 .chart text{font-family:inherit}
-.ax{font-size:10px;fill:var(--muted)}
-.lab{font-size:11px;fill:var(--ink)}
-.val{font-size:10px;fill:var(--ink2)}
+.ax{font-size:12px;fill:var(--ink2);font-weight:500}
+.lab{font-size:13px;fill:var(--ink);font-weight:500}
+.val.halo{paint-order:stroke;stroke:var(--card);stroke-width:5px;stroke-linejoin:round}
+.val{font-size:12px;fill:var(--ink2);font-family:var(--round);font-weight:700;font-variant-numeric:tabular-nums}
 .hit{cursor:pointer}
-.tip{position:fixed;z-index:60;background:var(--ink);color:var(--card);font-size:12px;padding:6px 9px;border-radius:8px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.tip{position:fixed;z-index:60;background:var(--ink);color:var(--card);font-size:12.5px;padding:7px 10px;border-radius:10px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);box-shadow:0 6px 18px rgba(0,0,0,.2)}
 table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.tbl th{font-size:11px;color:var(--ink2);font-weight:600;text-align:right;padding:5px 4px;border-bottom:1px solid var(--line)}
-.tbl td{text-align:right;padding:6px 4px;border-bottom:1px solid var(--line)}
+.tbl th{font-size:11.5px;color:var(--ink2);font-weight:600;text-align:right;padding:6px 4px;border-bottom:1px solid var(--line)}
+.tbl td{text-align:right;padding:7px 4px;border-bottom:1px solid var(--line)}
 .tbl th:first-child,.tbl td:first-child{text-align:left}
 .tbl tr:last-child td{border-bottom:0}
-.note{font-size:12px;color:var(--muted);text-align:center;margin:6px 0 10px}
+.note{font-size:12.5px;color:var(--ink2);text-align:center;margin:6px 0 12px}
 
 /* calendar */
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal .h{font-size:10px;color:var(--muted);text-align:center;padding-bottom:2px}
-.cal .d{aspect-ratio:1;border-radius:8px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;background:var(--chip)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .h{font-size:11px;color:var(--ink2);text-align:center;padding-bottom:2px;font-weight:600}
+.cal .d{aspect-ratio:1;border-radius:10px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;background:var(--chip)}
 .cal .d.f{opacity:.35}
-.cal .d .ds{display:flex;gap:2px;position:absolute;bottom:4px}
+.cal .d .ds{display:flex;gap:2px;position:absolute;bottom:3px;background:var(--card);padding:2px 3px;border-radius:5px}
+.cal .d .ds:empty{display:none}
 .cal .d .ds i{width:5px;height:5px;border-radius:50%}
 .cal .d.today{outline:2px solid var(--ink);outline-offset:-2px}
 
 /* settings */
-.banner{background:var(--banner);border:1px solid var(--bannerline);border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.banner button{color:var(--accent);font-weight:600;white-space:nowrap}
-.sh{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;margin:16px 6px 6px}
-.set{background:var(--card);border-radius:14px;overflow:hidden}
-.set .r{display:flex;justify-content:space-between;align-items:center;padding:13px 13px;border-bottom:1px solid var(--line);font-size:15px;gap:10px;width:100%;text-align:left}
+.banner{background:var(--banner);border:1px solid var(--bannerline);border-radius:16px;padding:12px 14px;font-size:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.banner button{color:var(--accent);font-weight:700;white-space:nowrap}
+.sh{font-size:13px;color:var(--ink2);text-transform:uppercase;letter-spacing:.04em;margin:22px 16px 7px;font-weight:500}
+.set{background:var(--card);border-radius:18px;overflow:hidden;border:1px solid var(--card-line);box-shadow:var(--shadow)}
+.set .r{display:flex;justify-content:space-between;align-items:center;font-size:16px;width:100%;text-align:left;min-height:52px}
 .set .r:last-child{border-bottom:0}
 .set .r em{font-style:normal;color:var(--ink2);text-align:right}
-.set .r.blue{color:var(--accent);font-weight:500}
-.set .r.red{color:var(--bad);font-weight:500}
-.foot{font-size:12px;color:var(--muted);margin:6px 8px 0;line-height:1.4}
+.set .r.blue{color:var(--accent);font-weight:600}
+.set .r.red{color:var(--bad-ink);font-weight:600}
+.foot{font-size:13px;color:var(--ink2);margin:8px 16px 0;line-height:1.4}
 
-/* tab bar */
-.tabbar{position:fixed;left:0;right:0;bottom:0;background:var(--tabbar);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:7px 0 calc(env(safe-area-inset-bottom) + 6px);z-index:20}
-.tabbar .in{display:flex;width:100%;max-width:560px;justify-content:space-around}
-.tab{display:flex;flex-direction:column;align-items:center;font-size:10.5px;color:var(--muted);gap:2px;padding:2px 18px;font-weight:500}
-.tab svg{width:25px;height:25px}
+/* icon tile sizes and the solid (Settings) variant */
+.ic.sm{width:24px;height:24px;border-radius:7px}.ic.sm svg{width:14px;height:14px}.ic.sm .em{font-size:13px}
+.ic.xs{width:22px;height:22px;border-radius:6px;display:inline-grid;vertical-align:middle}.ic.xs svg{width:13px;height:13px}.ic.xs .em{font-size:12px}
+.ic.solid{color:#fff;width:30px;height:30px;border-radius:8px}.ic.solid::before{opacity:1}.ic.solid svg{width:18px;height:18px}
+.tile .v small{font-size:15px;font-weight:700;color:var(--ink2);letter-spacing:0}
+.tile .v .ok{margin-left:6px;vertical-align:1px}
+.tile .l span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scrollx{overflow-x:auto;margin:0 -16px;padding:0 16px}
+.banner .bl{display:flex;align-items:center;gap:10px}
+.app-card{display:flex;align-items:center;gap:14px;background:var(--card);border-radius:22px;padding:14px 16px;border:1px solid var(--card-line);box-shadow:var(--shadow)}
+.app-card img{width:60px;height:60px;border-radius:14px;flex:none;box-shadow:0 0 0 1px var(--card-line),0 2px 6px rgba(0,0,0,.12)}
+.app-card b{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.app-card .sub{font-size:13.5px;color:var(--ink2);margin-top:2px}
+.set .r{gap:12px;padding:10px 14px 10px 14px;border-bottom:0;position:relative}
+.set .r + .r::before{content:"";position:absolute;top:0;left:56px;right:0;height:1px;background:var(--line)}
+.set .r .rl{flex:1;min-width:0}
+.set .r em{font-size:15px;max-width:52%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.set .r .chev{color:var(--muted);display:grid;margin-left:-4px}.set .r .chev svg{width:14px;height:14px}
+
+/* summary: comparison badges, weekday heatmap, drink curve, pace, streak records, year, gym split */
+.delta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;margin-top:8px;padding:3px 8px 3px 6px;border-radius:10px;max-width:100%}
+.delta svg{width:11px;height:11px;flex:none}.delta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.delta.up{color:var(--good-ink);background:color-mix(in srgb,var(--good) 13%,transparent)}
+.delta.down{color:var(--bad-ink);background:color-mix(in srgb,var(--bad) 13%,transparent)}
+.delta.flat{color:var(--ink2);background:var(--chip)}
+.hm{display:grid;grid-template-columns:60px repeat(8,1fr);gap:4px;align-items:center}
+.hm .h{font-size:12px;font-weight:600;color:var(--ink2);text-align:center}
+.hm .n{font-size:13px;font-weight:600}
+.hm .c{height:32px;border-radius:8px;display:grid;place-items:center;font-family:var(--round);font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.hm .c.none{background:var(--track);color:var(--ink2);opacity:.6}
+.hm .c.all{box-shadow:inset 0 0 0 1.5px var(--line);color:var(--ink)}
+.scale{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:12.5px;color:var(--ink2);margin-top:12px}
+.scale i{width:18px;height:10px;border-radius:3px;display:inline-block}
+.scale .tr{margin-left:auto}
+.callout{display:flex;align-items:center;gap:10px;margin-top:12px;padding:11px 12px;border-radius:14px;background:color-mix(in srgb,var(--bad) 10%,transparent);color:var(--bad-ink);font-size:14px;font-weight:600;line-height:1.3}
+.callout svg{width:18px;height:18px;flex:none}
+.chips2{display:flex;gap:8px;margin-top:12px}
+.chip2{flex:1;min-width:0;background:var(--well);border-radius:14px;padding:10px 12px}
+.chip2 .v{font-family:var(--round);font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip2 .v small{font-size:13px;color:var(--ink2);font-weight:700;margin-left:2px;letter-spacing:0}
+.chip2 .l{font-size:12.5px;color:var(--ink2);margin-top:2px;line-height:1.3}
+.pbh{font-size:13px;font-weight:600;color:var(--ink2);margin-top:14px}
+.pbh + .chips2{margin-top:8px}
+.note.left{text-align:left;margin:8px 0 0}
+.legend .dash{width:14px;height:0;border-top:2px dashed var(--ink2);border-radius:0;background:none}
+.sr{display:flex;align-items:center;gap:12px;padding:10px 0}
+.sr + .sr{border-top:1px solid var(--line)}
+.sr .m{flex:1;min-width:0}
+.sr .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:7px}
+.sr .t .nm{font-size:15px;font-weight:600;min-width:0}
+.sr .t .v{font-family:var(--round);font-weight:800;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sr .t .v small{color:var(--ink2);font-weight:700;font-size:13px}
+.sb{height:8px;border-radius:4px;background:var(--track);overflow:hidden}
+.sb i{display:block;height:100%;border-radius:4px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.rec{display:inline-block;font-size:11.5px;font-weight:700;color:var(--good-ink);background:color-mix(in srgb,var(--good) 14%,transparent);padding:2px 7px;border-radius:8px;vertical-align:1px}
+.str .nm small{display:block;font-size:13px;font-weight:500;color:var(--ink2);margin-top:1px}
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 10px}
+.mo .mn{font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:5px}
+.mo .g{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.mo .g i{aspect-ratio:1;border-radius:2px;display:block}
+.mo .g i.off{background:var(--track);opacity:.45}
+.mo .g i.now{outline:1.5px solid var(--ink);outline-offset:0}
+.split{display:flex;height:36px;border-radius:11px;overflow:hidden;gap:2px}
+.split div{display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700;white-space:nowrap;min-width:66px;padding:0 6px}
+.splitk{display:flex;justify-content:space-between;margin-top:10px;font-size:13.5px;color:var(--ink2)}
+.splitk b{color:var(--ink);font-family:var(--round)}
+
+/* tab bar: floating Liquid Glass capsule */
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 16px calc(env(safe-area-inset-bottom) + 10px);z-index:20;pointer-events:none}
+.tabbar .in{position:relative;display:flex;width:100%;max-width:380px;padding:5px;border-radius:34px;pointer-events:auto}
+.tab-bubble{position:absolute;top:5px;bottom:5px;left:0;border-radius:29px;background:var(--bubble);transition:transform .45s cubic-bezier(.3,1.35,.5,1),width .45s cubic-bezier(.3,1.35,.5,1);will-change:transform}
+.tab{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:var(--ink);gap:3px;height:54px;border-radius:29px;font-weight:600;transition:color .2s}
+.tab svg{width:24px;height:24px}
 .tab.on{color:var(--accent)}
 
 /* sheet */
-.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;opacity:0;transition:opacity .2s}
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;opacity:0;transition:opacity .25s}
 .scrim.show{opacity:1}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);border-radius:20px 20px 0 0;max-height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;
-  padding:8px 16px calc(env(safe-area-inset-bottom) + 18px);transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);max-width:560px;margin:0 auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);border-radius:26px 26px 0 0;max-height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;
+  padding:8px 18px calc(env(safe-area-inset-bottom) + 20px);transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.9,.25,1);max-width:560px;margin:0 auto;box-shadow:0 -10px 40px rgba(0,0,0,.15)}
 .sheet.show{transform:none}
-.grab{width:38px;height:5px;border-radius:3px;background:var(--none);margin:0 auto 10px}
-.sheet h3{font-size:19px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.sheet h3 button{font-size:15px;font-weight:500;color:var(--accent)}
-.types{display:flex;gap:6px;margin-bottom:14px}
-.types button{flex:1;text-align:center;font-size:14px;font-weight:600;padding:9px 0;border-radius:10px;background:var(--chip);color:var(--ink2)}
-.types button.on{background:var(--accent);color:#fff}
-.types.run button.on{background:var(--run)}
-.types.gym button.on{background:var(--gym)}
-.types.football button.on{background:var(--foot)}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.field{border:1px solid var(--line);border-radius:12px;padding:7px 12px;margin-bottom:10px;display:block;background:var(--card)}
-.field span{display:block;font-size:12px;color:var(--ink2)}
-.field input,.field select,.field textarea{width:100%;border:0;outline:0;background:transparent;font-size:19px;font-weight:600;padding:2px 0}
-.field textarea{font-size:16px;font-weight:400;resize:none}
+.grab{width:38px;height:5px;border-radius:3px;background:var(--none);margin:0 auto 12px}
+.sheet h3{font-size:20px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.sheet h3 button{font-size:16px;font-weight:600;color:var(--accent)}
+.types{display:flex;gap:3px;margin-bottom:16px;background:var(--chip);border-radius:14px;padding:3px}
+.types button{flex:1;text-align:center;font-size:14px;font-weight:600;padding:9px 0;border-radius:11px;color:var(--ink2)}
+.types button.on{background:var(--accent-fill);color:#fff}
+.types.run button.on{background:var(--run-fill)}
+.types.gym button.on{background:var(--gym-fill)}
+.types.football button.on{background:var(--foot-fill)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{border:1px solid var(--line);border-radius:14px;padding:8px 14px;margin-bottom:10px;display:block;background:var(--card)}
+.field span{display:block;font-size:12.5px;color:var(--ink2);font-weight:500}
+.field input,.field select,.field textarea{width:100%;border:0;outline:0;background:transparent;font-size:20px;font-weight:700;padding:2px 0;font-family:var(--round)}
+.field textarea{font-size:16px;font-weight:400;resize:none;font-family:inherit}
 .field select{-webkit-appearance:none;appearance:none}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.chips button{padding:8px 13px;border-radius:18px;background:var(--chip);font-size:14px;font-weight:500;color:var(--ink2)}
+.field:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chips button{padding:9px 15px;border-radius:19px;background:var(--chip);font-size:14px;font-weight:600;color:var(--ink2)}
 .chips button.on{background:var(--ink);color:var(--card)}
-.calc{font-size:13px;color:var(--ink2);margin:0 2px 12px}
-.save{width:100%;color:#fff;background:var(--accent);text-align:center;font-weight:700;font-size:16px;padding:14px;border-radius:13px;margin-top:4px}
-.save.run{background:var(--run)}.save.gym{background:var(--gym)}.save.football{background:var(--foot)}
-.danger{width:100%;color:var(--bad);font-weight:600;padding:13px;margin-top:6px}
-.tgl{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 12px;font-size:15px;gap:10px}
-.hint{font-size:12px;color:var(--muted);margin:-4px 2px 12px;line-height:1.4}
+.calc{font-size:14px;color:var(--ink2);margin:0 2px 12px}
+.save{width:100%;color:#fff;background:var(--accent-fill);text-align:center;font-weight:700;font-size:17px;height:52px;border-radius:26px;margin-top:6px}
+.save.run{background:var(--run-fill)}.save.gym{background:var(--gym-fill)}.save.football{background:var(--foot-fill)}
+.danger{width:100%;color:var(--bad-ink);font-weight:600;padding:14px;margin-top:6px}
+.tgl{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 12px;font-size:16px;gap:10px}
+.hint{font-size:13px;color:var(--ink2);margin:-4px 2px 12px;line-height:1.4}
 
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:20px;font-size:14px;z-index:70;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 92px);transform:translate(-50%,8px);background:var(--ink);color:var(--card);padding:11px 18px;border-radius:22px;font-size:14px;font-weight:600;z-index:70;opacity:0;transition:opacity .2s,transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:0s!important}}
 </style>
 </head>
 <body>
 <main id="app"></main>
 
-<nav class="tabbar"><div class="in">
+<div class="topbar" id="topbar" aria-hidden="true"></div>
+<nav class="tabbar"><div class="in glass"><span class="tab-bubble" id="bubble" aria-hidden="true"></span>
   <button class="tab" data-tab="today"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 3 10v11h6v-6h6v6h6V10z"/></svg>Today</button>
   <button class="tab" data-tab="summary"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="11" width="4.5" height="10" rx="1.3"/><rect x="9.75" y="4" width="4.5" height="17" rx="1.3"/><rect x="16" y="8" width="4.5" height="13" rx="1.3"/></svg>Summary</button>
   <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3" fill="none" stroke="currentColor" stroke-width="3.4" stroke-dasharray="3.26 3.26"/><path fill="currentColor" fill-rule="evenodd" d="M12 4.8a7.2 7.2 0 1 0 0 14.4a7.2 7.2 0 1 0 0-14.4zm0 4.3a2.9 2.9 0 1 1 0 5.8a2.9 2.9 0 1 1 0-5.8z"/></svg>Settings</button>
@@ -229,7 +399,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 
 <script>'use strict';
 /* Life Log — personal daily tracker. All data is stored on this device (localStorage). */
-const VERSION = '1.0.0';
+const VERSION = '1.2.0';
 const KEY = 'lifelog.v1';
 const PRAYERS = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha']];
 const ACT = {
@@ -240,6 +410,7 @@ const ACT = {
 const SPLITS = ['Upper','Lower','Full','Other'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const DOW1 = ['M','T','W','T','F','S','S'];
+const WD_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
 /* ---------------- dates ---------------- */
 const pad = n => String(n).padStart(2,'0');
@@ -339,9 +510,10 @@ const tWeekHit = (t,ws) => tWeekValue(t,ws) >= t.goal;
 
 function dailyGoals(k){
   const g = [];
-  if (S.settings.waterGoal > 0) g.push({name:'water', hit:waterHit(k)});
-  g.push({name:'prayers', hit:prayerHit(k)});
-  shownTrackers().filter(isDaily).forEach(t => g.push({name:t.name, hit:tDayHit(t,k)}));
+  if (S.settings.waterGoal > 0) g.push({name:'water', hit:waterHit(k), c:'var(--water)', p:waterTotal(k)/S.settings.waterGoal});
+  const pc = prayerCounts(k);
+  g.push({name:'prayers', hit:prayerHit(k), c:'var(--prayer)', p:(pc.on + (S.settings.lateCounts ? pc.late : 0))/(S.settings.prayerGoal||5)});
+  shownTrackers().filter(isDaily).forEach(t => g.push({name:t.name, hit:tDayHit(t,k), c:tCol(t), p: t.type==='check' ? (tVal(k,t.id)?1:0) : tVal(k,t.id)/(t.goal||1)}));
   return g;
 }
 function streakDays(fn){
@@ -364,9 +536,30 @@ const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platfo
 function render(){
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === UI.tab));
   hideTip();
+  const view = UI.tab + '|' + UI.date + '|' + UI.per + '|' + UI.anchor, prev = {};
+  if (view === lastView) $app.querySelectorAll('[data-k]').forEach(el => prev[el.dataset.k] = [el.getAttribute('class'), el.getAttribute('style')]);
+  lastView = view;
   if (UI.tab === 'today') $app.innerHTML = renderToday();
   else if (UI.tab === 'summary') $app.innerHTML = renderSummary();
   else $app.innerHTML = renderSettings();
+  placeBubble(); syncTopbar();
+  const moved = [];
+  $app.querySelectorAll('[data-k]').forEach(el => {
+    const p = prev[el.dataset.k]; if (!p) return;
+    const now = [el.getAttribute('class'), el.getAttribute('style')]; if (p[0] === now[0] && p[1] === now[1]) return;
+    el.setAttribute('class', p[0] || ''); el.setAttribute('style', (p[1] || '') + ';transition:none'); moved.push([el, now]);
+  });
+  if (moved.length){ void $app.offsetWidth; moved.forEach(([el, now]) => { el.setAttribute('class', now[0] || ''); if (now[1] == null) el.removeAttribute('style'); else el.setAttribute('style', now[1]); }); }
+}
+let lastView = '';
+function placeBubble(){
+  const on = document.querySelector('.tab.on'), b = document.getElementById('bubble'); if (!on || !b) return;
+  b.style.width = on.offsetWidth + 'px'; b.style.transform = `translateX(${on.offsetLeft}px)`;
+}
+const $topbar = document.getElementById('topbar');
+function syncTopbar(){
+  const h1 = $app.querySelector('h1'); $topbar.textContent = h1 ? h1.textContent : '';
+  $topbar.classList.toggle('show', scrollY > 56);
 }
 
 function backupDue(){
@@ -379,101 +572,159 @@ function backupDue(){
 function backupBanner(){
   const due = backupDue(); if (!due) return '';
   const msg = due.never ? `You haven’t backed up yet` : `Last backup ${due.days} days ago`;
-  return `<div class="banner"><span>⚠️ ${msg}</span><button data-act="backup">Back up now</button></div>`;
+  return `<div class="banner"><span class="bl">${ic('warn','var(--quran)')}<span>${msg}</span></span><button data-act="backup">Back up now</button></div>`;
 }
 
+/* ---------------- icons (drawn SVG, one stroke weight) ---------------- */
+const sv = (d, w) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w||2}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const sf = d => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${d}</svg>`;
+const I = {
+  drop: sf('<path d="M12 2.6c.3 0 .6.15.8.4 2.7 3.3 6.4 7.5 6.4 11.4a7.2 7.2 0 0 1-14.4 0c0-3.9 3.7-8.1 6.4-11.4.2-.25.5-.4.8-.4z"/>'),
+  moon: sf('<path d="M20.6 14.3A8.7 8.7 0 0 1 9.7 3.4a.6.6 0 0 0-.8-.7A9.6 9.6 0 1 0 21.3 15.1a.6.6 0 0 0-.7-.8z"/>'),
+  book: sv('<path d="M2.5 4.5h6a3.5 3.5 0 0 1 3.5 3.5v12.5a2.7 2.7 0 0 0-2.7-2.7H2.5z"/><path d="M21.5 4.5h-6A3.5 3.5 0 0 0 12 8v12.5a2.7 2.7 0 0 1 2.7-2.7h6.8z"/>'),
+  pill: sv('<rect x="2.6" y="8.4" width="18.8" height="7.2" rx="3.6" transform="rotate(-45 12 12)"/><path d="M9.5 9.5l5 5"/>'),
+  sparkle: sf('<path d="M11 2.5l1.9 5.6 5.6 1.9-5.6 1.9L11 17.5l-1.9-5.6L3.5 10l5.6-1.9z"/><path d="M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>'),
+  cal: sv('<rect x="3" y="4.5" width="18" height="16" rx="3.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>'),
+  flame: sf('<path d="M12 22c4.1 0 7-2.9 7-6.9 0-3.5-2.3-5.9-4.2-8-.4 1.9-1.3 3.2-2.5 3.8.3-3.3-1.2-6.2-3.7-8.4.2 3.5-1.9 5.6-3.3 7.8C4.4 11.9 5 13.6 5 15.1 5 19.1 7.9 22 12 22z"/>'),
+  run: sv('<circle cx="15" cy="4.2" r="1.9" fill="currentColor" stroke="none"/><path d="M6 21l3.4-5.2 3.4 2.6V22M9.4 15.8l1.9-6.1M11.3 9.7 7.6 11.2l-1.5 3M11.3 9.7l3.4-.6 1.9 3.6 3.2.9"/>', 2.1),
+  gym: sv('<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/>', 2.4),
+  ball: sv('<circle cx="12" cy="12" r="9"/><path d="M12 8l3.3 2.4-1.3 3.9h-4l-1.3-3.9zM12 8V3.3M15.3 10.4l4.4-1.4M14 14.3l2.7 3.8M10 14.3l-2.7 3.8M8.7 10.4 4.3 9"/>', 1.7),
+  list: sv('<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/>'),
+  star: sf('<path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/>'),
+  check: sv('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 3),
+  plus: sv('<path d="M12 5v14M5 12h14"/>', 2.6),
+  minus: sv('<path d="M5 12h14"/>', 2.6),
+  undo: sv('<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>', 2.2),
+  x: sv('<path d="M6 6l12 12M18 6 6 18"/>', 3),
+  chevL: sv('<path d="M15 5l-7 7 7 7"/>', 2.6),
+  chevR: sv('<path d="M9 5l7 7-7 7"/>', 2.6),
+  arrUp: sv('<path d="M12 19V5M6 11l6-6 6 6"/>', 2.6),
+  arrDown: sv('<path d="M12 5v14M6 13l6 6 6-6"/>', 2.6),
+  chart: sv('<path d="M4 20V10M10 20V4M16 20v-7M21.5 20h-19"/>', 2.4),
+  grid: sv('<rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/>'),
+  up: sv('<path d="M7 18.5H6a4 4 0 0 1-.6-8A6 6 0 0 1 17 8.6a4.5 4.5 0 0 1 .5 9.9H17"/><path d="M12 20.5v-8M9 15l3-3 3 3"/>'),
+  down: sv('<path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4 15.5v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2"/>'),
+  table: sv('<rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M3.5 15h17M9.5 9.5V20"/>'),
+  trash: sv('<path d="M4 6.5h16M9.5 6.5V4.5h5v2M6.5 6.5l1 13a1.5 1.5 0 0 0 1.5 1.4h6a1.5 1.5 0 0 0 1.5-1.4l1-13"/><path d="M10 11v6M14 11v6"/>'),
+  info: sv('<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/>'),
+  shield: sv('<path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>'),
+  warn: sv('<path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.2" r="1" fill="currentColor" stroke="none"/>'),
+  share: sv('<path d="M12 15V3.5M8 7.5l4-4 4 4"/><path d="M6 11H5v9.5h14V11h-1"/>')
+};
+const OKM = `<span class="ok" aria-label="goal hit">${I.check}</span>`;
+const ic = (icon, c, cls) => `<span class="ic ${cls||''}" style="--c:${c}">${I[icon] || `<span class="em">${esc(icon||'•')}</span>`}</span>`;
+const T_ICON = {quran:'book', creatine:'pill', skincare:'sparkle'};
+const T_COL  = {quran:'var(--quran)', creatine:'var(--creatine)', skincare:'var(--skincare)'};
+const tIc  = t => T_ICON[t.id] || t.emoji || 'star';
+const tCol = t => T_COL[t.id] || 'var(--habit)';
+const A_ICON = {run:'run', gym:'gym', football:'ball'};
+
 /* ---------------- TODAY ---------------- */
+function goalRing(goals){
+  const n = goals.length || 1, r = 40, C = 2*Math.PI*r, sw = 11, seg = C/n, gap = n > 1 ? 4 + sw : 0, len = Math.max(seg - gap, 0.01);
+  let s = '';
+  goals.forEach((g,i) => {
+    const off = -(i*seg + gap/2);
+    s += `<circle cx="50" cy="50" r="${r}" fill="none" stroke="${g.c}" stroke-opacity=".2" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${len} ${C}" stroke-dashoffset="${off}"/>`;
+    const f = g.hit ? 1 : Math.max(0, Math.min(1, g.p || 0)), fl = f > 0 ? Math.max(0.01, len*f) : 0;
+    s += `<circle data-k="ring${i}" cx="50" cy="50" r="${r}" fill="none" stroke="${g.c}" stroke-width="${sw}" stroke-linecap="round" stroke-dashoffset="${off}" opacity="${f>0?1:0}" style="stroke-dasharray:${fl} ${C};transition:stroke-dasharray .6s cubic-bezier(.2,.8,.2,1),opacity .2s"/>`;
+  });
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(-90 50 50)">${s}</g></svg>`;
+}
+
 function renderToday(){
-  const k = UI.date, tk = todayKey(), g = S.settings;
+  const k = UI.date, tk = todayKey(), g = S.settings, past = k < tk;
   const title = k === tk ? 'Today' : k === addDays(tk,-1) ? 'Yesterday' : fmtDay(k,{weekday:'long'});
   let h = `<div class="hdr"><div><h1>${title}</h1><div class="sub">${fmtDay(k,{weekday:'long',day:'numeric',month:'long',year: k.slice(0,4)!==tk.slice(0,4)?'numeric':undefined})}</div></div>
     <div class="arrows">${k!==tk?`<button class="todaybtn" data-act="goToday">Today</button>`:''}
-    <button class="circ" data-act="prevDay" aria-label="Previous day">‹</button>
-    <button class="circ" data-act="nextDay" aria-label="Next day" ${k>=tk?'disabled':''}>›</button></div></div>`;
+    <button class="circ" data-act="prevDay" aria-label="Previous day">${I.chevL}</button>
+    <button class="circ" data-act="nextDay" aria-label="Next day" ${k>=tk?'disabled':''}>${I.chevR}</button></div></div>`;
 
   if (isIOS && !isStandalone() && !g.installDismissed){
-    h += `<div class="banner"><span>📲 <b>Install first:</b> tap <b>Share</b> → <b>Add to Home Screen</b>, then use the app from there. Data logged here in Safari isn’t shared with the home-screen app.</span><button data-act="dismissInstall">OK</button></div>`;
+    h += `<div class="banner"><span class="bl">${ic('share','var(--accent)')}<span><b>Install first:</b> tap <b>Share</b> → <b>Add to Home Screen</b>, then use the app from there. Data logged here in Safari isn’t shared with the home-screen app.</span></span><button data-act="dismissInstall">OK</button></div>`;
   }
   h += backupBanner();
 
-  // score ring
-  const goals = dailyGoals(k), done = goals.filter(x => x.hit).length, C = 2*Math.PI*24;
+  // daily goals hero: one arc per goal
+  const goals = dailyGoals(k), done = goals.filter(x => x.hit).length, n = goals.length;
   const left = goals.filter(x => !x.hit).map(x => x.name);
-  h += `<div class="card score"><svg viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="var(--chip)" stroke-width="7"/>
-    ${done?'':'<!--'}<circle cx="29" cy="29" r="24" fill="none" stroke="var(--good)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${goals.length?C*done/goals.length:0} ${C}" transform="rotate(-90 29 29)"/>${done?'':'-->'}
-    <text x="29" y="33.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">${done}/${goals.length}</text></svg>
-    <div><b>${done===goals.length?'All daily goals done 🎉':'Daily goals done'}</b><div class="sub">${left.length?esc(capFirst(listJoin(left)))+' to go':'Nice work.'}</div></div></div>`;
+  const headline = n && done === n ? `All ${n} daily goals hit` : `${done} of ${n} daily goals`;
+  const sub = !left.length ? (past ? 'Every daily goal was hit this day.' : 'Every daily goal hit today.')
+    : `${past ? 'Missed' : 'Still open'}: <b>${esc(listJoin(left.map(capFirst)))}</b>`;
+  h += `<div class="card hero"><div class="ring">${goalRing(goals)}<div class="c"><div><b>${done}/${n}</b><small>goals</small></div></div></div>
+    <div><h2>${headline}</h2><div class="sub">${sub}</div>
+    <div class="keys">${goals.map(x => `<span class="${x.hit?'':'miss'}" style="--c:${x.c}"><i></i>${esc(capFirst(x.name))}</span>`).join('')}</div></div></div>`;
 
   // water
-  const wt = waterTotal(k);
-  h += `<div class="card"><div class="ct"><b>💧 Water</b><span>${L(wt)} / ${L(g.waterGoal)} L ${waterHit(k)?'<span class="ok">✓</span>':''}</span></div>
-    <div class="bar"><i style="width:${Math.min(100,pct(wt,g.waterGoal))}%;background:var(--water)"></i></div>
+  const wt = waterTotal(k), wh = waterHit(k);
+  h += `<div class="card"><div class="ct"><b>${ic('drop','var(--water)')}Water</b>${wh?`<span class="pill good">${I.check}Goal hit</span>`:`<span class="num">${Math.min(100,pct(wt,g.waterGoal))}%</span>`}</div>
+    <div class="amt"><span class="big">${L(wt)}</span><span class="unit">L</span><span class="of">of ${L(g.waterGoal)} L</span></div>
+    <div class="bar"><i data-k="wbar" style="width:${Math.min(100,pct(wt,g.waterGoal))}%;background:var(--water)"></i></div>
     <div class="btns">${g.quick.map(ml => `<button class="btn pri" data-act="water" data-ml="${ml}">+${ml}</button>`).join('')}
-    <button class="btn ghost" data-act="waterOther" aria-label="Other amount">＋</button>
-    <button class="btn ghost" data-act="undoWater" aria-label="Undo last" ${day(k).w.length?'':'disabled style="opacity:.4"'}>↶</button></div></div>`;
+    <button class="btn ghost" data-act="waterOther" aria-label="Add another amount">${I.plus}</button>
+    <button class="btn ghost" data-act="undoWater" aria-label="Undo last water" ${day(k).w.length?'':'disabled'}>${I.undo}</button></div></div>`;
 
   // prayers
   const pc = prayerCounts(k), p = day(k).p || {};
-  h += `<div class="card"><div class="ct"><b>🕌 Prayers</b><span>${5-pc.none-pc.missed}/5 prayed · ${pc.on} on time ${prayerHit(k)?'<span class="ok">✓</span>':''}</span></div>`;
+  h += `<div class="card"><div class="ct"><b>${ic('moon','var(--prayer)')}Prayers</b><span>${5-pc.none-pc.missed} of 5 prayed · ${pc.on} on time${prayerHit(k)?' '+OKM:''}</span></div>`;
   PRAYERS.forEach(([id,name]) => {
     const s = p[id];
-    h += `<div class="pr"><span class="n">${name}</span><div class="seg">
-      <button class="segb ${s==='on'?'s-on':''}" data-act="prayer" data-p="${id}" data-s="on">On time</button>
-      <button class="segb ${s==='late'?'s-late':''}" data-act="prayer" data-p="${id}" data-s="late">Late</button>
-      <button class="segb ${s==='missed'?'s-miss':''}" data-act="prayer" data-p="${id}" data-s="missed">Missed</button></div></div>`;
+    h += `<div class="pr"><span class="n">${name}</span><div class="seg" role="group" aria-label="${name}">
+      <button data-k="p-${id}-on" class="segb ${s==='on'?'s-on':''}" data-act="prayer" data-p="${id}" data-s="on" aria-pressed="${s==='on'}">On time</button>
+      <button data-k="p-${id}-late" class="segb ${s==='late'?'s-late':''}" data-act="prayer" data-p="${id}" data-s="late" aria-pressed="${s==='late'}">Late</button>
+      <button data-k="p-${id}-miss" class="segb ${s==='missed'?'s-miss':''}" data-act="prayer" data-p="${id}" data-s="missed" aria-pressed="${s==='missed'}">Missed</button></div></div>`;
   });
   h += `</div>`;
 
   // simple trackers
   const ts = shownTrackers();
   if (ts.length){
-    h += `<div class="card">`;
+    h += `<div class="card"><div class="ct" style="margin-bottom:2px"><b>${ic('star','var(--habit)')}Habits</b></div>`;
     ts.forEach(t => {
       const v = tVal(k,t.id);
-      const goalTxt = t.type==='check' ? (t.goal>=7?'every day':`${t.goal} days a week`) : `goal ${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
+      const goalTxt = t.type==='check' ? (t.goal>=7?'Every day':`${t.goal} days a week`) : `Goal ${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
       const hit = tDayHit(t,k) && (t.type==='check' || t.period==='day');
-      h += `<div class="hrow"><div><div class="hname">${esc(t.emoji||'')} ${esc(t.name)} ${hit?'<span class="ok">✓</span>':''}</div><div class="hgoal">${goalTxt}</div></div>`;
-      if (t.type === 'check') h += `<button class="sw ${v?'on':''}" data-act="check" data-id="${t.id}" role="switch" aria-checked="${!!v}" aria-label="${esc(t.name)}"></button>`;
-      else h += `<div class="stepper"><button data-act="step" data-id="${t.id}" data-dir="-1" aria-label="Less">−</button><b>${num(v,2)}</b><button data-act="step" data-id="${t.id}" data-dir="1" aria-label="More">+</button></div>`;
+      h += `<div class="hrow"><div class="hl">${ic(tIc(t), tCol(t), 'lg')}<div><div class="hname">${esc(t.name)}${hit?OKM:''}</div><div class="hgoal">${goalTxt}</div></div></div>`;
+      if (t.type === 'check') h += `<button data-k="sw-${t.id}" class="sw ${v?'on':''}" data-act="check" data-id="${t.id}" role="switch" aria-checked="${!!v}" aria-label="${esc(t.name)}"></button>`;
+      else h += `<div class="stepper"><button data-act="step" data-id="${t.id}" data-dir="-1" aria-label="Less ${esc(t.name)}">${I.minus}</button><b>${num(v,2)}</b><button data-act="step" data-id="${t.id}" data-dir="1" aria-label="More ${esc(t.name)}">${I.plus}</button></div>`;
       h += `</div>`;
     });
     h += `</div>`;
   }
 
-  // this week
+  // this week (football is logged via "Log another activity" and shows in Summary)
   const ws = weekStart(k), wp = weekProgress(ws);
-  const wrow = (color, label, val, goal, extra, type) => {
-    const done = goal>0 && val>=goal;
-    return `<div><div class="lbl"><i class="dot" style="background:${color}"></i><b>${label}</b> ${num(val,2)} / ${num(goal,2)} ${done?'<span class="ok">✓</span>':''}</div>
-      <div class="bar"><i style="width:${Math.min(100,pct(val,goal||1))}%;background:${color}"></i></div>${extra?`<div class="small">${extra}</div>`:''}</div>
-      ${type?`<button class="add" data-act="addAct" data-type="${type}">+ ${ACT[type].name}</button>`:'<span></span>'}`;
+  const wrow = (c, icon, label, val, goal, extra, type) => {
+    const ok = goal>0 && val>=goal;
+    return `<div class="wrow">${ic(icon, c, 'lg')}<div class="wm"><div class="lbl"><span>${label}${ok?' '+OKM:''}</span><span class="v">${num(val,2)} / ${num(goal,2)}</span></div>
+      <div class="bar"><i data-k="wk-${label}" style="width:${Math.min(100,pct(val,goal||1))}%;background:${c}"></i></div>${extra?`<div class="small">${extra}</div>`:''}</div>
+      ${type?`<button class="add" style="--c:${c};--ci:var(--${type}-ink)" data-act="addAct" data-type="${type}" aria-label="Log ${ACT[type].name.toLowerCase()}">${I.plus}<span>${ACT[type].name}</span></button>`:''}</div>`;
   };
-  h += `<div class="card"><div class="ct"><b>📅 This week</b><span>${shortDate(ws)} – ${shortDate(addDays(ws,6))}</span></div><div class="wk">`;
-  h += wrow('var(--run)','Runs', wp.runs, g.runGoal, `${num(wp.km)} / ${num(g.kmGoal)} km`, 'run');
-  h += wrow('var(--gym)','Gym', wp.gym, g.gymGoal, '', 'gym');
-  h += wrow('var(--foot)','Football', wp.foot, g.footGoal, '', 'football');
+  h += `<div class="card"><div class="ct"><b>${ic('cal','var(--accent)')}This week</b><span>${shortDate(ws)} – ${shortDate(addDays(ws,6))}</span></div><div class="wk">`;
+  h += wrow('var(--run)','run','Runs', wp.runs, g.runGoal, `${num(wp.km)} of ${num(g.kmGoal)} km`, 'run');
+  h += wrow('var(--gym)','gym','Gym', wp.gym, g.gymGoal, '', 'gym');
   shownTrackers().filter(t => !isDaily(t)).forEach(t => {
     const v = tWeekValue(t,ws);
-    h += wrow('var(--habit)', `${esc(t.emoji||'')} ${esc(t.name)}`, v, t.goal, t.type==='check'?'days this week':esc(t.unit||''), null);
+    h += wrow(tCol(t), tIc(t), esc(t.name), v, t.goal, t.type==='check'?'days this week':esc(t.unit||''), null);
   });
-  h += `</div></div>`;
+  h += `</div><button class="more" data-act="addAct" data-type="football">${I.plus}Log another activity</button></div>`;
 
   // logged list
   const items = [];
-  (day(k).w || []).forEach(([t,ml]) => items.push({t, html:`<div class="main">💧 ${ml} ml<div class="meta">${keyOf(new Date(t))===k?timeOf(t):'added later'}</div></div><button class="x" data-act="delWater" data-t="${t}" aria-label="Delete">✕</button>`}));
-  actsOn(k).forEach(a => items.push({t:a.t||0, html:`<button class="main" style="text-align:left" data-act="editAct" data-id="${a.id}">${ACT[a.type].emoji} ${actText(a)}<div class="meta">${a.note?esc(a.note)+' · ':''}tap to edit</div></button><button class="x" data-act="delAct" data-id="${a.id}" aria-label="Delete">✕</button>`}));
+  (day(k).w || []).forEach(([t,ml]) => items.push({t, html:`${ic('drop','var(--water)')}<div class="main"><span class="num">${ml} ml</span> water<div class="meta">${keyOf(new Date(t))===k?timeOf(t):'Added later'}</div></div><button class="x" data-act="delWater" data-t="${t}" aria-label="Delete ${ml} ml water">${I.x}</button>`}));
+  actsOn(k).forEach(a => items.push({t:a.t||0, html:`${ic(A_ICON[a.type], ACT[a.type].color)}<button class="main" data-act="editAct" data-id="${a.id}">${actText(a)}<div class="meta">${a.note?esc(a.note)+' · ':''}Tap to edit</div></button><button class="x" data-act="delAct" data-id="${a.id}" aria-label="Delete activity">${I.x}</button>`}));
   items.sort((a,b) => b.t - a.t);
-  h += `<div class="card"><div class="ct"><b>Logged ${k===tk?'today':'this day'}</b><span>${items.length?'':''}</span></div>
+  h += `<div class="card"><div class="ct"><b>${ic('list','var(--ink2)')}Logged ${k===tk?'today':'this day'}</b>${items.length?`<span>${plural(items.length,'entry','entries')}</span>`:''}</div>
     ${items.length ? items.map(i => `<div class="li">${i.html}</div>`).join('') : `<div class="empty">Nothing logged yet. Water and activities you add show here.</div>`}</div>`;
 
   // streaks
-  const st = [];
-  if (g.waterGoal>0) st.push(['💧 Water goal', streakDays(waterHit), 'day']);
-  st.push(['🕌 Prayer goal', streakDays(prayerHit), 'day']);
-  shownTrackers().forEach(t => isDaily(t) ? st.push([`${t.emoji||''} ${t.name}`, streakDays(k2 => tDayHit(t,k2)), 'day']) : st.push([`${t.emoji||''} ${t.name} weekly goal`, streakWeeks(ws2 => tWeekHit(t,ws2)), 'week']));
-  st.push(['🏃 Runs weekly goal', streakWeeks(runWeekHit), 'week'], ['🏋️ Gym weekly goal', streakWeeks(gymWeekHit), 'week'], ['⚽ Football weekly goal', streakWeeks(footWeekHit), 'week']);
-  const live = st.filter(s => s[1] >= 2).sort((a,b) => b[1]-a[1]);
-  h += `<div class="card"><div class="ct"><b>🔥 Streaks</b></div>${live.length ? live.map(s => `<div class="hrow"><span class="hname">${esc(s[0])}</span><b>${plural(s[1],s[2])}</b></div>`).join('') : `<div class="empty">Hit a goal two days (or weeks) in a row and your streaks appear here.</div>`}</div>`;
+  const st = [], sd = f => [streakDays(f), bestDays(f), 'day'], sw = f => [streakWeeks(f), bestWeeks(f), 'week'];
+  if (g.waterGoal>0) st.push(['drop','var(--water)','Water goal', ...sd(waterHit)]);
+  st.push(['moon','var(--prayer)','Prayer goal', ...sd(prayerHit)]);
+  shownTrackers().forEach(t => isDaily(t) ? st.push([tIc(t), tCol(t), t.name, ...sd(k2 => tDayHit(t,k2))]) : st.push([tIc(t), tCol(t), `${t.name} weekly goal`, ...sw(ws2 => tWeekHit(t,ws2))]));
+  st.push(['run','var(--run)','Runs weekly goal', ...sw(runWeekHit)], ['gym','var(--gym)','Gym weekly goal', ...sw(gymWeekHit)]);
+  const live = st.filter(s => s[3] >= 2).sort((a,b) => b[3]-a[3]), un = (n,w) => n===1 ? w : w+'s';
+  h += `<div class="card"><div class="ct"><b>${ic('flame','var(--run)')}Streaks</b></div>${live.length ? live.map(s => `<div class="str">${ic(s[0], s[1], 'lg')}<span class="nm">${esc(s[2])}<small>${s[3] >= s[4] ? '<span class="rec">Record</span>' : `Best ${s[4]} ${un(s[4],s[5])}`}</small></span><span class="v">${s[3]}<small>${un(s[3],s[5])}</small></span></div>`).join('') : `<div class="empty">Hit a goal two days (or weeks) in a row and your streaks appear here.</div>`}</div>`;
   return h;
 }
 const timeOf = t => { const d = new Date(t); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
@@ -506,93 +757,275 @@ function weeksIn(a,b){
 // weeks that count towards "x of y weeks": finished weeks, or the current week if already hit
 const evalWeeks = (weeks, fn) => { const tk = todayKey(); const ev = weeks.filter(ws => addDays(ws,6) < tk || fn(ws)); return {hit: ev.filter(fn).length, of: ev.length}; };
 
+// the same span of time one period earlier (week, month or year)
+function prevRange(a){
+  const d = parseKey(a);
+  if (UI.per === 'week') return [addDays(a,-7), addDays(a,-1)];
+  if (UI.per === 'month') return [keyOf(new Date(d.getFullYear(), d.getMonth()-1, 1)), keyOf(new Date(d.getFullYear(), d.getMonth(), 0))];
+  return [`${d.getFullYear()-1}-01-01`, `${d.getFullYear()-1}-12-31`];
+}
+function prevName(pa){
+  if (UI.per === 'week') return 'last week';
+  if (UI.per === 'month') return MONTHS[parseKey(pa).getMonth()];
+  return pa.slice(0,4);
+}
+// comparison badge: direction from rates, text shows the earlier period in the tile's own unit
+function delta(cur, prev, label, txt){
+  if (prev == null || !isFinite(prev)) return '';
+  const diff = cur - prev, tol = Math.max(Math.abs(prev), Math.abs(cur), 1e-9) * 0.02;
+  const dir = Math.abs(diff) <= tol ? 'flat' : diff > 0 ? 'up' : 'down';
+  const sym = dir === 'up' ? I.arrUp : dir === 'down' ? I.arrDown : I.minus;
+  return `<span class="delta ${dir}" title="Compared with ${esc(label)}">${sym}<span>${esc(capFirst(label))}: ${txt}</span></span>`;
+}
+// longest run of consecutive hits since tracking began
+function bestDays(fn){
+  let best = 0, cur = 0;
+  range(S.start, todayKey()).forEach(k => { if (fn(k)){ cur++; if (cur > best) best = cur; } else cur = 0; });
+  return best;
+}
+function bestWeeks(fn){
+  let best = 0, cur = 0;
+  for (let ws = weekStart(S.start); ws <= todayKey(); ws = addDays(ws,7)){ if (fn(ws)){ cur++; if (cur > best) best = cur; } else if (addDays(ws,6) < todayKey()) cur = 0; }
+  return best;
+}
+const paceSec = a => (+a.km > 0 && +a.sec > 0) ? a.sec / a.km : null;
+const fmtPace = s => dur(s);
+
+/* ---- new Summary cards ---- */
+function prayerWeekdayCard(days, sub){
+  const cnt = PRAYERS.map(() => [...Array(7)].map(() => ({on:0, n:0})));
+  days.forEach(k => { const wd = (parseKey(k).getDay()+6)%7, p = day(k).p || {};
+    PRAYERS.forEach(([id],i) => { cnt[i][wd].n++; if (p[id] === 'on') cnt[i][wd].on++; }); });
+  let worst = null;
+  let s = `<div class="hm" role="table" aria-label="Prayers on time by weekday"><span></span>${DOW1.map(d => `<span class="h">${d}</span>`).join('')}<span class="h">All</span>`;
+  PRAYERS.forEach(([,name],i) => {
+    s += `<span class="n">${name}</span>`;
+    cnt[i].forEach((c,wd) => {
+      if (!c.n){ s += `<span class="c none">–</span>`; return; }
+      const v = pct(c.on, c.n);
+      if (c.n >= 2 && (!worst || v < worst.v)) worst = {v, i, wd};
+      s += `<span class="c hit" style="background:color-mix(in srgb, var(--prayer) ${Math.max(6,v)}%, var(--track));color:${v>=75?'var(--hm-hi)':'var(--ink)'}" data-tip="${name} on ${WD_NAMES[wd]}s: ${c.on} of ${c.n} on time">${v}</span>`;
+    });
+    const tot = cnt[i].reduce((t,c) => ({on:t.on+c.on, n:t.n+c.n}), {on:0,n:0}), tv = pct(tot.on, tot.n);
+    s += `<span class="c all">${tot.n ? tv : '–'}</span>`;
+  });
+  s += `</div><div class="scale"><span>On time %</span><i style="background:color-mix(in srgb, var(--prayer) 10%, var(--track))"></i><i style="background:color-mix(in srgb, var(--prayer) 55%, var(--track))"></i><i style="background:var(--prayer)"></i><span class="tr">Tap a square for detail</span></div>`;
+  if (worst && worst.v < 80){
+    const name = PRAYERS[worst.i][1], weak = cnt[worst.i].map((c,wd) => ({wd, v: c.n >= 2 ? pct(c.on,c.n) : 999})).filter(x => x.v <= worst.v + 5).map(x => WD_NAMES[x.wd] + 's');
+    s += `<div class="callout">${I.warn}<span>${name} slips most on ${listJoin(weak)}: ${worst.v}% on time.</span></div>`;
+  }
+  return card('Prayers by weekday', sub, s, false, 'grid', 'var(--prayer)');
+}
+
+function drinkCard(days){
+  const H0 = 5, H1 = 24, goal = S.settings.waterGoal || 2500;
+  const ds = days.map(k => (day(k).w || []).filter(([t]) => keyOf(new Date(t)) === k)).filter(w => w.length);
+  if (ds.length < 2) return '';
+  const hrs = [...Array(H1-H0+1).keys()].map(i => H0 + i);
+  const curve = hrs.map(h => ds.reduce((s,w) => s + w.filter(([t]) => { const d = new Date(t); return d.getHours() + d.getMinutes()/60 < h; }).reduce((a,e) => a + e[1], 0), 0) / ds.length);
+  const firsts = ds.map(w => { const d = new Date(Math.min(...w.map(e => e[0]))); return d.getHours()*60 + d.getMinutes(); });
+  const firstAvg = Math.round(firsts.reduce((a,b) => a+b, 0) / firsts.length);
+  const by6 = ds.filter(w => w.filter(([t]) => new Date(t).getHours() < 18).reduce((a,e) => a + e[1], 0) >= goal).length;
+  const W = 320, H = 150, t = 12, b = 20, ih = H-t-b, max = Math.max(goal*1.15, ...curve) , x = h => (h-H0)/(H1-H0)*W, y = v => t + ih - v/max*ih;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Average water by time of day">`;
+  for (let v = 1000; v <= max; v += 1000) s += `<line x1="0" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text class="ax" x="0" y="${y(v)-4}">${v/1000} L</text>`;
+  s += `<line x1="${x(7)}" y1="${y(0)}" x2="${x(22)}" y2="${y(goal)}" stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="5 4"/>`;
+  const pts = hrs.map((h,i) => `${x(h).toFixed(1)},${y(curve[i]).toFixed(1)}`).join(' ');
+  s += `<polygon points="0,${y(0)} ${pts} ${W},${y(0)}" fill="var(--water)" opacity=".14"/><polyline points="${pts}" fill="none" stroke="var(--water)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const i6 = 18 - H0, ahead = curve[i6] >= goal * (18-7)/(22-7);
+  s += `<circle cx="${x(18)}" cy="${y(curve[i6])}" r="4.5" fill="var(--card)" stroke="var(--water)" stroke-width="2.4"/><text class="val halo" x="${x(18)}" y="${y(curve[i6])-11}" text-anchor="middle">6pm: ${L(curve[i6])} L</text>`;
+  [6,9,12,15,18,21].forEach(h => s += `<text class="ax" x="${x(h)}" y="${H-4}" text-anchor="middle">${h}:00</text>`);
+  s += `</svg><div class="legend"><span><i style="background:var(--water)"></i>Your average day</span><span><i class="dash"></i>Steady pace, 7am–10pm</span></div>`;
+  s += `<div class="chips2"><div class="chip2"><div class="v">${by6}<small>/${ds.length}</small></div><div class="l">Days goal hit by 6pm</div></div><div class="chip2"><div class="v">${pad(Math.floor(firstAvg/60))}:${pad(firstAvg%60)}</div><div class="l">Average first drink</div></div><div class="chip2"><div class="v">${L(curve[curve.length-1])}<small>L</small></div><div class="l">Average by midnight</div></div></div>`;
+  if (!ahead) s += `<div class="callout">${I.warn}<span>By 6pm you're usually behind pace for ${L(goal)} L.</span></div>`;
+  return card('When you drink', 'Average by hour', s, false, 'drop', 'var(--water)');
+}
+
+function paceCard(a, b){
+  const span0 = UI.per === 'year' ? maxK(a, S.start) : maxK(S.start, addDays(b, -55)), to = minK(b, todayKey());
+  const runs = actsIn(span0, to, 'run').filter(paceSec).sort((p,q) => p.d < q.d ? -1 : p.d > q.d ? 1 : (p.t||0) - (q.t||0));
+  const from = runs.length ? runs[0].d : span0;
+  const sub = UI.per === 'year' ? a.slice(0,4) : 'Last 8 weeks';
+  // all-time bests
+  const all = S.acts.filter(x => x.type === 'run');
+  const longest = all.reduce((m,x) => Math.max(m, +x.km || 0), 0);
+  const fast = all.filter(x => +x.km >= 1 && paceSec(x)).reduce((m,x) => Math.min(m, paceSec(x)), Infinity);
+  let bestWk = 0; for (let ws = weekStart(S.start); ws <= todayKey(); ws = addDays(ws,7)) bestWk = Math.max(bestWk, weekProgress(ws).km);
+  const pbs = longest ? `<div class="pbh">All-time bests</div><div class="chips2"><div class="chip2"><div class="v">${num(longest)}<small>km</small></div><div class="l">Longest run</div></div>${isFinite(fast) ? `<div class="chip2"><div class="v">${fmtPace(fast)}<small>/km</small></div><div class="l">Fastest pace</div></div>` : ''}<div class="chip2"><div class="v">${num(bestWk)}<small>km</small></div><div class="l">Best week</div></div></div>` : '';
+  if (runs.length < 2) return longest ? card('Run pace', sub, `<div class="empty">Log at least two runs with a time to see your pace trend.</div>` + pbs, false, 'run', 'var(--run)') : '';
+  const W = 320, H = 150, t = 14, bt = 20, ih = H-t-bt, d0 = parseKey(from), dx = r => (parseKey(r.d) - d0) / 864e5, span = Math.max(1, (parseKey(to) - d0) / 864e5);
+  const ps = runs.map(paceSec), spread = Math.max(...ps) - Math.min(...ps), padY = Math.max(6, spread * 0.1);
+  const lo = Math.min(...ps) - padY, hi = Math.max(...ps) + padY, step = [10,15,30,60,120,300].find(v => (hi - lo) / v <= 3.2) || 600;
+  const px = r => 10 + dx(r) / span * (W - 20), py = p => t + (p - lo) / (hi - lo) * ih; // faster = higher
+  // least-squares trend
+  const xs = runs.map(dx), mx = xs.reduce((a,v) => a+v, 0)/xs.length, my = ps.reduce((a,v) => a+v, 0)/ps.length;
+  const sxx = xs.reduce((a,v) => a + (v-mx)**2, 0), slope = sxx ? xs.reduce((a,v,i) => a + (v-mx)*(ps[i]-my), 0) / sxx : 0;
+  const fit = v => my + slope * (v - mx), x0 = Math.min(...xs), x1 = Math.max(...xs), change = Math.round(fit(x1) - fit(x0));
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Run pace over time">`;
+  for (let p = Math.ceil(lo / step) * step; p < hi; p += step) s += `<line x1="0" x2="${W}" y1="${py(p)}" y2="${py(p)}" stroke="var(--line)" stroke-width=".6"/><text class="ax" x="0" y="${py(p)-4}">${fmtPace(p)} /km</text>`;
+  if (sxx) s += `<line x1="${px({d:addDays(from, Math.round(x0))})}" y1="${py(fit(x0))}" x2="${px({d:addDays(from, Math.round(x1))})}" y2="${py(fit(x1))}" stroke="var(--run)" stroke-width="2" opacity=".45" stroke-linecap="round"/>`;
+  const last = runs[runs.length - 1];
+  runs.forEach(r => s += `<circle class="hit" cx="${px(r)}" cy="${py(paceSec(r))}" r="${r === last ? 7 : 5}" fill="var(--run)" ${r === last ? 'stroke="var(--card)" stroke-width="2.5"' : ''} data-tip="${esc(`${fmtDay(r.d,{weekday:'short',day:'numeric',month:'short'})}: ${num(r.km)} km in ${dur(r.sec)} · ${pace(r.sec, r.km)}`)}"/>`);
+  s += `<text class="ax" x="0" y="${H-4}">${shortDate(from)}</text><text class="ax" x="${W}" y="${H-4}" text-anchor="end">${shortDate(to)}</text></svg>`;
+  const amt = Math.abs(change) >= 60 ? `${dur(Math.abs(change))} min/km` : `${Math.abs(change)} s/km`;
+  const trend = Math.abs(change) < 3 ? 'Pace is holding steady.' : change < 0 ? `Trend: ${amt} quicker over this span.` : `Trend: ${amt} slower over this span.`;
+  s += `<div class="note left">Higher = faster. Latest run (large dot): <b>${fmtPace(paceSec(last))} /km</b>. ${trend}</div>` + pbs;
+  return card('Run pace', sub, s, false, 'run', 'var(--run)');
+}
+
+function streakBestCard(){
+  const g = S.settings, rows = [];
+  if (g.waterGoal > 0) rows.push(['drop','var(--water)','Water goal', streakDays(waterHit), bestDays(waterHit), 'day']);
+  rows.push(['moon','var(--prayer)','Prayer goal', streakDays(prayerHit), bestDays(prayerHit), 'day']);
+  shownTrackers().forEach(t => isDaily(t)
+    ? rows.push([tIc(t), tCol(t), t.name, streakDays(k => tDayHit(t,k)), bestDays(k => tDayHit(t,k)), 'day'])
+    : rows.push([tIc(t), tCol(t), `${t.name} weekly goal`, streakWeeks(ws => tWeekHit(t,ws)), bestWeeks(ws => tWeekHit(t,ws)), 'week']));
+  if (g.runGoal > 0 || g.kmGoal > 0) rows.push(['run','var(--run)','Runs weekly goal', streakWeeks(runWeekHit), bestWeeks(runWeekHit), 'week']);
+  if (g.gymGoal > 0) rows.push(['gym','var(--gym)','Gym weekly goal', streakWeeks(gymWeekHit), bestWeeks(gymWeekHit), 'week']);
+  const live = rows.filter(r => r[4] > 0);
+  if (!live.length) return '';
+  const u = (n,w) => n === 1 ? w : w + 's';
+  const body = live.map(([i,c,n,cur,best,w]) => `<div class="sr">${ic(i,c,'lg')}<div class="m"><div class="t"><span class="nm">${esc(n)}${cur && cur >= best ? ' <span class="rec">Record</span>' : ''}</span><span class="v">${cur} <small>/ best ${best} ${u(best,w)}</small></span></div><div class="sb"><i data-k="sb-${esc(n)}" style="width:${Math.min(100, cur/best*100)}%;background:${c}"></i></div></div></div>`).join('');
+  return card('Streaks vs your best', 'All time', body + `<div class="note left">Bar = current streak against your record.</div>`, false, 'flame', 'var(--run)');
+}
+
+function yearCard(a){
+  const y = +a.slice(0,4), tk = todayKey();
+  let s = `<div class="months">`;
+  for (let m = 0; m < 12; m++){
+    const ma = keyOf(new Date(y, m, 1)), mb = keyOf(new Date(y, m+1, 0)), lead = (parseKey(ma).getDay()+6)%7;
+    s += `<div class="mo"><div class="mn">${MONTHS[m]}</div><div class="g">${'<i class="pad"></i>'.repeat(lead)}`;
+    range(ma, mb).forEach(k => {
+      const has = k >= S.start && k <= tk, goals = has ? dailyGoals(k) : [], r = goals.length ? goals.filter(x => x.hit).length / goals.length : 0;
+      s += has ? `<i class="hit ${k===tk?'now':''}" style="background:${r ? `color-mix(in srgb, var(--good) ${Math.round(18 + r*82)}%, var(--track))` : 'var(--track)'}" data-tip="${esc(`${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${goals.filter(x=>x.hit).length}/${goals.length} daily goals`)}"></i>` : `<i class="off"></i>`;
+    });
+    s += `</div></div>`;
+  }
+  s += `</div><div class="scale"><span>Daily goals hit</span><i style="background:var(--track)"></i><span>none</span><i style="background:color-mix(in srgb, var(--good) 55%, var(--track))"></i><i style="background:var(--good)"></i><span>all</span></div>`;
+  return card(`${y} at a glance`, 'Tap a day', s, false, 'cal', 'var(--good)');
+}
+
+function gymSplitCard(a, b){
+  const gyms = actsIn(a, minK(b, todayKey()), 'gym');
+  if (!gyms.length) return '';
+  const cols = {Upper:['var(--gym-fill)','#fff'], Lower:['color-mix(in srgb, var(--gym-fill) 62%, #000)','#fff'], Full:['color-mix(in srgb, var(--gym) 30%, var(--card))','var(--ink)'], Other:['var(--grey)','#fff']};
+  const c = SPLITS.map(sp => [sp, gyms.filter(x => (x.split||'Other') === sp).length]).filter(x => x[1]);
+  const mins = gyms.filter(x => +x.min > 0), avg = mins.length ? Math.round(mins.reduce((s,x) => s + +x.min, 0) / mins.length) : 0;
+  let s = `<div class="split" role="img" aria-label="${c.map(([sp,n]) => `${sp} ${n}`).join(', ')}">${c.map(([sp,n]) => `<div style="flex:${n} 1 0;background:${cols[sp][0]};color:${cols[sp][1]}">${sp} ${n}</div>`).join('')}</div>`;
+  s += `<div class="splitk"><span><b>${gyms.length}</b> ${gyms.length===1?'session':'sessions'}</span>${avg ? `<span>Avg <b>${avg}</b> min</span>` : ''}</div>`;
+  // has either half of the body gone untrained? A full-body session counts for both.
+  const tk = todayKey(), lastOf = parts => S.acts.filter(x => x.type === 'gym' && parts.includes(x.split||'Other') && x.d <= tk).reduce((m,x) => x.d > m ? x.d : m, '');
+  const gaps = [['upper-body', lastOf(['Upper','Full'])], ['lower-body', lastOf(['Lower','Full'])]]
+    .map(([n,d]) => [n, d ? Math.round((parseKey(tk) - parseKey(d)) / 864e5) : null]).filter(([,g]) => g != null && g >= 10).sort((p,q) => q[1] - p[1]);
+  if (gaps.length) s += `<div class="callout">${I.warn}<span>Last ${gaps[0][0]} session: ${gaps[0][1]} days ago.</span></div>`;
+  return card('Gym split', UI.per === 'week' ? 'This week' : periodLabel(a,b), s, false, 'gym', 'var(--gym)');
+}
+
 function renderSummary(){
   const [a,b] = periodRange(), tk = todayKey(), g = S.settings;
   const days = (a <= tk && b >= S.start) ? range(maxK(a,S.start), minK(b,tk)) : [];
   const n = days.length, weeks = weeksIn(a,b);
   let h = `<div class="hdr"><div><h1>Summary</h1><div class="sub">${periodLabel(a,b)}</div></div>
-    <div class="arrows"><button class="circ" data-act="prevPer" aria-label="Previous">‹</button><button class="circ" data-act="nextPer" aria-label="Next" ${b>=tk?'disabled':''}>›</button></div></div>
-    <div class="segctl">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}">${capFirst(p)}</button>`).join('')}</div>`;
-  if (!n) return h + `<div class="card"><div class="empty">No data for this period yet.</div></div>`;
+    <div class="arrows"><button class="circ" data-act="prevPer" aria-label="Previous">${I.chevL}</button><button class="circ" data-act="nextPer" aria-label="Next" ${b>=tk?'disabled':''}>${I.chevR}</button></div></div>
+    <div class="segctl" role="tablist">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${capFirst(p)}</button>`).join('')}</div>`;
+  if (!n) return h + `<div class="card"><div class="empty">No data for this period yet. Days you log show up here.</div></div>`;
+
+  // previous period, for the comparison badges
+  const [pa, pb] = prevRange(a), pdays = (pa <= tk && pb >= S.start) ? range(maxK(pa,S.start), minK(pb,tk)) : [], pn = pdays.length, pl = prevName(pa);
+  const cmp = (cur, prev, txt) => pn ? delta(cur, prev, pl, txt) : '';
+  const perWeek = (v, nd) => nd ? v / nd * 7 : 0;
 
   // ---- tiles
-  const water = days.map(waterTotal), wHit = days.filter(waterHit).length;
-  const pcs = days.map(prayerCounts), P = pcs.reduce((s,c) => ({on:s.on+c.on, late:s.late+c.late, missed:s.missed+c.missed, none:s.none+c.none}), {on:0,late:0,missed:0,none:0});
+  const water = days.map(waterTotal), wHit = days.filter(waterHit).length, pwHit = pdays.filter(waterHit).length;
+  const sumP = list => list.map(prayerCounts).reduce((s,c) => ({on:s.on+c.on, late:s.late+c.late, missed:s.missed+c.missed, none:s.none+c.none}), {on:0,late:0,missed:0,none:0});
+  const P = sumP(days), PP = sumP(pdays);
   const runs = actsIn(a,b,'run'), gyms = actsIn(a,b,'gym'), foots = actsIn(a,b,'football');
-  const tile = (color,label,v,gtxt) => `<div class="tile"><div class="l"><i class="dot" style="background:${color}"></i>${label}</div><div class="v">${v}</div><div class="g">${gtxt}</div></div>`;
+  const pruns = actsIn(pa,pb,'run'), pgyms = actsIn(pa,pb,'gym');
+  const tile = (color,label,v,gtxt,icon,d) => `<div class="tile"><div class="l">${ic(icon||'star', color, 'sm')}<span>${label}</span></div><div class="v">${v}</div><div class="g">${gtxt}</div>${d||''}</div>`;
   const wk = UI.per === 'week';
   let t = '';
-  t += tile('var(--water)','Water', `${wHit}/${n} days`, `avg ${L(water.reduce((s,x)=>s+x,0)/n)} L · goal ${L(g.waterGoal)}`);
-  t += tile('var(--good)','Prayers on time', `${pct(P.on,n*5)}%`, `${pct(P.on+P.late,n*5)}% prayed · ${days.filter(prayerHit).length}/${n} days on goal`);
+  t += tile('var(--water)','Water', `${wHit}<small>/${n} days</small>`, `Avg ${L(water.reduce((s,x)=>s+x,0)/n)} L&nbsp;· goal ${L(g.waterGoal)} L`, 'drop', cmp(wHit/n, pwHit/pn, `${pwHit}/${pn} days`));
+  t += tile('var(--prayer)','Prayers on time', `${pct(P.on,n*5)}<small>%</small>`, `${pct(P.on+P.late,n*5)}% prayed&nbsp;· ${days.filter(prayerHit).length}/${n} days hit`, 'moon', cmp(P.on/(n*5), PP.on/(pn*5||1), `${pct(PP.on,pn*5)}%`));
   shownTrackers().forEach(tr => {
     if (tr.type === 'check'){
-      const dn = days.filter(k => tVal(k,tr.id)>0).length;
-      const gw = tr.goal>=7 ? 'goal: every day' : (wk ? `goal ${tr.goal} a week` : (r => `${r.hit}/${r.of} weeks on goal`)(evalWeeks(weeks, ws => tWeekHit(tr,ws))));
-      t += tile('var(--habit)', `${esc(tr.emoji||'')} ${esc(tr.name)}`, `${dn}/${n} days`, gw);
+      const dn = days.filter(k => tVal(k,tr.id)>0).length, pdn = pdays.filter(k => tVal(k,tr.id)>0).length;
+      const gw = tr.goal>=7 ? 'goal: every day' : (wk ? `goal ${tr.goal} a week` : (r => `${r.hit}/${r.of} weeks hit`)(evalWeeks(weeks, ws => tWeekHit(tr,ws))));
+      t += tile(tCol(tr), esc(tr.name), `${dn}<small>/${n} days</small>`, capFirst(gw), tIc(tr), cmp(dn/n, pdn/pn, `${pdn}/${pn} days`));
     } else {
-      const sum = days.reduce((s,k) => s + tVal(k,tr.id), 0);
-      const gw = tr.period==='day' ? `goal hit ${days.filter(k => tDayHit(tr,k)).length}/${n} days` : (r => wk ? `goal ${num(tr.goal,2)} a week` : `${r.hit}/${r.of} weeks on goal`)(evalWeeks(weeks, ws => tWeekHit(tr,ws)));
-      t += tile('var(--habit)', `${esc(tr.emoji||'')} ${esc(tr.name)}`, `${num(sum,2)} ${esc(tr.unit||'')}`, gw);
+      const sum = days.reduce((s,k) => s + tVal(k,tr.id), 0), psum = pdays.reduce((s,k) => s + tVal(k,tr.id), 0);
+      const gw = tr.period==='day' ? `goal hit ${days.filter(k => tDayHit(tr,k)).length}/${n} days` : (r => wk ? `goal ${num(tr.goal,2)} a week` : `${r.hit}/${r.of} weeks hit`)(evalWeeks(weeks, ws => tWeekHit(tr,ws)));
+      t += tile(tCol(tr), esc(tr.name), `${num(sum,2)}<small> ${esc(tr.unit||'')}</small>`, `${capFirst(gw)}&nbsp;· ${num(sum/n,1)}/day`, tIc(tr), cmp(sum/n, psum/(pn||1), `${num(psum/(pn||1),1)}/day`));
     }
   });
-  const wkTxt = fn => { const r = evalWeeks(weeks, fn); return `${r.hit}/${r.of} weeks on goal`; };
+  const wkTxt = fn => { const r = evalWeeks(weeks, fn); return `${r.hit}/${r.of} weeks hit`; };
   if (wk){
-    t += tile('var(--run)','Runs', `${runs.length}/${g.runGoal} ${runs.length>=g.runGoal?'<span class="ok">✓</span>':''}`, `${num(sumKm(runs))} / ${num(g.kmGoal)} km`);
+    const done = n < 7, pEnd = addDays(pa, n - 1), byL = done ? `Last week by ${WD_NAMES[n-1].slice(0,3)}` : 'Last week';
+    const pr2 = actsIn(pa, done ? pEnd : pb, 'run'), pg2 = actsIn(pa, done ? pEnd : pb, 'gym');
+    const cmpW = (cur, prev, txt) => pn ? delta(cur, prev, byL, txt) : '';
+    t += tile('var(--run)','Runs', `${runs.length}<small>/${g.runGoal}</small>${runs.length>=g.runGoal?OKM:''}`, `${num(sumKm(runs))} of ${num(g.kmGoal)} km`, 'run', cmpW(sumKm(runs), sumKm(pr2), `${num(sumKm(pr2))} km`));
     const sp = SPLITS.map(s => [s, gyms.filter(x => (x.split||'Other')===s).length]).filter(x => x[1]).map(x => `${x[1]} ${x[0].toLowerCase()}`).join(' · ');
-    t += tile('var(--gym)','Gym', `${gyms.length}/${g.gymGoal} ${gyms.length>=g.gymGoal&&g.gymGoal?'<span class="ok">✓</span>':''}`, sp || 'no sessions');
-    t += tile('var(--foot)','Football', `${foots.length}/${g.footGoal} ${foots.length>=g.footGoal&&g.footGoal?'<span class="ok">✓</span>':''}`, `${sumMin(foots)} min`);
+    t += tile('var(--gym)','Gym', `${gyms.length}<small>/${g.gymGoal}</small>${gyms.length>=g.gymGoal&&g.gymGoal?OKM:''}`, sp ? capFirst(sp) : 'No sessions', 'gym', cmpW(gyms.length, pg2.length, plural(pg2.length,'session')));
+    if (foots.length) t += tile('var(--foot)','Football', `${foots.length}<small> ${foots.length===1?'game':'games'}</small>`, `${sumMin(foots)} min`, 'ball');
   } else {
-    t += tile('var(--run)','Runs', `${runs.length} · ${num(sumKm(runs))} km`, wkTxt(runWeekHit));
-    t += tile('var(--gym)','Gym', plural(gyms.length,'session'), wkTxt(gymWeekHit));
-    t += tile('var(--foot)','Football', plural(foots.length,'session'), `${sumMin(foots)} min · ${wkTxt(footWeekHit)}`);
+    t += tile('var(--run)','Runs', `${runs.length}<small> · ${num(sumKm(runs))} km</small>`, `${capFirst(wkTxt(runWeekHit))}&nbsp;· ${num(perWeek(sumKm(runs),n))} km/wk`, 'run', cmp(perWeek(sumKm(runs),n), perWeek(sumKm(pruns),pn), `${num(perWeek(sumKm(pruns),pn))} km/wk`));
+    t += tile('var(--gym)','Gym', `${gyms.length}<small> ${gyms.length===1?'session':'sessions'}</small>`, `${capFirst(wkTxt(gymWeekHit))}&nbsp;· ${num(perWeek(gyms.length,n))}/wk`, 'gym', cmp(perWeek(gyms.length,n), perWeek(pgyms.length,pn), `${num(perWeek(pgyms.length,pn))}/wk`));
+    if (foots.length) t += tile('var(--foot)','Football', `${foots.length}<small> ${foots.length===1?'game':'games'}</small>`, `${sumMin(foots)} min&nbsp;· ${wkTxt(footWeekHit)}`, 'ball');
   }
   h += `<div class="tiles">${t}</div>`;
 
-  const allDays = range(a,b);
-  const counted = new Set(days);
-  if (UI.per !== 'year'){
-    // ---- calendar (month)
-    if (UI.per === 'month') h += calendarCard(a,b,counted);
-    // ---- water per day
-    const lab = allDays.map((k,i) => UI.per==='week' ? DOW1[i] : ((i===0 || (i+1)%5===0) ? String(i+1) : ''));
-    h += card('Water per day', 'litres · dashed line = goal', barChart({
+  const allDays = range(a,b), counted = new Set(days);
+  const lab = allDays.map((k,i) => UI.per==='week' ? DOW1[i] : ((i===0 || (i+1)%5===0) ? String(i+1) : ''));
+  const waterDays = () => card('Water per day', 'Litres · dashed line = goal', barChart({
       labels: lab, values: allDays.map(k => counted.has(k) ? waterTotal(k)/1000 : null), color:'var(--water)',
-      goal: g.waterGoal/1000, tips: allDays.map(k => counted.has(k) ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${L(waterTotal(k))} L` : 'No data')}));
-    // ---- prayers per day
-    h += card('Prayers by day', 'tap a bar for detail', stackChart({
+      goal: g.waterGoal/1000, tips: allDays.map(k => counted.has(k) ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${L(waterTotal(k))} L` : 'No data')}), false, 'drop', 'var(--water)');
+  const prayerDays = () => card('Prayers by day', 'Tap a bar for detail', stackChart({
       labels: lab, stacks: allDays.map(k => counted.has(k) ? (c => [c.on,c.late,c.missed,c.none])(prayerCounts(k)) : null), max:5,
-      tips: allDays.map(k => counted.has(k) ? (c => `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}`)(prayerCounts(k)) : 'No data')}) + prayerLegend());
-  } else {
-    // ---- year: monthly
-    const months = [...Array(12).keys()].map(m => { const y = a.slice(0,4); const ma = `${y}-${pad(m+1)}-01`, mb = keyOf(new Date(+y, m+1, 0)); return {m, a:ma, b:mb, days: days.filter(k => k>=ma && k<=mb)}; });
-    const mlab = months.map(x => MONTHS[x.m].charAt(0));
-    h += card('Water', 'daily average by month (L)', barChart({
-      labels: mlab, values: months.map(x => x.days.length ? x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length/1000 : null),
-      color:'var(--water)', goal:g.waterGoal/1000, tips: months.map(x => x.days.length ? `${MONTHS[x.m]}: avg ${L(x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length)} L · goal met ${x.days.filter(waterHit).length}/${x.days.length} days` : `${MONTHS[x.m]}: no data`)}));
-    h += card('Prayers by month', 'share of all prayers', stackChart({
-      labels: mlab, max:100, stacks: months.map(x => { if (!x.days.length) return null; const c = x.days.map(prayerCounts).reduce((s,c)=>({on:s.on+c.on,late:s.late+c.late,missed:s.missed+c.missed,none:s.none+c.none}),{on:0,late:0,missed:0,none:0}); const T = x.days.length*5; return [c.on/T*100, c.late/T*100, c.missed/T*100, c.none/T*100]; }),
-      tips: months.map(x => { if (!x.days.length) return `${MONTHS[x.m]}: no data`; const c = x.days.map(prayerCounts).reduce((s,c)=>({on:s.on+c.on,late:s.late+c.late,missed:s.missed+c.missed}),{on:0,late:0,missed:0}); const T=x.days.length*5; return `${MONTHS[x.m]}: ${pct(c.on,T)}% on time, ${pct(c.late,T)}% late, ${pct(c.missed,T)}% missed`; })}) + prayerLegend());
-    h += card('Run distance by month', 'km', barChart({labels:mlab, values: months.map(x => x.days.length ? sumKm(actsIn(x.a,x.b,'run')) : null), color:'var(--run)', showVals:true,
-      tips: months.map(x => { const r = actsIn(x.a,x.b,'run'); return `${MONTHS[x.m]}: ${r.length} runs · ${num(sumKm(r))} km`; })}));
-    h += card('Month by month', '', monthTable(months), true);
-  }
-
-  // ---- which prayer slips
-  h += card('Which prayer slips most', `on time out of ${n} ${n===1?'day':'days'}`, prayerByName(days));
+      tips: allDays.map(k => counted.has(k) ? (c => `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}`)(prayerCounts(k)) : 'No data')}) + prayerLegend(), false, 'moon', 'var(--prayer)');
 
   if (UI.per === 'week'){
-    h += card('Habit grid', 'filled = done / goal hit', habitGrid(allDays, counted));
-    h += card('Run distance', 'km per day', barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
-      tips: allDays.map(k => { if (!counted.has(k)) return 'No data'; const r = actsOn(k).filter(x=>x.type==='run'); return `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${r.length?r.map(x=>`${num(x.km)} km${x.sec?' in '+dur(x.sec):''}`).join(', '):'no run'}`; })}));
-  }
-  if (UI.per === 'month'){
-    h += card('Weekly goals', 'Mon–Sun weeks', weekTable(weeks), true);
+    h += card('Habit grid', 'Filled = done', habitGrid(allDays, counted), false, 'grid', 'var(--habit)');
+    h += prayerDays();
+    h += card('Which prayer slips', `On time, of ${n} ${n===1?'day':'days'}`, prayerByName(days), false, 'chart', 'var(--prayer)');
+    h += waterDays();
+    h += drinkCard(days);
+    const wkRuns = allDays.some(k => actsOn(k).some(x => x.type==='run'));
+    h += card('Run distance', 'km per day', !wkRuns ? `<div class="empty">No runs logged this week.</div>` : barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
+      tips: allDays.map(k => { if (!counted.has(k)) return 'No data'; const r = actsOn(k).filter(x=>x.type==='run'); return `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${r.length?r.map(x=>`${num(x.km)} km${x.sec?' in '+dur(x.sec):''}`).join(', '):'no run'}`; })}), false, 'run', 'var(--run)');
+    h += paceCard(a,b);
+    h += gymSplitCard(a,b);
+  } else if (UI.per === 'month'){
+    h += calendarCard(a,b,counted);
+    h += prayerWeekdayCard(days, `On time %, ${MONTHS[parseKey(a).getMonth()]}`);
+    h += prayerDays();
+    h += waterDays();
+    h += drinkCard(days);
+    h += paceCard(a,b);
     h += card('Run distance by week', 'km', barChart({labels: weeks.map(ws => shortDate(ws)), values: weeks.map(ws => weekProgress(ws).km), color:'var(--run)', showVals:true, goal: g.kmGoal||null,
-      tips: weeks.map(ws => { const p = weekProgress(ws); return `w/c ${shortDate(ws)}: ${p.runs} runs · ${num(p.km)} km`; })}));
+      tips: weeks.map(ws => { const p = weekProgress(ws); return `w/c ${shortDate(ws)}: ${p.runs} runs · ${num(p.km)} km`; })}), false, 'run', 'var(--run)');
+    h += gymSplitCard(a,b);
+    h += card('Weekly goals', 'Mon–Sun weeks', weekTable(weeks), true, 'cal', 'var(--accent)');
+  } else {
+    const months = [...Array(12).keys()].map(m => { const y = a.slice(0,4); const ma = `${y}-${pad(m+1)}-01`, mb = keyOf(new Date(+y, m+1, 0)); return {m, a:ma, b:mb, days: days.filter(k => k>=ma && k<=mb)}; });
+    const mlab = months.map(x => MONTHS[x.m].charAt(0));
+    h += yearCard(a);
+    h += prayerWeekdayCard(days, `On time %, ${a.slice(0,4)}`);
+    h += card('Prayers by month', 'Share of all prayers', stackChart({
+      labels: mlab, max:100, stacks: months.map(x => { if (!x.days.length) return null; const c = sumP(x.days), T = x.days.length*5; return [c.on/T*100, c.late/T*100, c.missed/T*100, c.none/T*100]; }),
+      tips: months.map(x => { if (!x.days.length) return `${MONTHS[x.m]}: no data`; const c = sumP(x.days), T = x.days.length*5; return `${MONTHS[x.m]}: ${pct(c.on,T)}% on time, ${pct(c.late,T)}% late, ${pct(c.missed,T)}% missed`; })}) + prayerLegend(), false, 'moon', 'var(--prayer)');
+    h += card('Water', 'Daily average (L)', barChart({
+      labels: mlab, values: months.map(x => x.days.length ? x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length/1000 : null),
+      color:'var(--water)', goal:g.waterGoal/1000, tips: months.map(x => x.days.length ? `${MONTHS[x.m]}: avg ${L(x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length)} L · goal met ${x.days.filter(waterHit).length}/${x.days.length} days` : `${MONTHS[x.m]}: no data`)}), false, 'drop', 'var(--water)');
+    h += drinkCard(days);
+    h += card('Run distance by month', 'km', barChart({labels:mlab, values: months.map(x => x.days.length ? sumKm(actsIn(x.a,x.b,'run')) : null), color:'var(--run)', showVals:true,
+      tips: months.map(x => { const r = actsIn(x.a,x.b,'run'); return `${MONTHS[x.m]}: ${r.length} runs · ${num(sumKm(r))} km`; })}), false, 'run', 'var(--run)');
+    h += paceCard(a,b);
+    h += gymSplitCard(a,b);
+    h += card('Month by month', '', monthTable(months), true, 'table', 'var(--grey)');
   }
+  h += streakBestCard();
   return h;
 }
-const card = (title, sub, body, flush) => `<div class="card"><div class="ct"><b>${title}</b><span>${sub||''}</span></div>${flush?`<div style="overflow-x:auto">${body}</div>`:body}</div>`;
+const card = (title, sub, body, flush, icon, c) => `<div class="card"><div class="ct"><b>${icon?ic(icon, c||'var(--accent)'):''}${title}</b><span>${sub||''}</span></div>${flush?`<div class="scrollx">${body}</div>`:body}</div>`;
 const prayerLegend = () => `<div class="legend"><span><i style="background:var(--good)"></i>On time</span><span><i style="background:var(--warn)"></i>Late</span><span><i style="background:var(--bad)"></i>Missed</span><span><i style="background:var(--none)"></i>Not logged</span></div>`;
 
 /* ---------------- charts (hand-drawn SVG, no libraries) ---------------- */
@@ -606,15 +1039,16 @@ function barChart({labels, values, color, goal, tips, showVals, height=130}){
   const bw = Math.max(3, Math.min(28, slot*0.62));
   const vmax = Math.max(goal ? goal*1.15 : 0, ...values.filter(v => v!=null), 0.0001);
   let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
+  [0.5,1].forEach(f => s += `<line x1="0" x2="${W}" y1="${top+ih-ih*f}" y2="${top+ih-ih*f}" stroke="var(--line)" stroke-width=".6" opacity=".7"/>`);
   s += `<line x1="0" x2="${W}" y1="${top+ih}" y2="${top+ih}" stroke="var(--line)"/>`;
   values.forEach((v,i) => {
     const x = i*slot + (slot-bw)/2;
-    if (v != null && v > 0){ const bh = v/vmax*ih; s += `<path d="${topRound(x, top+ih-bh, bw, bh, 4)}" fill="${color}"/>`;
+    if (v != null && v > 0){ const bh = v/vmax*ih; s += `<path d="${topRound(x, top+ih-bh, bw, bh, Math.min(6, bw/2))}" fill="${color}"/>`;
       if (showVals && n <= 12) s += `<text class="val" x="${x+bw/2}" y="${top+ih-bh-4}" text-anchor="middle">${num(v)}</text>`; }
     if (labels[i]) s += `<text class="ax" x="${i*slot+slot/2}" y="${H-4}" text-anchor="middle">${labels[i]}</text>`;
     if (tips) s += `<rect class="hit" x="${i*slot}" y="0" width="${slot}" height="${H}" fill="transparent" data-tip="${esc(tips[i])}"/>`;
   });
-  if (goal){ const gy = top + ih - goal/vmax*ih; s += `<line x1="0" x2="${W}" y1="${gy}" y2="${gy}" stroke="var(--ink2)" stroke-dasharray="4 3" pointer-events="none"/>`; }
+  if (goal){ const gy = top + ih - goal/vmax*ih; s += `<line x1="0" x2="${W}" y1="${gy}" y2="${gy}" stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="5 4" pointer-events="none"/>`; }
   return s + `</svg>`;
 }
 function stackChart({labels, stacks, max, tips, height=110}){
@@ -631,15 +1065,16 @@ function stackChart({labels, stacks, max, tips, height=110}){
   return s + `</svg>`;
 }
 function prayerByName(days){
-  const W = 320, rowH = 24, cols = ['var(--good)','var(--warn)','var(--bad)','var(--none)'], n = days.length;
+  const W = 320, rowH = 28, cols = ['var(--good)','var(--warn)','var(--bad)','var(--none)'], n = days.length;
   let s = `<svg class="chart" viewBox="0 0 ${W} ${PRAYERS.length*rowH}" role="img">`;
   PRAYERS.forEach(([id,name],i) => {
     const c = {on:0,late:0,missed:0,none:0};
     days.forEach(k => { const v = (day(k).p||{})[id]; c[v==='on'?'on':v==='late'?'late':v==='missed'?'missed':'none']++; });
-    const y = i*rowH + 4, x0 = 62, bw = 214; let x = x0;
+    const y = i*rowH + 4, x0 = 70, bw = 200; let x = x0;
     s += `<text class="lab" x="0" y="${y+11}">${name}</text>`;
-    [c.on,c.late,c.missed,c.none].forEach((v,j) => { if (!v) return; const w = v/n*bw; s += `<rect x="${x}" y="${y}" width="${Math.max(0,w-2)}" height="14" rx="3" fill="${cols[j]}"/>`; x += w; });
-    s += `<text class="val" x="${W}" y="${y+11}" text-anchor="end">${c.on}/${n}</text>`;
+    s += `<rect x="${x0}" y="${y}" width="${bw}" height="14" rx="7" fill="var(--track)"/>`;
+    [c.on,c.late,c.missed,c.none].forEach((v,j) => { if (!v) return; const w = v/n*bw; s += `<rect x="${x}" y="${y}" width="${Math.max(0,w-2)}" height="14" rx="5" fill="${cols[j]}"/>`; x += w; });
+    s += `<text class="val num" x="${W}" y="${y+11}" text-anchor="end">${c.on}/${n}</text>`;
     s += `<rect class="hit" x="0" y="${y-4}" width="${W}" height="${rowH}" fill="transparent" data-tip="${name}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}"/>`;
   });
   return s + `</svg>` + prayerLegend();
@@ -648,19 +1083,19 @@ function habitGrid(allDays, counted){
   const rows = [
     ['Run','var(--run)', k => actsOn(k).some(a => a.type==='run')],
     ['Gym','var(--gym)', k => actsOn(k).some(a => a.type==='gym')],
-    ['Football','var(--foot)', k => actsOn(k).some(a => a.type==='football')],
+    ...(allDays.some(k => actsOn(k).some(a => a.type==='football')) ? [['Football','var(--foot)', k => actsOn(k).some(a => a.type==='football')]] : []),
     ['Water','var(--water)', waterHit],
-    ['Prayers','var(--habit)', prayerHit],
-    ...shownTrackers().map(t => [t.name, 'var(--habit)', k => tDayHit(t,k)])
+    ['Prayers','var(--prayer)', prayerHit],
+    ...shownTrackers().map(t => [t.name, tCol(t), k => tDayHit(t,k)])
   ];
-  const W = 320, rh = 24, x0 = 100, step = (W-x0-10)/6;
+  const W = 320, rh = 26, x0 = Math.min(150, Math.max(84, Math.max(...rows.map(r => r[0].length)) * 7.4 + 12)), step = (W-x0-10)/6;
   let s = `<svg class="chart" viewBox="0 0 ${W} ${rows.length*rh+18}" role="img">`;
   rows.forEach(([name,color,fn],i) => {
     const y = i*rh + 12;
-    s += `<text class="lab" x="0" y="${y+4}">${esc(name.length>13?name.slice(0,12)+'…':name)}</text>`;
+    s += `<text class="lab" x="0" y="${y+4}">${esc(name)}</text>`;
     allDays.forEach((k,j) => {
       const cx = x0 + j*step + 5, ok = counted.has(k) && fn(k);
-      s += ok ? `<circle cx="${cx}" cy="${y}" r="7.5" fill="${color}"/>` : `<circle cx="${cx}" cy="${y}" r="6.5" fill="none" stroke="var(--none)" stroke-width="1.5" ${counted.has(k)?'':'stroke-dasharray="2 2"'}/>`;
+      s += ok ? `<circle cx="${cx}" cy="${y}" r="8" fill="${color}"/>` : `<circle cx="${cx}" cy="${y}" r="7" fill="none" stroke="var(--none)" stroke-width="1.6" ${counted.has(k)?'':'stroke-dasharray="2 2"'}/>`;
     });
   });
   allDays.forEach((k,j) => s += `<text class="ax" x="${x0 + j*step + 5}" y="${rows.length*rh+14}" text-anchor="middle">${DOW1[j]}</text>`);
@@ -674,14 +1109,14 @@ function calendarCard(a,b,counted){
     const bg = has ? `background:color-mix(in srgb, var(--good) ${Math.round(r*85)}%, var(--chip))` : '';
     const acts = has ? ['run','gym','football'].filter(t => actsOn(k).some(x => x.type===t)) : [];
     const tip = has ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${goals.filter(x=>x.hit).length}/${goals.length} daily goals${acts.length?' · '+acts.map(t=>ACT[t].name).join(', '):''}` : 'No data';
-    s += `<div class="d hit ${has?'':'f'} ${k===tk?'today':''}" style="${bg};${r>.55?'color:#fff':''}" data-tip="${esc(tip)}">${parseKey(k).getDate()}<span class="ds">${acts.map(t => `<i style="background:${ACT[t].color};box-shadow:0 0 0 1px var(--card)"></i>`).join('')}</span></div>`;
+    s += `<div class="d hit ${has?'':'f'} ${k===tk?'today':''}" style="${bg};${r>.55?'color:#fff':''}" data-tip="${esc(tip)}">${parseKey(k).getDate()}<span class="ds">${acts.map(t => `<i style="background:${ACT[t].color}"></i>`).join('')}</span></div>`;
   });
   s += `</div><div class="legend"><span><i style="background:color-mix(in srgb, var(--good) 85%, var(--chip))"></i>All daily goals hit</span><span><i style="background:var(--run)"></i>Run</span><span><i style="background:var(--gym)"></i>Gym</span><span><i style="background:var(--foot)"></i>Football</span></div>`;
-  return card('Month at a glance', 'darker = more daily goals hit', s);
+  return card('Month at a glance', 'Darker = more goals', s, false, 'cal', 'var(--good)');
 }
 function weekTable(weeks){
   if (!weeks.length) return `<div class="empty">No weeks yet.</div>`;
-  const g = S.settings, mark = ok => ok ? ' <span class="ok">✓</span>' : '';
+  const g = S.settings, mark = ok => ok ? ' ' + OKM : '';
   let s = `<table class="tbl"><tr><th>Week of</th><th>Runs</th><th>km</th><th>Gym</th><th>Football</th></tr>`;
   weeks.forEach(ws => { const p = weekProgress(ws);
     s += `<tr><td>${shortDate(ws)}</td><td>${p.runs}/${g.runGoal}${mark(p.runs>=g.runGoal)}</td><td>${num(p.km)}${mark(g.kmGoal&&p.km>=g.kmGoal)}</td><td>${p.gym}/${g.gymGoal}${mark(gymWeekHit(ws))}</td><td>${p.foot}/${g.footGoal}${mark(footWeekHit(ws))}</td></tr>`; });
@@ -689,40 +1124,46 @@ function weekTable(weeks){
 }
 function monthTable(months){
   const ts = shownTrackers();
-  let s = `<table class="tbl"><tr><th>Month</th><th>Runs</th><th>km</th><th>Gym</th><th>Foot.</th><th>On time</th>${ts.map(t => `<th title="${esc(t.name)}">${esc(t.emoji || t.name.slice(0,6))}</th>`).join('')}</tr>`;
+  let s = `<table class="tbl"><tr><th>Month</th><th>Runs</th><th>km</th><th>Gym</th><th>Foot.</th><th>On time</th>${ts.map(t => `<th title="${esc(t.name)}" aria-label="${esc(t.name)}">${ic(tIc(t), tCol(t), 'xs')}</th>`).join('')}</tr>`;
   months.filter(m => m.days.length).forEach(m => {
     const pc = m.days.map(prayerCounts).reduce((s,c)=>s+c.on,0);
     s += `<tr><td>${MONTHS[m.m]}</td><td>${actsIn(m.a,m.b,'run').length}</td><td>${num(sumKm(actsIn(m.a,m.b,'run')))}</td><td>${actsIn(m.a,m.b,'gym').length}</td><td>${actsIn(m.a,m.b,'football').length}</td><td>${pct(pc,m.days.length*5)}%</td>`
       + ts.map(t => `<td>${t.type==='check' ? m.days.filter(k=>tVal(k,t.id)>0).length+'d' : num(m.days.reduce((s,k)=>s+tVal(k,t.id),0),2)}</td>`).join('') + `</tr>`;
   });
-  return s + `</table><div class="foot" style="margin-left:0">On time = prayers on time. Tracker columns use their icons; yes/no trackers show days done (d).</div>`;
+  return s + `</table><div class="foot" style="margin:10px 0 0">On time = prayers on time. Tracker columns use their icons; yes/no trackers show days done (d).</div>`;
 }
 
 /* ---------------- SETTINGS ---------------- */
 function renderSettings(){
   const g = S.settings;
-  const goalTxt = t => t.type==='check' ? (t.goal>=7?'every day':`${t.goal} days a week`) : `${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
-  let h = `<div class="hdr"><h1>Settings</h1></div>` + backupBanner();
+  const goalTxt = t => t.type==='check' ? (t.goal>=7?'Every day':`${t.goal} days a week`) : `${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
+  // one iOS-style row: solid icon tile, label, value, chevron
+  const row = (act, attrs, icon, c, label, value, cls) => `<button class="r ${cls||''}" data-act="${act}" ${attrs||''}>${ic(icon, c, 'solid')}<span class="rl">${label}</span>${value!=null?`<em>${value}</em>`:''}${cls?'':`<span class="chev">${I.chevR}</span>`}</button>`;
+  const info = (icon, c, label, value) => `<div class="r">${ic(icon, c, 'solid')}<span class="rl">${label}</span><em>${value}</em></div>`;
+  const lb = g.lastBackup ? fmtDay(g.lastBackup.slice(0,10),{day:'numeric',month:'long',year:'numeric'}) : 'never';
+
+  let h = `<div class="hdr"><div><h1>Settings</h1></div></div>` + backupBanner();
+  h += `<div class="app-card"><img src="icon-180.png" alt="" width="60" height="60"><div><b>Life Log</b><div class="sub">Version ${VERSION} · data stays on this iPhone</div><div class="sub">Last backup: ${lb}</div></div></div>`;
+
   h += `<div class="sh">Your goals</div><div class="set">
-    <button class="r" data-act="goal" data-g="water"><span>💧 Water</span><em>${L(g.waterGoal)} L a day ›</em></button>
-    <button class="r" data-act="goal" data-g="prayers"><span>🕌 Prayers</span><em>${g.prayerGoal} a day${g.lateCounts?' (late counts)':', on time'} ›</em></button>
-    ${trackers().map(t => `<button class="r" data-act="tracker" data-id="${t.id}"><span>${esc(t.emoji||'•')} ${esc(t.name)}</span><em>${t.show===false?'hidden · ':''}${goalTxt(t)} ›</em></button>`).join('')}
-    <button class="r" data-act="goal" data-g="run"><span>🏃 Runs</span><em>${g.runGoal} a week · ${num(g.kmGoal)} km ›</em></button>
-    <button class="r" data-act="goal" data-g="gym"><span>🏋️ Gym</span><em>${plural(g.gymGoal,'session')} a week ›</em></button>
-    <button class="r" data-act="goal" data-g="football"><span>⚽ Football</span><em>${plural(g.footGoal,'session')} a week ›</em></button>
-    <button class="r blue" data-act="tracker" data-id="">+ Add your own tracker</button></div>
-    <div class="foot">Tap any goal to change it. Your own trackers can be yes/no (e.g. stretching), a count (e.g. pages) or an amount (e.g. minutes).</div>`;
-  h += `<div class="sh">Water buttons</div><div class="set"><button class="r" data-act="goal" data-g="quick"><span>Quick-add amounts</span><em>${g.quick.join(' · ')} ml ›</em></button></div>`;
+    ${row('goal','data-g="water"','drop','var(--water)','Water', `${L(g.waterGoal)} L a day`)}
+    ${row('goal','data-g="prayers"','moon','var(--prayer)','Prayers', `${g.prayerGoal} a day${g.lateCounts?', late counts':', on time'}`)}
+    ${trackers().map(t => row('tracker',`data-id="${t.id}"`, tIc(t), tCol(t), esc(t.name), `${t.show===false?'Hidden · ':''}${goalTxt(t)}`)).join('')}
+    ${row('goal','data-g="run"','run','var(--run)','Runs', `${g.runGoal} a week · ${num(g.kmGoal)} km`)}
+    ${row('goal','data-g="gym"','gym','var(--gym)','Gym', `${plural(g.gymGoal,'session')} a week`)}
+    <button class="r blue" data-act="tracker" data-id="">${ic('plus','var(--accent)','solid')}<span class="rl">Add your own tracker</span></button></div>
+    <div class="foot">Tap a goal to change it. Your own trackers can be yes/no (e.g. stretching), a count (e.g. pages) or an amount (e.g. minutes).</div>`;
+  h += `<div class="sh">Water buttons</div><div class="set">${row('goal','data-g="quick"','drop','var(--water)','Amounts', `${g.quick.join(' · ')} ml`)}</div>`;
   h += `<div class="sh">Your data</div><div class="set">
-    <button class="r blue" data-act="backup">Back up to Files / iCloud</button>
-    <button class="r blue" data-act="restore">Restore from backup</button>
-    <button class="r blue" data-act="csv">Export spreadsheet (CSV)</button></div>
-    <div class="foot">Last backup: ${g.lastBackup ? fmtDay(g.lastBackup.slice(0,10),{day:'numeric',month:'long',year:'numeric'}) : 'never'}. Your data is only stored on this iPhone. Back up weekly and keep the file in iCloud Drive so you can restore it on a new phone. <span id="persist"></span></div>`;
+    ${row('backup','','up','var(--accent)','Back up to Files / iCloud', null)}
+    ${row('restore','','down','var(--gym)','Restore from backup', null)}
+    ${row('csv','','table','var(--grey)','Export spreadsheet (CSV)', null)}</div>
+    <div class="foot">Your data is only stored on this iPhone. Back up weekly and keep the file in iCloud Drive so you can restore it on a new phone. <span id="persist"></span></div>`;
   h += `<div class="sh">App</div><div class="set">
-    <div class="r"><span>Tracking since</span><em>${fmtDay(S.start,{day:'numeric',month:'long',year:'numeric'})}</em></div>
-    <div class="r"><span>Version</span><em>${VERSION}</em></div>
-    <button class="r red" data-act="erase">Erase all data</button></div>
-    <div class="foot">Light/dark mode follows your iPhone. Works offline.</div>`;
+    ${info('cal','var(--accent)','Tracking since', fmtDay(S.start,{day:'numeric',month:'long',year:'numeric'}))}
+    ${info('info','var(--grey)','Version', VERSION)}
+    <button class="r red" data-act="erase">${ic('trash','var(--bad)','solid')}<span class="rl">Erase all data</span></button></div>
+    <div class="foot">Light and dark mode follow your iPhone. Works offline.</div>`;
   setTimeout(showPersist, 0);
   return h;
 }
@@ -907,7 +1348,7 @@ function toast(msg){ $toast.textContent = msg; $toast.classList.add('show'); cle
 
 /* ---------------- actions ---------------- */
 const A = {
-  tab: el => { UI.tab = el.dataset.tab; render(); scrollTo(0,0); },
+  tab: el => { UI.tab = el.dataset.tab; render(); scrollTo(0,0); syncTopbar(); },
   prevDay: () => { UI.date = addDays(UI.date,-1); render(); },
   nextDay: () => { if (UI.date < todayKey()){ UI.date = addDays(UI.date,1); render(); } },
   goToday: () => { UI.date = todayKey(); render(); },
@@ -959,7 +1400,8 @@ document.addEventListener('click', e => {
 $scrim.addEventListener('click', closeSheet);
 $sheet.addEventListener('input', e => { if (['fKm','fMin','fSec','fDate'].includes(e.target.id)) updatePace(); });
 document.getElementById('fileIn').addEventListener('change', e => { const f = e.target.files[0]; if (f) restoreFile(f); e.target.value = ''; });
-addEventListener('scroll', hideTip, {passive:true});
+addEventListener('scroll', () => { hideTip(); $topbar.classList.toggle('show', scrollY > 56); }, {passive:true});
+addEventListener('resize', placeBubble);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState !== 'visible') return;
   const tk = todayKey();
