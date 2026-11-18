@@ -412,7 +412,7 @@ h2.sec .ok svg{width:18px;height:18px}
 .ci b{display:block;font-size:13px;margin-top:8px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ci .s{display:block;font-size:12px;color:var(--ink2);margin-top:1px}
 .ci .s.hit{color:var(--good-ink);font-weight:600}
-.ci.add .o{color:var(--ink2)}.ci.add .o::before{opacity:0}.ci.add .o{box-shadow:inset 0 0 0 2px var(--line)}
+.ci.newt .o{color:var(--ink2);box-shadow:inset 0 0 0 2px var(--line)}.ci.newt .o::before{opacity:0}
 
 /* prayer circles */
 .prow{display:flex;justify-content:space-between;padding:16px 12px}
@@ -456,8 +456,8 @@ h2.sec .ok svg{width:18px;height:18px}
 .bq .o{height:116px;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff}
 .bq .o .num{font-size:30px;font-weight:800;letter-spacing:-.03em}
 .bq .o small{font-size:13px;font-weight:700;opacity:.85}
-.bq b{display:block;font-size:13.5px;margin-top:8px;font-weight:600}
-.bq span{display:block;font-size:12px;color:var(--ink2)}
+.bq > b{display:block;font-size:13.5px;margin-top:8px;font-weight:600}
+.bq > span{display:block;font-size:12px;color:var(--ink2)}
 
 /* round icons in Settings rows */
 .ic.round{width:34px;height:34px;border-radius:50%;color:#fff}.ic.round::before{opacity:1}.ic.round svg{width:18px;height:18px}
@@ -554,7 +554,7 @@ h2.sec .ok svg{width:18px;height:18px}
 
 <script>'use strict';
 /* Life Log — personal daily tracker. All data is stored on this device (localStorage). */
-const VERSION = '1.3.0';
+const VERSION = '1.3.1';
 const KEY = 'lifelog.v1';
 const PRAYERS = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha']];
 const ACT = {
@@ -694,10 +694,12 @@ function render(){
   const view = UI.tab + '|' + UI.date + '|' + UI.per + '|' + UI.anchor, prev = {};
   if (view === lastView) $app.querySelectorAll('[data-k]').forEach(el => prev[el.dataset.k] = [el.getAttribute('class'), el.getAttribute('style')]);
   lastView = view;
+  const keep = {}; $app.querySelectorAll('[data-keep]').forEach(e => keep[e.dataset.keep] = e.scrollLeft);
   if (UI.tab === 'today') $app.innerHTML = renderToday();
   else if (UI.tab === 'summary') $app.innerHTML = renderSummary();
   else $app.innerHTML = renderSettings();
   placeBubble(); syncTopbar();
+  $app.querySelectorAll('[data-keep]').forEach(e => { if (keep[e.dataset.keep]) e.scrollLeft = keep[e.dataset.keep]; });
   if (UI.tab === 'today') setupStack();
   const moved = [];
   $app.querySelectorAll('[data-k]').forEach(el => {
@@ -845,8 +847,8 @@ function renderToday(){
   });
   cr += `<button class="ci" style="--c:var(--run)" data-act="addAct" data-type="run"><span class="o">${I.run}</span><b>Run</b><span class="s">${wpg.runs} of ${g.runGoal}</span></button>`;
   cr += `<button class="ci" style="--c:var(--gym)" data-act="addAct" data-type="gym"><span class="o">${I.gym}</span><b>Gym</b><span class="s">${wpg.gym} of ${g.gymGoal}</span></button>`;
-  cr += `<button class="ci add" data-act="tracker" data-id=""><span class="o">${I.plus}</span><b>Add</b><span class="s">Tracker</span></button>`;
-  h += sec('Habits', 'tap to log') + `<div class="crow">${cr}</div>`;
+  cr += `<button class="ci newt" data-act="tracker" data-id=""><span class="o">${I.plus}</span><b>Add</b><span class="s">Tracker</span></button>`;
+  h += sec('Habits', 'tap to log') + `<div class="crow" data-keep="habits">${cr}</div>`;
 
   // ---- prayers: tap a circle to cycle on time → late → missed → clear
   const pc = prayerCounts(k), p = day(k).p || {};
@@ -1123,16 +1125,30 @@ function bestsRow(){
   shownTrackers().filter(isDaily).forEach(tr => cand.push([tr.name, bestDays(k => tDayHit(tr,k)), tCol(tr)]));
   cand.sort((p,q) => q[1] - p[1]).slice(0,2).forEach(([n, v, c]) => { if (v > 1) t.push([c, '#fff', v, 'days', `${n} streak`, 'Record']); });
   if (!t.length) return '';
-  return sec('Your bests', 'all time') + `<div class="bests">${t.map(([bg, fg, v, u, l, sub]) => `<div class="bq"><div class="o" style="background:${bg};color:${fg}"><span class="num">${v}</span><small>${u}</small></div><b>${esc(l)}</b><span>${esc(sub)}</span></div>`).join('')}</div>`;
+  return sec('Your bests', 'all time') + `<div class="bests" data-keep="bests">${t.map(([bg, fg, v, u, l, sub]) => `<div class="bq"><div class="o" style="background:${bg};color:${fg}"><span class="num">${v}</span><small>${u}</small></div><b>${esc(l)}</b><span>${esc(sub)}</span></div>`).join('')}</div>`;
+}
+
+const perChips = () => `<div class="chips" role="tablist">${[['week','Week'],['month','Month'],['year','Year'],['records','Records']].map(([p,l]) => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${l}</button>`).join('')}</div>`;
+// Records: all-time streaks and bests, kept off the period views
+function renderRecords(){
+  const tk = todayKey(), perfect = k => { const gs = dailyGoals(k); return gs.length > 0 && gs.every(x => x.hit); };
+  const all = range(S.start, tk), total = all.filter(perfect).length, best = bestDays(perfect), cur = streakDays(perfect);
+  let h = `<h1 class="tt solo">Your records, <em>all time</em></h1>` + perChips();
+  h += `<div class="sky"><div class="sk-l">Perfect days</div><div class="sk-v">${total}<small> of ${all.length}</small></div>
+    <div class="inner2">${cur ? I.flame : I.minus}<span><b>${cur ? `On a ${cur}-day perfect run` : 'No perfect run going right now'}</b>Best run: ${plural(best,'day')} with every daily goal hit.</span></div></div><div style="height:6px"></div>`;
+  h += bestsRow();
+  h += streakBestCard();
+  return h || `<div class="card"><div class="empty">Records appear once you've logged a few days.</div></div>`;
 }
 
 function renderSummary(){
+  if (UI.per === 'records') return renderRecords();
   const [a,b] = periodRange(), tk = todayKey(), g = S.settings;
   const days = (a <= tk && b >= S.start) ? range(maxK(a,S.start), minK(b,tk)) : [];
   const n = days.length, weeks = weeksIn(a,b);
   let h = dateNav(periodLabel(a,b), 'prevPer', 'nextPer', b >= tk);
   h += `<h1 class="tt">Your ${UI.per}, <em>at a glance</em></h1>`;
-  h += `<div class="chips" role="tablist">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${capFirst(p)}</button>`).join('')}</div>`;
+  h += perChips();
   if (!n) return h + `<div class="card"><div class="empty">No data for this period yet. Days you log show up here.</div></div>`;
 
   // comparison: the same days of the previous period (e.g. 1–18 Oct against 1–18 Nov)
@@ -1193,28 +1209,19 @@ function renderSummary(){
   if (UI.per === 'week'){
     h += card('Habits|day by day', 'Filled = done', habitGrid(allDays, counted), false, 'grid', 'var(--habit)');
     h += prayerDays();
-    h += card('Prayers|which one slips', `On time, of ${n} ${n===1?'day':'days'}`, prayerByName(days), false, 'chart', 'var(--prayer)');
     h += waterDays();
-    const wkRuns = allDays.some(k => actsOn(k).some(x => x.type==='run'));
-    h += card('Runs|km per day', '', !wkRuns ? `<div class="empty">No runs logged this week.</div>` : barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
-      tips: allDays.map(k => { if (!counted.has(k)) return 'No data'; const r = actsOn(k).filter(x=>x.type==='run'); return `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${r.length?r.map(x=>`${num(x.km)} km${x.sec?' in '+dur(x.sec):''}`).join(', '):'no run'}`; })}), false, 'run', 'var(--run)');
-    h += paceCard(a,b);
     h += gymSplitCard(a,b);
   } else if (UI.per === 'month'){
     h += calendarCard(a,b,counted);
-    h += prayerWeekdayCard(days, `On time %, ${MONTHS[parseKey(a).getMonth()]}`);
     h += prayerDays();
     h += waterDays();
-    h += paceCard(a,b);
     h += card('Runs|km by week', '', barChart({labels: weeks.map(ws => shortDate(ws)), values: weeks.map(ws => weekProgress(ws).km), color:'var(--run)', showVals:true, goal: g.kmGoal||null,
       tips: weeks.map(ws => { const p = weekProgress(ws); return `w/c ${shortDate(ws)}: ${p.runs} runs · ${num(p.km)} km`; })}), false, 'run', 'var(--run)');
     h += gymSplitCard(a,b);
-    h += card('Weekly goals|week by week', 'Mon–Sun weeks', weekTable(weeks), true, 'cal', 'var(--accent)');
   } else {
     const months = [...Array(12).keys()].map(m => { const y = a.slice(0,4); const ma = `${y}-${pad(m+1)}-01`, mb = keyOf(new Date(+y, m+1, 0)); return {m, a:ma, b:mb, days: days.filter(k => k>=ma && k<=mb)}; });
     const mlab = months.map(x => MONTHS[x.m].charAt(0));
     h += yearCard(a);
-    h += prayerWeekdayCard(days, `On time %, ${a.slice(0,4)}`);
     h += card('Prayers|by month', 'Share of all prayers', stackChart({
       labels: mlab, max:100, stacks: months.map(x => { if (!x.days.length) return null; const c = sumP(x.days), T = x.days.length*5; return [c.on/T*100, c.late/T*100, c.missed/T*100, c.none/T*100]; }),
       tips: months.map(x => { if (!x.days.length) return `${MONTHS[x.m]}: no data`; const c = sumP(x.days), T = x.days.length*5; return `${MONTHS[x.m]}: ${pct(c.on,T)}% on time, ${pct(c.late,T)}% late, ${pct(c.missed,T)}% missed`; })}) + prayerLegend(), false, 'moon', 'var(--prayer)');
@@ -1227,8 +1234,6 @@ function renderSummary(){
     h += gymSplitCard(a,b);
     h += card('Every month|in numbers', '', monthTable(months), true, 'table', 'var(--grey)');
   }
-  h += bestsRow();
-  h += streakBestCard();
   return h;
 }
 const card = (title, sub, body, flush) => { const [ta, tb] = title.split('|'); return sec(ta, tb) + `<div class="card">${sub ? `<div class="cap">${sub}</div>` : ''}${flush ? `<div class="scrollx">${body}</div>` : body}</div>`; };

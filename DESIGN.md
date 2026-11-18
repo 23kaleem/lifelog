@@ -381,3 +381,7 @@ This layer was added on 2026-11-18, from Kaleem's screen recording of a modern f
 - **Sky cards:** a #6cc8f7→#4fb2ef gradient with #04223a text, used for the Summary hero and the Settings app card. Each holds an inner panel tinted 12% with that #04223a text colour.
 - **Quick log:** a round 64px glass + button beside the tab capsule. It opens a keypad sheet: an 80px rounded amount, preset chips, 52px pill keys, and Undo last / Add pills.
 - **Removed:** the water-timing ("When you drink") card. Logging times don't reflect real drinking times.
+
+## 1.3.1 restraint
+- **Summary period views stay short:** at most about five sections after the hero and tiles. Anything all-time (streaks, bests, perfect days) belongs on the **Records** chip, never in Week/Month/Year.
+- **Add-tracker circle:** a 64px circle with a 2px line ring and a plus in ink2 (`.ci.newt`). Never reuse the tinted `.add` pill class for it.

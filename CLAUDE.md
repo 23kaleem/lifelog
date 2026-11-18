@@ -3,7 +3,7 @@
 ## What this is
 Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone home-screen web app (PWA)** hosted free on **GitHub Pages** from this repository. There's no backend, no accounts and no running costs; staying that way is a hard requirement. It's single-user (Kaleem, on iOS), with UK date formats and weeks starting on Monday.
 
-**Current version: 1.3.0** (`VERSION` in index.html) · service worker cache `lifelog-v5` (in `sw.js`).
+**Current version: 1.3.1** (`VERSION` in index.html) · service worker cache `lifelog-v6` (in `sw.js`).
 
 1.2.0 (2026-11-18) is a full redesign built from the 1.0.0 source. The 1.1.0 source wasn't to hand, so 1.1.0's changes were redone and then went further. It replaces the live 1.1.0 look. The data model is unchanged.
 
@@ -22,7 +22,7 @@ Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone
 
 ## Hard rules
 1. **Never break existing data.** All data lives in the phone's `localStorage` under the key `lifelog.v1`. Any new field must be optional; `normalise()` merges stored data over `defaults()`. Never rename or remove fields without a migration. Test with an old backup.
-2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v6`, `-v7`, …) and `VERSION` in index.html.
+2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v7`, `-v8`, …) and `VERSION` in index.html.
 3. **No external requests or dependencies.** It must work fully offline. Charts are hand-drawn SVG and icons are drawn SVG (the `I` set).
 4. **Keep the web address and icon stable.** On iOS, data belongs to the home-screen install at this URL. Renaming the repo or username, or changing the icon (which forces a reinstall), loses data unless Kaleem backs up and restores. Warn him before any change like that.
 5. **iOS Safari is the target.** Use `env(safe-area-inset-*)` and 16px+ input font (to stop zoom on focus). Don't rely on haptics or push notifications (not available to web apps).
@@ -80,13 +80,13 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
   - Date pill, "Your week/month/year, at a glance", and pill chips.
   - A sky-blue hero (`summaryHero`): share of daily goals hit, bars, the change against the same days of the previous period, and the weakest goal.
   - Tiles with trend arrows (`trend`).
-  - Two-tone sections built by `card('Title|accent', caption, body)`:
-    - Week: habit grid, prayers by day, which prayer slips, water per day, runs per day, run pace, gym split.
-    - Month: calendar, prayers by weekday, prayers by day, water per day, run pace, runs by week, gym split, weekly goals.
-    - Year: year grid, prayers by weekday, prayers by month, water by month, runs by month, run pace, gym split, month table.
-  - Every view ends with **Your bests** (`bestsRow`) and Streaks vs your best. Football shows only when logged.
-  - The "When you drink" timing card was removed in 1.3.0 at Kaleem's request: he sometimes logs all his water at once.
-- **charts**: `barChart`, `stackChart`, `prayerByName`, `habitGrid`, `calendarCard`, `weekTable`, `monthTable`. Any element with `data-tip` shows a tooltip on tap.
+  - Two-tone sections built by `card('Title|accent', caption, body)`. Kaleem asked for a less cluttered Summary in 1.3.1, so each view is deliberately short:
+    - Week: habit grid, prayers by day, water per day, gym split.
+    - Month: calendar, prayers by day, water per day, runs by week, gym split.
+    - Year: year grid, prayers by month, water by month, runs by month, run pace, gym split, month table.
+  - **Records** chip (`renderRecords`): perfect days (all daily goals hit: total, current run, best run), Your bests (`bestsRow`) and Streaks vs your best (`streakBestCard`). Streaks and bests live only here and on Today.
+  - Football shows only when logged. Removed on request: the water-timing card (1.3.0); from Summary, "which prayer slips", runs per day, prayers by weekday, the week-by-week table, and pace in Week/Month (1.3.1). The unused helpers `prayerByName`, `prayerWeekdayCard` and `weekTable` are kept in case they come back.
+- Horizontal rows that should keep their scroll position across redraws carry `data-keep` (the habits row, the bests row).
 - **SETTINGS** `renderSettings()`: pill chips Goals / Data / App (`UI.set`), a sky-blue app card (icon, days tracked, last backup, Back up now), and grouped rows with round colour icons. Goal sheets, the tracker editor, backup/restore/CSV, erase.
 - **sheets**: `openSheet(html, ctx)` / `closeSheet()`. `actSheet` (run/gym/football), `goalSheet`, `trackerSheet`.
 - **actions**: one delegated click handler. `data-act="name"` maps to `A[name](el)`, and `data-tab` switches tabs.
@@ -108,6 +108,7 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
 - **Hosting:** GitHub Pages was chosen over a Claude-hosted artifact (no subscription dependency) and a Raspberry Pi (more upkeep; may be a future option for sync).
 - **Rejected for now:** prayer times and the Hijri date, supplements beyond creatine, reminders/notifications and Apple Health (not possible without a server or native app).
 - **Football:** off This week, Streaks and the Settings goals at Kaleem's request. It's still loggable via **Log another activity** and appears in Summary when present.
+- **1.3.1 (2026-11-18):** Summary decluttered, a Records tab for streaks and bests, the Add-tracker circle fixed (its class clashed with `.add`), and the habits row keeps its scroll position after a tap.
 - **1.3.0 (2026-11-18):** a bold dark-first style plus a light version, from Kaleem's screen recording and approved mockups (`.impeccable/mocks/bold-dark.png`). It added quick log, the card stack and prayer circles, and removed the water-timing card.
 - **1.2.0 redesign (2026-11-17/18):**
   - Kaleem compared bolder looks (prayer beads, departure board, transit map, timetable, form guide) and kept the iOS standard, polished.
