@@ -60,7 +60,8 @@ It's built for exactly one life. The trackers, goals and terms are his own: pray
 - The name is **Life Log**.
 - **Voice: firm accountability.** Misses should be clearly visible and losing a streak should sting a little. State facts plainly and don't soften or cheerlead them. A miss is a miss.
 - **Copy rules:** plain, short English with no jargon. UK date formats.
-- **Visual standard (confirmed 2026-11-17, after seeing alternatives):** the category standard for an iOS tracker, made premium and polished. Kaleem compared new directions (prayer-bead, departure-board, transit-map, timetable and form-guide looks) and chose the familiar iOS look. **The craft bar is Apple Fitness / Health and Apple's iOS 26 apps (e.g. Weather).** Liquid Glass comes back on floating controls only: the capsule tab bar with a sliding bubble, the glass ‹ › header buttons and the top bar that appears on scroll. Content cards stay solid.
+- **Visual direction (updated 2026-11-18):** Kaleem asked for a bold, dark-first style "like" a modern finance app he screen-recorded, plus a light version. Only its layout ideas are used, never its branding. Don't track drink timing: he sometimes logs all his water at once.
+- **Earlier visual standard (2026-11-17):** the category standard for an iOS tracker, made premium and polished. Kaleem compared new directions (prayer-bead, departure-board, transit-map, timetable and form-guide looks) and chose the familiar iOS look. **The craft bar is Apple Fitness / Health and Apple's iOS 26 apps (e.g. Weather).** Liquid Glass comes back on floating controls only: the capsule tab bar with a sliding bubble, the glass ‹ › header buttons and the top bar that appears on scroll. Content cards stay solid.
 
 ## Evidence on Hand
 

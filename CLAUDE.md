@@ -3,7 +3,7 @@
 ## What this is
 Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone home-screen web app (PWA)** hosted free on **GitHub Pages** from this repository. There's no backend, no accounts and no running costs; staying that way is a hard requirement. It's single-user (Kaleem, on iOS), with UK date formats and weeks starting on Monday.
 
-**Current version: 1.2.1** (`VERSION` in index.html) · service worker cache `lifelog-v4` (in `sw.js`).
+**Current version: 1.3.0** (`VERSION` in index.html) · service worker cache `lifelog-v5` (in `sw.js`).
 
 1.2.0 (2026-11-18) is a full redesign built from the 1.0.0 source. The 1.1.0 source wasn't to hand, so 1.1.0's changes were redone and then went further. It replaces the live 1.1.0 look. The data model is unchanged.
 
@@ -22,7 +22,7 @@ Life Log is Kaleem's personal daily-life tracker. It's an **offline-first iPhone
 
 ## Hard rules
 1. **Never break existing data.** All data lives in the phone's `localStorage` under the key `lifelog.v1`. Any new field must be optional; `normalise()` merges stored data over `defaults()`. Never rename or remove fields without a migration. Test with an old backup.
-2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v5`, `-v6`, …) and `VERSION` in index.html.
+2. **Every release:** bump `CACHE` in `sw.js` (`lifelog-v6`, `-v7`, …) and `VERSION` in index.html.
 3. **No external requests or dependencies.** It must work fully offline. Charts are hand-drawn SVG and icons are drawn SVG (the `I` set).
 4. **Keep the web address and icon stable.** On iOS, data belongs to the home-screen install at this URL. Renaming the repo or username, or changing the icon (which forces a reinstall), loses data unless Kaleem backs up and restores. Warn him before any change like that.
 5. **iOS Safari is the target.** Use `env(safe-area-inset-*)` and 16px+ input font (to stop zoom on focus). Don't rely on haptics or push notifications (not available to web apps).
@@ -68,34 +68,47 @@ Sections are marked with `/* ---------------- NAME ---------------- */`:
 - **metrics**: `waterTotal/Hit`, `prayerCounts/Hit`, `tVal`, `isDaily`, `tDayHit`, `weekProgress`, `runWeekHit`/`gymWeekHit`/`footWeekHit`, `tWeekValue/Hit`, `dailyGoals` (each goal carries a colour `c` and progress `p`), `streakDays`, `streakWeeks`.
 - **UI**: global `UI = {tab, date, per, anchor}`. `render()` replaces `#app.innerHTML`, then moves the tab bubble (`placeBubble`) and syncs the scroll top bar (`syncTopbar`). Elements with `data-k` keep their previous class and style across a re-render on the same view, so CSS transitions play (bars, ring arcs, switches, prayer segments).
 - **icons**: `I` (drawn SVG set), `ic(icon, colour, size)` icon tiles (`sm`, `xs`, `lg`, `solid`). Built-in trackers map to icons via `T_ICON`/`T_COL`. Custom trackers show their emoji inside the tile.
-- **TODAY** `renderToday()`: title + date, glass ‹ › buttons, daily-goals hero (`goalRing`: one arc per goal, filled by progress), Water (big rounded litres, pill quick-adds), Prayers (segmented On time / Late / Missed), Habits, This week (Runs, Gym and weekly habits; football is logged via "Log another activity"), Logged today, Streaks (current + best/Record).
-- **SUMMARY** `renderSummary()`: Week/Month/Year with ‹ ›.
-  - Tiles with a trend arrow (`trend`) against the same days of the previous period (e.g. 1–18 Oct vs 1–18 Nov). Tapping an arrow shows the earlier figure, and a note above the tiles names the compared dates.
-  - Week: habit grid, prayers by day, which prayer slips, water per day, When you drink (`drinkCard`), run distance, Run pace (`paceCard`), Gym split (`gymSplitCard`).
-  - Month: calendar, Prayers by weekday (`prayerWeekdayCard`), prayers by day, water per day, When you drink, Run pace, run distance by week, Gym split, weekly goals table.
-  - Year: year at a glance (`yearCard`), Prayers by weekday, prayers by month, water by month, When you drink, run distance by month, Run pace, Gym split, month-by-month table.
-  - All views end with Streaks vs your best (`streakBestCard`, using `bestDays`/`bestWeeks`).
-  - Football shows only when logged in that period.
+- **TODAY** `renderToday()` (1.3.0 bold style):
+  - A date pill with ‹ ›, and a flame badge showing the best current streak (tap it to jump to Streaks).
+  - A two-tone title, e.g. "Today, 2 of 5 done".
+  - A swipeable **card stack** (`setupStack`, `UI.card`): Water / Daily goals ring / This week. The dots switch cards.
+  - **Habits** as tap-to-log circles. Check trackers toggle; count trackers open `stepSheet`; there are also Run, Gym and Add circles.
+  - **Prayers** as five circles that cycle on tap (`A.pcycle`: on time → late → missed → clear).
+  - Logged, then Streaks (current + best/Record).
+- **Quick log**: the round **+** next to the tab bar opens `quickSheet()`. It's a keypad for water (presets, Undo last, Add), with chips to switch to Run / Gym / Football (`actSheet`).
+- **SUMMARY** `renderSummary()`:
+  - Date pill, "Your week/month/year, at a glance", and pill chips.
+  - A sky-blue hero (`summaryHero`): share of daily goals hit, bars, the change against the same days of the previous period, and the weakest goal.
+  - Tiles with trend arrows (`trend`).
+  - Two-tone sections built by `card('Title|accent', caption, body)`:
+    - Week: habit grid, prayers by day, which prayer slips, water per day, runs per day, run pace, gym split.
+    - Month: calendar, prayers by weekday, prayers by day, water per day, run pace, runs by week, gym split, weekly goals.
+    - Year: year grid, prayers by weekday, prayers by month, water by month, runs by month, run pace, gym split, month table.
+  - Every view ends with **Your bests** (`bestsRow`) and Streaks vs your best. Football shows only when logged.
+  - The "When you drink" timing card was removed in 1.3.0 at Kaleem's request: he sometimes logs all his water at once.
 - **charts**: `barChart`, `stackChart`, `prayerByName`, `habitGrid`, `calendarCard`, `weekTable`, `monthTable`. Any element with `data-tip` shows a tooltip on tap.
-- **SETTINGS** `renderSettings()`: iOS Settings-style app card (real icon, version, last backup), grouped rows with solid icon tiles and chevrons. Goal sheets, the tracker editor, backup/restore/CSV, erase.
+- **SETTINGS** `renderSettings()`: pill chips Goals / Data / App (`UI.set`), a sky-blue app card (icon, days tracked, last backup, Back up now), and grouped rows with round colour icons. Goal sheets, the tracker editor, backup/restore/CSV, erase.
 - **sheets**: `openSheet(html, ctx)` / `closeSheet()`. `actSheet` (run/gym/football), `goalSheet`, `trackerSheet`.
 - **actions**: one delegated click handler. `data-act="name"` maps to `A[name](el)`, and `data-tab` switches tabs.
 
 ## Design system
-**DESIGN.md is the source of truth.** In short:
-- **Look:** the iOS category standard made premium. The craft bar is Apple Fitness / Health and Apple's iOS 26 apps (chosen by Kaleem on 2026-11-17 over several bolder directions).
-- **Surfaces:** a grouped background (#f2f2f7 light, pure black dark) with solid cards (#fff / #1c1c1e), a 22px radius, hairline border and soft offset shadow. No glow.
-- **Type:** SF Pro text. Numbers use SF Pro Rounded (`--round`) with tabular figures.
-- **Colours:** one hue per subject: water/accent, prayer, quran, creatine, skincare, habit, run, gym, foot.
-- **White text only on the `-fill` tokens** (`accent-fill`, `on-fill`/`on-text`, `miss-fill`, `run-fill`, `gym-fill`, `foot-fill`). Coloured text uses the `-ink` tokens. These all pass 4.5:1. `--grey` is for utility icon tiles.
-- **Status:** always colour plus a text label.
-- **Liquid Glass only on floating controls:** the capsule tab bar with a sliding bubble (the only spring easing), the ‹ › header buttons, and the top bar that appears on scroll. Content cards stay solid.
-- **Voice:** firm accountability. Misses are shown plainly ("Still open: …", red callouts such as "Fajr slips most on Saturdays").
+**DESIGN.md is the source of truth.** In short (1.3.0):
+- **Look:** a bold, dark-first style modelled on a modern finance app Kaleem screen-recorded. Only layout ideas were taken; no logos or brand colours. There is a matching light version, and the app follows the iPhone setting.
+- **Signatures:**
+  - Two-tone headings: ink + `--em` blue ("Prayers, **2 of 5 on time**").
+  - A fanned, swipeable card stack.
+  - Big tap-to-log circles and pill chips.
+  - Sky-blue hero cards with a darker inner panel.
+  - A floating Liquid Glass tab capsule plus a separate round + button.
+- **Surfaces:** pure black (#000) or #f2f2f7 page, with #1c1c1e or #fff cards at 22–30px radii. Numbers use SF Pro Rounded (`--round`) with tabular figures.
+- **Colours:** one hue per subject. White text goes only on `-fill` tokens or the deep stack-card gradients; coloured text uses `-ink` tokens. Status always pairs colour with a label.
+- **Voice:** firm accountability. Misses are named plainly ("Missed: …", "Weakest: …", red callouts).
 
 ## Decisions & history
 - **Hosting:** GitHub Pages was chosen over a Claude-hosted artifact (no subscription dependency) and a Raspberry Pi (more upkeep; may be a future option for sync).
 - **Rejected for now:** prayer times and the Hijri date, supplements beyond creatine, reminders/notifications and Apple Health (not possible without a server or native app).
 - **Football:** off This week, Streaks and the Settings goals at Kaleem's request. It's still loggable via **Log another activity** and appears in Summary when present.
+- **1.3.0 (2026-11-18):** a bold dark-first style plus a light version, from Kaleem's screen recording and approved mockups (`.impeccable/mocks/bold-dark.png`). It added quick log, the card stack and prayer circles, and removed the water-timing card.
 - **1.2.0 redesign (2026-11-17/18):**
   - Kaleem compared bolder looks (prayer beads, departure board, transit map, timetable, form guide) and kept the iOS standard, polished.
   - It passed two independent design-review rounds.

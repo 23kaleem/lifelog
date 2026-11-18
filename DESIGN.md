@@ -338,9 +338,8 @@ Each card is a standard card with an icon-tile title and a right-aligned seconda
 - **Trend arrow:** a 22px circle at the right of each tile's header row: arrow up on a good tint, arrow down on a bad tint, a dash on chip when level. It compares the tile's rate with the same days of the previous period, and tapping it shows the earlier figure. One 12.5px note above the tiles names the compared dates. This keeps tiles at three lines (header, value, goal line).
 - **Weekday heatmap:** prayer rows by Mon–Sun columns plus an outlined "All" column. Each cell is the prayer hue mixed into the track by its on-time %, showing the % in rounded 800. High cells use `--hm-hi` dark text. A red callout names the weakest slot.
 - **Callout:** a 14px/600 bad-ink sentence on a 10% bad tint with a warning icon. It is how the app states a slip plainly ("Fajr slips most on Saturdays: 40% on time.", "Last lower-body session: 19 days ago.").
-- **Stat chips:** well-coloured 14px-radius blocks with a 20px rounded value and a 12.5px label, in rows of two or three. They are used for drink stats and all-time bests.
+- **Bests tiles:** 116px square tiles in a horizontal row. Each has a big rounded value on a subject fill with a 13.5px label below (longest run, fastest pace, best week, record streaks).
 - **Curves and scatter:**
-  - When you drink is a water-hue line over a 14% fill against a dashed ink2 steady-pace line. Point labels carry a card-coloured paint-order halo.
   - Run pace is a run-hue scatter (faster = higher) with a 45%-opacity trend line. The latest run is drawn as a larger dot with a card ring, and its value appears in the note.
 - **Record bars:** an 8px track with the current streak filled in the subject hue, measured against the all-time best. A "Record" good pill marks a streak that is at its best.
 - **Year at a glance:** 12 mini month grids, 4 across. Each day cell is a 2px-radius square mixed from good by the share of daily goals hit; untracked days are a faded track.
@@ -369,3 +368,16 @@ Re-rendering keeps state: `render()` carries each `[data-k]` element's previous 
 - **Don't** use emoji as headers or icons on built-in surfaces.
 - **Don't** add uppercase kickers or eyebrows above titles. Uppercase belongs only to Settings section headers.
 - **Don't** soften or hide a miss. Name it in text with the same weight as a hit.
+
+## 1.3.0 bold layer
+This layer was added on 2026-11-18, from Kaleem's screen recording of a modern finance app and the approved mockup at `.impeccable/mocks/bold-dark.png`. It sits on top of the tokens above and changes the composition, not the colour roles.
+- **Two-tone headings:** the screen title is 32px/800. Section heads are 22px/800 as "Subject, **state**", with the state in `--em` (#1f6cc9 in light, #4a9bf5 in dark). Section heads sit above solid cards, and cards no longer carry their own title row.
+- **Date pill:** a 44px card-coloured pill with ‹ › inside. It replaces the large title row on Today and Summary.
+- **Card stack:** three 30px-radius cards, with the back two fanned ±6° behind the front one.
+  - Water is a deep blue gradient, Daily goals a deep green, This week a deep orange. All are dark enough for white text.
+  - Swipe or tap the dots to change cards. Cards behind the front one show colour only.
+- **Circles:** 64px habit circles: a tint means open, solid with a green check means done. The 52px prayer circles cycle on tap and always carry a text label.
+- **Pill chips:** 38px chips. The selected one uses `--chipon`: white with a soft shadow in light, #2c2c2e in dark.
+- **Sky cards:** a #6cc8f7→#4fb2ef gradient with #04223a text, used for the Summary hero and the Settings app card. Each holds an inner panel tinted 12% with that #04223a text colour.
+- **Quick log:** a round 64px glass + button beside the tab capsule. It opens a keypad sheet: an 80px rounded amount, preset chips, 52px pill keys, and Undo last / Add pills.
+- **Removed:** the water-timing ("When you drink") card. Logging times don't reflect real drinking times.

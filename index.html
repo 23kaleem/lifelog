@@ -30,6 +30,7 @@
   --glass:rgba(255,255,255,.62); --glass-line:rgba(255,255,255,.75); --glass-edge:rgba(0,0,0,.06);
   --glass-shadow:0 1px 1px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.12); --glass-hi:inset 0 1px 0 rgba(255,255,255,.85);
   --bubble:rgba(0,0,0,.065); --segon:#ffffff; --well:#f4f4f7;
+  --em:#1f6cc9; --chipon:#ffffff; --chipshadow:0 1px 3px rgba(0,0,0,.1),0 1px 1px rgba(0,0,0,.04);
   --grey:#8e8e93; --hm-hi:#0b0b0f;
   --on-fill:#0a7f0a; --on-text:#ffffff; --miss-fill:#d03b3b; --accent-fill:#1f6cc9; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#a84014; --gym-ink:#0b6e49;
   --tint-a:.13;
@@ -52,6 +53,7 @@
     --glass:rgba(38,38,44,.55); --glass-line:rgba(255,255,255,.14); --glass-edge:rgba(255,255,255,.06);
     --glass-shadow:0 10px 30px rgba(0,0,0,.5); --glass-hi:inset 0 1px 0 rgba(255,255,255,.12);
     --bubble:rgba(255,255,255,.12); --segon:#48484e; --well:#2c2c2e;
+    --em:#4a9bf5; --chipon:#2c2c2e; --chipshadow:none;
     --grey:#636366; --hm-hi:#04210a;
   --on-fill:#30c048; --on-text:#04210a; --miss-fill:#d63a3a; --accent-fill:#2a6fd0; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#ff9a6b; --gym-ink:#4fe0a8;
     --tint-a:.2;
@@ -73,6 +75,7 @@
   --glass:rgba(38,38,44,.55); --glass-line:rgba(255,255,255,.14); --glass-edge:rgba(255,255,255,.06);
   --glass-shadow:0 10px 30px rgba(0,0,0,.5); --glass-hi:inset 0 1px 0 rgba(255,255,255,.12);
   --bubble:rgba(255,255,255,.12); --segon:#48484e; --well:#2c2c2e;
+  --em:#4a9bf5; --chipon:#2c2c2e; --chipshadow:none;
   --grey:#636366; --hm-hi:#04210a;
   --on-fill:#30c048; --on-text:#04210a; --miss-fill:#d63a3a; --accent-fill:#2a6fd0; --run-fill:#bd4f1d; --gym-fill:#0f7b54; --foot-fill:#4a3aa7; --run-ink:#ff9a6b; --gym-ink:#4fe0a8;
   --tint-a:.2;
@@ -338,6 +341,155 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 .splitk{display:flex;justify-content:space-between;margin-top:10px;font-size:13.5px;color:var(--ink2)}
 .splitk b{color:var(--ink);font-family:var(--round)}
 
+/* ===== bold style (1.3.0): big two-tone headings, card stack, circles, pill chips ===== */
+.topnav{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
+.datepill{flex:1;height:44px;border-radius:22px;background:var(--card);border:1px solid var(--card-line);display:flex;align-items:center;justify-content:space-between;padding:0 4px;font-size:15px;font-weight:600;box-shadow:var(--shadow)}
+.datepill span{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datepill .dp{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--ink2)}
+.datepill .dp svg{width:16px;height:16px}.datepill .dp:disabled{opacity:.3}
+.circ.flame{position:relative;width:44px;height:44px;color:var(--run)}
+.circ.flame svg{width:20px;height:20px}
+.badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:var(--miss-fill);color:#fff;font-size:11.5px;font-weight:800;display:grid;place-items:center;padding:0 5px;border:2px solid var(--page)}
+h1.tt{font-size:32px;font-weight:800;letter-spacing:-.025em;line-height:1.08;margin:2px 2px 6px;text-wrap:balance}
+h1.tt em,h2.sec em{font-style:normal;color:var(--em)}
+h1.tt.solo{margin:14px 2px 14px}
+h2.sec{font-size:22px;font-weight:800;letter-spacing:-.015em;line-height:1.15;margin:26px 2px 12px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+h2.sec .ok svg{width:18px;height:18px}
+.card > .cap{font-size:13px;color:var(--ink2);margin:-2px 0 10px;font-weight:500}
+
+/* card stack */
+.stack{position:relative;height:388px;margin:16px 4px 10px;touch-action:pan-y}
+.sc{position:absolute;inset:0 26px;border-radius:30px;color:#fff;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s,filter .3s;will-change:transform}
+.sc .sc-in{transition:opacity .3s;height:100%;padding:22px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.sc.pos0{z-index:3;box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.sc.pos1{z-index:2;transform:rotate(6deg) translateX(28px) scale(.93)}
+.sc.pos2{z-index:1;transform:rotate(-6deg) translateX(-28px) scale(.93)}
+.sc.pos1 .sc-in,.sc.pos2 .sc-in{pointer-events:none;opacity:.0}
+.sc.pos1,.sc.pos2{cursor:pointer}
+.sc-water{background:linear-gradient(180deg,#2a6fd0,#1c58b8)}
+.sc-goals{background:linear-gradient(180deg,#0f7f37,#0a6a2c)}
+.sc-week{background:linear-gradient(180deg,#c4531f,#a8441a)}
+.sc h3{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.sc .tag{margin-top:9px;font-size:13px;font-weight:700;background:rgba(0,0,0,.22);padding:5px 11px;border-radius:10px}
+.sc .big{font-size:72px;font-weight:800;letter-spacing:-.045em;line-height:1;margin-top:22px}
+.sc .big small{font-size:28px;opacity:.8;margin-left:4px;letter-spacing:0}
+.sc .track{width:100%;height:10px;border-radius:5px;background:rgba(255,255,255,.25);margin-top:20px;overflow:hidden}
+.sc .track i{display:block;height:100%;background:#fff;border-radius:5px;transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.sc .track.thin{height:7px;margin-top:7px}
+.sc .qrow{display:flex;gap:8px;width:100%;margin-top:auto}
+.sc .qb{flex:1;height:46px;border-radius:23px;background:#fff;color:#123e86;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:4px;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.sc-week .qb{color:#8a3613}.sc-goals .qb{color:#0a6a2c}
+.sc .qb svg{width:15px;height:15px}
+.sc .qrow.sm{margin-top:10px}
+.sc .qs{flex:1;height:36px;border-radius:18px;background:rgba(255,255,255,.18);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px}
+.sc .qs svg{width:15px;height:15px}.sc .qs:disabled{opacity:.45}
+.sc .qb:active,.sc .qs:active,.ci:active .o,.pc:active .o{transform:scale(.94)}
+.big-ring{width:150px;height:150px;margin-top:18px;position:relative}
+.big-ring svg{width:100%;height:100%}
+.big-ring .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.big-ring .c b{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.big-ring .c small{display:block;font-size:13px;font-weight:700;opacity:.85;margin-top:2px}
+.sc-note{margin-top:auto;font-size:15px;line-height:1.35;opacity:.95}
+.wk2{width:100%;margin-top:16px;text-align:left;display:flex;flex-direction:column;gap:12px}
+.wr .wl{display:flex;justify-content:space-between;font-size:16px;font-weight:700}
+.wr .wx{font-size:13px;opacity:.85;margin-top:4px}
+.dots{display:flex;justify-content:center;gap:4px;margin:2px 0 0}
+.dots button{width:22px;height:22px;display:grid;place-items:center}
+.dots button::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--none);transition:background .2s,width .2s}
+.dots button.on::after{background:var(--ink);width:18px;border-radius:4px}
+
+/* circles row */
+.crow{display:flex;gap:14px;overflow-x:auto;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}
+.crow::-webkit-scrollbar{display:none}
+.ci{width:72px;flex:none;text-align:center}
+.ci .o{width:64px;height:64px;border-radius:50%;margin:0 auto;display:grid;place-items:center;position:relative;color:var(--c);transition:transform .2s cubic-bezier(.2,.8,.2,1),background .25s}
+.ci .o::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--c);opacity:var(--tint-a);transition:opacity .25s}
+.ci.done .o{color:#fff}.ci.done .o::before{opacity:1}
+.ci .o svg{width:27px;height:27px;position:relative}
+.ci .o .em{position:relative;font-size:26px}
+.ci .o .ck{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:var(--on-fill);color:var(--on-text);border:3px solid var(--page);display:grid;place-items:center}
+.ci .o .ck svg{width:11px;height:11px}
+.ci b{display:block;font-size:13px;margin-top:8px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci .s{display:block;font-size:12px;color:var(--ink2);margin-top:1px}
+.ci .s.hit{color:var(--good-ink);font-weight:600}
+.ci.add .o{color:var(--ink2)}.ci.add .o::before{opacity:0}.ci.add .o{box-shadow:inset 0 0 0 2px var(--line)}
+
+/* prayer circles */
+.prow{display:flex;justify-content:space-between;padding:16px 12px}
+.pc{width:58px;text-align:center}
+.pc .o{width:52px;height:52px;border-radius:50%;margin:0 auto;display:grid;place-items:center;transition:background .25s,color .25s,box-shadow .25s,transform .2s}
+.pc .o svg{width:22px;height:22px}
+.pc .o.s-on{background:var(--on-fill);color:var(--on-text)}
+.pc .o.s-late{background:var(--warn);color:#2b2100}
+.pc .o.s-miss{background:var(--miss-fill);color:#fff}
+.pc .o.open{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink2)}
+.pc b{display:block;font-size:13px;margin-top:7px;font-weight:600}
+.pc span{display:block;font-size:11.5px;color:var(--ink2)}
+.hint2{font-size:12.5px;color:var(--ink2);margin:8px 4px 0}
+
+/* pill chips (Summary period, Settings sections, quick log types) */
+.chips{display:flex;gap:6px;flex-wrap:nowrap;margin:0 0 16px;overflow-x:auto;scrollbar-width:none}
+.chips button{height:38px;padding:0 16px;border-radius:19px;font-size:15px;font-weight:600;color:var(--ink2);background:none;flex:none}
+.chips button.on{background:var(--chipon);color:var(--ink);box-shadow:var(--chipshadow)}
+
+/* sky cards (Summary hero, Settings app card) */
+.sky{background:linear-gradient(180deg,#6cc8f7,#4fb2ef);color:#04223a;border-radius:28px;padding:20px}
+.sky .sk-l{font-size:15px;font-weight:700}
+.sky .sk-v{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-top:8px;font-family:var(--round)}
+.sky .sk-v small{font-size:24px}
+.inner2{background:rgba(4,34,58,.12);border-radius:18px;padding:13px 14px;margin-top:16px;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.35}
+.inner2 svg{width:18px;height:18px;flex:none;margin-top:1px}
+.inner2 b{display:block}
+.sbars{display:flex;align-items:flex-end;gap:5px;height:66px;margin-top:16px}
+.sbars i{flex:1;background:rgba(4,34,58,.78);border-radius:5px 5px 2px 2px;min-height:4px}
+.sbars i.dim{background:rgba(4,34,58,.18)}
+.sblab{display:flex;gap:5px;margin-top:6px}.sblab span{flex:1;text-align:center;font-size:11.5px;font-weight:700;opacity:.75}
+.app-card2 .sk-h{display:flex;justify-content:space-between;align-items:center}
+.app-card2 img{width:46px;height:46px;border-radius:12px}
+.app-card2 .sk-v{font-size:30px;letter-spacing:-.02em;margin-top:6px}
+.sk-btn{margin-top:12px;width:100%;height:46px;border-radius:23px;background:#04223a;color:#fff;font-size:16px;font-weight:700}
+
+/* bests row */
+.bests{display:flex;gap:12px;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none}
+.bests::-webkit-scrollbar{display:none}
+.bq{width:116px;flex:none}
+.bq .o{height:116px;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff}
+.bq .o .num{font-size:30px;font-weight:800;letter-spacing:-.03em}
+.bq .o small{font-size:13px;font-weight:700;opacity:.85}
+.bq b{display:block;font-size:13.5px;margin-top:8px;font-weight:600}
+.bq span{display:block;font-size:12px;color:var(--ink2)}
+
+/* round icons in Settings rows */
+.ic.round{width:34px;height:34px;border-radius:50%;color:#fff}.ic.round::before{opacity:1}.ic.round svg{width:18px;height:18px}
+.set{border-radius:24px}
+.set .r + .r::before{left:60px}
+
+/* quick log sheet */
+.qhead{display:flex;align-items:center;justify-content:space-between;margin:2px 0 12px}
+.sheet .qhead h3{margin:0;font-size:30px;font-weight:800;letter-spacing:-.02em}
+.qhead .circ{width:40px;height:40px}
+.kdisp{text-align:center;margin-top:18px;font-weight:800}
+.kdisp .num{font-size:80px;letter-spacing:-.05em;line-height:1}
+.kdisp small{font-size:32px;color:var(--ink2);margin-left:6px;font-family:var(--round)}
+.unit{margin:14px auto 0;width:max-content;max-width:100%;height:34px;border-radius:17px;background:var(--chip);display:flex;align-items:center;gap:7px;padding:0 13px 0 8px;font-size:14px;font-weight:600}
+.sugg{display:flex;gap:8px;justify-content:center;margin-top:16px}
+.sugg button{height:36px;padding:0 14px;border-radius:18px;background:var(--chip);font-size:15px;font-weight:700}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.keys button{height:52px;border-radius:26px;background:var(--chip);font-size:24px;font-weight:700;display:grid;place-items:center}
+.keys button svg{width:22px;height:22px}
+.keys button:active,.sugg button:active,.act2 button:active{transform:scale(.95)}
+.act2{display:flex;gap:10px;margin-top:16px}
+.act2 button{flex:1;height:54px;border-radius:27px;background:var(--ink);color:var(--page);font-size:17px;font-weight:700}
+.act2 button.g{background:var(--chip);color:var(--ink)}.act2 button:disabled{opacity:.4}
+.stepper.big{justify-content:center;gap:24px;margin-top:22px}
+.stepper.big button{width:72px;height:72px}.stepper.big button svg{width:26px;height:26px}
+
+/* tab bar + round quick-log button */
+.tabbar{gap:10px;align-items:center}
+.tabbar .in{max-width:310px}
+.fab{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;flex:none;pointer-events:auto;color:var(--ink);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.fab svg{width:26px;height:26px}.fab:active{transform:scale(.92)}
+
 /* tab bar: floating Liquid Glass capsule */
 .tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 16px calc(env(safe-area-inset-bottom) + 10px);z-index:20;pointer-events:none}
 .tabbar .in{position:relative;display:flex;width:100%;max-width:380px;padding:5px;border-radius:34px;pointer-events:auto}
@@ -392,7 +544,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
   <button class="tab" data-tab="today"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 3 10v11h6v-6h6v6h6V10z"/></svg>Today</button>
   <button class="tab" data-tab="summary"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="11" width="4.5" height="10" rx="1.3"/><rect x="9.75" y="4" width="4.5" height="17" rx="1.3"/><rect x="16" y="8" width="4.5" height="13" rx="1.3"/></svg>Summary</button>
   <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3" fill="none" stroke="currentColor" stroke-width="3.4" stroke-dasharray="3.26 3.26"/><path fill="currentColor" fill-rule="evenodd" d="M12 4.8a7.2 7.2 0 1 0 0 14.4a7.2 7.2 0 1 0 0-14.4zm0 4.3a2.9 2.9 0 1 1 0 5.8a2.9 2.9 0 1 1 0-5.8z"/></svg>Settings</button>
-</div></nav>
+</div><button class="fab glass" data-act="quick" aria-label="Quick log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></nav>
 
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true"></div>
@@ -402,7 +554,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeri
 
 <script>'use strict';
 /* Life Log — personal daily tracker. All data is stored on this device (localStorage). */
-const VERSION = '1.2.1';
+const VERSION = '1.3.0';
 const KEY = 'lifelog.v1';
 const PRAYERS = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha']];
 const ACT = {
@@ -531,7 +683,7 @@ function streakWeeks(fn){
 }
 
 /* ---------------- UI state ---------------- */
-const UI = { tab:'today', date: todayKey(), per:'week', anchor: todayKey(), lastToday: todayKey() };
+const UI = { tab:'today', date: todayKey(), per:'week', anchor: todayKey(), lastToday: todayKey(), card: 0, set: 'goals' };
 const $app = document.getElementById('app');
 const isStandalone = () => window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -546,6 +698,7 @@ function render(){
   else if (UI.tab === 'summary') $app.innerHTML = renderSummary();
   else $app.innerHTML = renderSettings();
   placeBubble(); syncTopbar();
+  if (UI.tab === 'today') setupStack();
   const moved = [];
   $app.querySelectorAll('[data-k]').forEach(el => {
     const p = prev[el.dataset.k]; if (!p) return;
@@ -601,6 +754,7 @@ const I = {
   minus: sv('<path d="M5 12h14"/>', 2.6),
   undo: sv('<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>', 2.2),
   x: sv('<path d="M6 6l12 12M18 6 6 18"/>', 3),
+  back: sv('<path d="M9 5h10.5A1.5 1.5 0 0 1 21 6.5v11a1.5 1.5 0 0 1-1.5 1.5H9l-6-7z"/><path d="M12 9.5l5 5M17 9.5l-5 5"/>', 2.1),
   chevL: sv('<path d="M15 5l-7 7 7 7"/>', 2.6),
   chevR: sv('<path d="M9 5l7 7-7 7"/>', 2.6),
   arrUp: sv('<path d="M12 19V5M6 11l6-6 6 6"/>', 2.6),
@@ -625,112 +779,145 @@ const tCol = t => T_COL[t.id] || 'var(--habit)';
 const A_ICON = {run:'run', gym:'gym', football:'ball'};
 
 /* ---------------- TODAY ---------------- */
-function goalRing(goals){
+function goalRing(goals, mono){
   const n = goals.length || 1, r = 40, C = 2*Math.PI*r, sw = 11, seg = C/n, gap = n > 1 ? 4 + sw : 0, len = Math.max(seg - gap, 0.01);
   let s = '';
   goals.forEach((g,i) => {
-    const off = -(i*seg + gap/2);
-    s += `<circle cx="50" cy="50" r="${r}" fill="none" stroke="${g.c}" stroke-opacity=".2" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${len} ${C}" stroke-dashoffset="${off}"/>`;
+    const off = -(i*seg + gap/2), col = mono ? '#fff' : g.c;
+    s += `<circle cx="50" cy="50" r="${r}" fill="none" stroke="${col}" stroke-opacity="${mono ? .28 : .2}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${len} ${C}" stroke-dashoffset="${off}"/>`;
     const f = g.hit ? 1 : Math.max(0, Math.min(1, g.p || 0)), fl = f > 0 ? Math.max(0.01, len*f) : 0;
-    s += `<circle data-k="ring${i}" cx="50" cy="50" r="${r}" fill="none" stroke="${g.c}" stroke-width="${sw}" stroke-linecap="round" stroke-dashoffset="${off}" opacity="${f>0?1:0}" style="stroke-dasharray:${fl} ${C};transition:stroke-dasharray .6s cubic-bezier(.2,.8,.2,1),opacity .2s"/>`;
+    s += `<circle data-k="ring${i}" cx="50" cy="50" r="${r}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" stroke-dashoffset="${off}" opacity="${f>0?1:0}" style="stroke-dasharray:${fl} ${C};transition:stroke-dasharray .6s cubic-bezier(.2,.8,.2,1),opacity .2s"/>`;
   });
   return `<svg viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(-90 50 50)">${s}</g></svg>`;
 }
+const PSTATE = {on:['On time','s-on',I.check], late:['Late','s-late',I.check], missed:['Missed','s-miss',I.x]};
+function dateNav(label, prevAct, nextAct, nextOff, extra){
+  return `<div class="topnav"><div class="datepill"><button class="dp" data-act="${prevAct}" aria-label="Previous">${I.chevL}</button><span>${label}</span><button class="dp" data-act="${nextAct}" aria-label="Next" ${nextOff?'disabled':''}>${I.chevR}</button></div>${extra||''}</div>`;
+}
+const sec = (a, b, extra) => `<h2 class="sec"><span>${a}${b ? `, <em>${b}</em>` : ''}</span>${extra||''}</h2>`;
 
 function renderToday(){
   const k = UI.date, tk = todayKey(), g = S.settings, past = k < tk;
   const title = k === tk ? 'Today' : k === addDays(tk,-1) ? 'Yesterday' : fmtDay(k,{weekday:'long'});
-  let h = `<div class="hdr"><div><h1>${title}</h1><div class="sub">${fmtDay(k,{weekday:'long',day:'numeric',month:'long',year: k.slice(0,4)!==tk.slice(0,4)?'numeric':undefined})}</div></div>
-    <div class="arrows">${k!==tk?`<button class="todaybtn" data-act="goToday">Today</button>`:''}
-    <button class="circ" data-act="prevDay" aria-label="Previous day">${I.chevL}</button>
-    <button class="circ" data-act="nextDay" aria-label="Next day" ${k>=tk?'disabled':''}>${I.chevR}</button></div></div>`;
+  const goals = dailyGoals(k), done = goals.filter(x => x.hit).length, n = goals.length;
+  const left = goals.filter(x => !x.hit).map(x => capFirst(x.name));
+
+  // best live daily streak for the flame badge
+  const dStreaks = [g.waterGoal > 0 ? streakDays(waterHit) : 0, streakDays(prayerHit), ...shownTrackers().filter(isDaily).map(t => streakDays(k2 => tDayHit(t,k2)))];
+  const bestNow = Math.max(0, ...dStreaks);
+  const right = k !== tk ? `<button class="todaybtn" data-act="goToday">Today</button>`
+    : `<button class="circ flame" data-act="toStreaks" aria-label="Best current streak: ${bestNow} days">${I.flame}${bestNow ? `<span class="badge num">${bestNow}</span>` : ''}</button>`;
+  let h = dateNav(fmtDay(k,{weekday:'long',day:'numeric',month:'short', year: k.slice(0,4)!==tk.slice(0,4)?'numeric':undefined}), 'prevDay', 'nextDay', k >= tk, right);
+  h += `<h1 class="tt">${title}, <em>${n && done === n ? 'all done' : `${done} of ${n} done`}</em></h1>`;
 
   if (isIOS && !isStandalone() && !g.installDismissed){
     h += `<div class="banner"><span class="bl">${ic('share','var(--accent)')}<span><b>Install first:</b> tap <b>Share</b> → <b>Add to Home Screen</b>, then use the app from there. Data logged here in Safari isn’t shared with the home-screen app.</span></span><button data-act="dismissInstall">OK</button></div>`;
   }
   h += backupBanner();
 
-  // daily goals hero: one arc per goal
-  const goals = dailyGoals(k), done = goals.filter(x => x.hit).length, n = goals.length;
-  const left = goals.filter(x => !x.hit).map(x => x.name);
-  const headline = n && done === n ? `All ${n} daily goals hit` : `${done} of ${n} daily goals`;
-  const sub = !left.length ? (past ? 'Every daily goal was hit this day.' : 'Every daily goal hit today.')
-    : `${past ? 'Missed' : 'Still open'}: <b>${esc(listJoin(left.map(capFirst)))}</b>`;
-  h += `<div class="card hero"><div class="ring">${goalRing(goals)}<div class="c"><div><b>${done}/${n}</b><small>goals</small></div></div></div>
-    <div><h2>${headline}</h2><div class="sub">${sub}</div>
-    <div class="keys">${goals.map(x => `<span class="${x.hit?'':'miss'}" style="--c:${x.c}"><i></i>${esc(capFirst(x.name))}</span>`).join('')}</div></div></div>`;
+  // ---- card stack: water, daily goals, this week (swipe or tap the dots)
+  const wt = waterTotal(k), wh = waterHit(k), wp = Math.min(100, pct(wt, g.waterGoal)), drinks = day(k).w.length;
+  const wState = wh ? 'goal hit' : wt === 0 ? (past ? 'none logged' : 'not started') : wp >= 50 ? 'over halfway' : 'under halfway';
+  const cWater = `<div class="sc-in"><h3>Water</h3><span class="tag">${capFirst(wState)} · goal ${L(g.waterGoal)} L${drinks ? ` · ${plural(drinks,'drink')}` : ''}</span>
+    <div class="big num">${L(wt)}<small>L</small></div><div class="track"><i data-k="wbar" style="width:${wp}%"></i></div>
+    <div class="qrow">${g.quick.map(ml => `<button class="qb num" data-act="water" data-ml="${ml}">+${ml}</button>`).join('')}</div>
+    <div class="qrow sm"><button class="qs" data-act="quick">${I.plus}Other amount</button><button class="qs" data-act="undoWater" ${drinks?'':'disabled'}>${I.undo}Undo</button></div></div>`;
+  const cGoals = `<div class="sc-in"><h3>Daily goals</h3><span class="tag">${n && done === n ? 'Every goal hit' : `${n - done} still open`}</span>
+    <div class="ring big-ring">${goalRing(goals, true)}<div class="c"><div><b class="num">${done}/${n}</b><small>done</small></div></div></div>
+    <p class="sc-note">${left.length ? `${past ? 'Missed' : 'Still open'}: <b>${esc(listJoin(left))}</b>` : (past ? 'Every daily goal was hit this day.' : 'Every daily goal hit today.')}</p></div>`;
+  const ws = weekStart(k), wpg = weekProgress(ws);
+  const wrow2 = (label, val, goal, extra) => `<div class="wr"><div class="wl"><span>${label}</span><b class="num">${num(val,2)} / ${num(goal,2)}</b></div><div class="track thin"><i data-k="wk-${esc(label)}" style="width:${Math.min(100,pct(val,goal||1))}%"></i></div>${extra?`<div class="wx">${extra}</div>`:''}</div>`;
+  let wk = wrow2('Runs', wpg.runs, g.runGoal, `${num(wpg.km)} of ${num(g.kmGoal)} km`) + wrow2('Gym', wpg.gym, g.gymGoal);
+  shownTrackers().filter(t => !isDaily(t)).forEach(t => wk += wrow2(esc(t.name), tWeekValue(t,ws), t.goal));
+  const cWeek = `<div class="sc-in"><h3>This week</h3><span class="tag">${shortDate(ws)} – ${shortDate(addDays(ws,6))}</span><div class="wk2">${wk}</div>
+    <div class="qrow"><button class="qb" data-act="addAct" data-type="run">${I.plus}Run</button><button class="qb" data-act="addAct" data-type="gym">${I.plus}Gym</button></div></div>`;
+  const cards = [['water', cWater], ['goals', cGoals], ['week', cWeek]], ci0 = UI.card || 0;
+  h += `<div class="stack" id="stack">${cards.map(([id, html], i) => `<div class="sc sc-${id} pos${(i - ci0 + 3) % 3}" data-k="sc-${id}" data-ci="${i}">${html}</div>`).join('')}</div>
+    <div class="dots" role="tablist">${cards.map(([id], i) => `<button class="${i===ci0?'on':''}" data-act="card" data-i="${i}" aria-label="Show ${id} card"></button>`).join('')}</div>`;
 
-  // water
-  const wt = waterTotal(k), wh = waterHit(k);
-  h += `<div class="card"><div class="ct"><b>${ic('drop','var(--water)')}Water</b>${wh?`<span class="pill good">${I.check}Goal hit</span>`:`<span class="num">${Math.min(100,pct(wt,g.waterGoal))}%</span>`}</div>
-    <div class="amt"><span class="big">${L(wt)}</span><span class="unit">L</span><span class="of">of ${L(g.waterGoal)} L</span></div>
-    <div class="bar"><i data-k="wbar" style="width:${Math.min(100,pct(wt,g.waterGoal))}%;background:var(--water)"></i></div>
-    <div class="btns">${g.quick.map(ml => `<button class="btn pri" data-act="water" data-ml="${ml}">+${ml}</button>`).join('')}
-    <button class="btn ghost" data-act="waterOther" aria-label="Add another amount">${I.plus}</button>
-    <button class="btn ghost" data-act="undoWater" aria-label="Undo last water" ${day(k).w.length?'':'disabled'}>${I.undo}</button></div></div>`;
+  // ---- habits as circles: tap to log
+  let cr = '';
+  shownTrackers().forEach(t => {
+    const v = tVal(k,t.id), hit = tDayHit(t,k) && (t.type === 'check' || t.period === 'day');
+    const sub = t.type === 'check' ? (v ? 'Done' : (past ? 'Missed' : 'Not yet')) : `${num(v,2)} ${esc(t.unit||'')}`;
+    const act = t.type === 'check' ? `data-act="check" data-id="${t.id}" role="switch" aria-checked="${!!v}"` : `data-act="tStep" data-id="${t.id}"`;
+    cr += `<button class="ci ${hit?'done':''}" style="--c:${tCol(t)}" ${act} aria-label="${esc(t.name)}: ${sub}"><span class="o">${I[tIc(t)] || `<span class="em">${esc(t.emoji||'•')}</span>`}${hit?`<span class="ck">${I.check}</span>`:''}</span><b>${esc(t.name)}</b><span class="s ${hit?'hit':''}">${sub}</span></button>`;
+  });
+  cr += `<button class="ci" style="--c:var(--run)" data-act="addAct" data-type="run"><span class="o">${I.run}</span><b>Run</b><span class="s">${wpg.runs} of ${g.runGoal}</span></button>`;
+  cr += `<button class="ci" style="--c:var(--gym)" data-act="addAct" data-type="gym"><span class="o">${I.gym}</span><b>Gym</b><span class="s">${wpg.gym} of ${g.gymGoal}</span></button>`;
+  cr += `<button class="ci add" data-act="tracker" data-id=""><span class="o">${I.plus}</span><b>Add</b><span class="s">Tracker</span></button>`;
+  h += sec('Habits', 'tap to log') + `<div class="crow">${cr}</div>`;
 
-  // prayers
+  // ---- prayers: tap a circle to cycle on time → late → missed → clear
   const pc = prayerCounts(k), p = day(k).p || {};
-  h += `<div class="card"><div class="ct"><b>${ic('moon','var(--prayer)')}Prayers</b><span>${5-pc.none-pc.missed} of 5 prayed · ${pc.on} on time${prayerHit(k)?' '+OKM:''}</span></div>`;
-  PRAYERS.forEach(([id,name]) => {
-    const s = p[id];
-    h += `<div class="pr"><span class="n">${name}</span><div class="seg" role="group" aria-label="${name}">
-      <button data-k="p-${id}-on" class="segb ${s==='on'?'s-on':''}" data-act="prayer" data-p="${id}" data-s="on" aria-pressed="${s==='on'}">On time</button>
-      <button data-k="p-${id}-late" class="segb ${s==='late'?'s-late':''}" data-act="prayer" data-p="${id}" data-s="late" aria-pressed="${s==='late'}">Late</button>
-      <button data-k="p-${id}-miss" class="segb ${s==='missed'?'s-miss':''}" data-act="prayer" data-p="${id}" data-s="missed" aria-pressed="${s==='missed'}">Missed</button></div></div>`;
-  });
-  h += `</div>`;
+  h += sec('Prayers', `${pc.on} of 5 on time`, prayerHit(k) ? OKM : '') + `<div class="card prow">${PRAYERS.map(([id,name]) => {
+    const st = PSTATE[p[id]];
+    return `<button class="pc" data-act="pcycle" data-p="${id}" aria-label="${name}: ${st ? st[0] : 'not logged'}. Tap to change."><span class="o ${st ? st[1] : 'open'}" data-k="pc-${id}">${st ? st[2] : I.plus}</span><b>${name}</b><span>${st ? st[0] : 'Tap'}</span></button>`;
+  }).join('')}</div><div class="hint2">Tap a prayer: on time → late → missed → clear.</div>`;
 
-  // simple trackers
-  const ts = shownTrackers();
-  if (ts.length){
-    h += `<div class="card"><div class="ct" style="margin-bottom:2px"><b>${ic('star','var(--habit)')}Habits</b></div>`;
-    ts.forEach(t => {
-      const v = tVal(k,t.id);
-      const goalTxt = t.type==='check' ? (t.goal>=7?'Every day':`${t.goal} days a week`) : `Goal ${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
-      const hit = tDayHit(t,k) && (t.type==='check' || t.period==='day');
-      h += `<div class="hrow"><div class="hl">${ic(tIc(t), tCol(t), 'lg')}<div><div class="hname">${esc(t.name)}${hit?OKM:''}</div><div class="hgoal">${goalTxt}</div></div></div>`;
-      if (t.type === 'check') h += `<button data-k="sw-${t.id}" class="sw ${v?'on':''}" data-act="check" data-id="${t.id}" role="switch" aria-checked="${!!v}" aria-label="${esc(t.name)}"></button>`;
-      else h += `<div class="stepper"><button data-act="step" data-id="${t.id}" data-dir="-1" aria-label="Less ${esc(t.name)}">${I.minus}</button><b>${num(v,2)}</b><button data-act="step" data-id="${t.id}" data-dir="1" aria-label="More ${esc(t.name)}">${I.plus}</button></div>`;
-      h += `</div>`;
-    });
-    h += `</div>`;
-  }
-
-  // this week (football is logged via "Log another activity" and shows in Summary)
-  const ws = weekStart(k), wp = weekProgress(ws);
-  const wrow = (c, icon, label, val, goal, extra, type) => {
-    const ok = goal>0 && val>=goal;
-    return `<div class="wrow">${ic(icon, c, 'lg')}<div class="wm"><div class="lbl"><span>${label}${ok?' '+OKM:''}</span><span class="v">${num(val,2)} / ${num(goal,2)}</span></div>
-      <div class="bar"><i data-k="wk-${label}" style="width:${Math.min(100,pct(val,goal||1))}%;background:${c}"></i></div>${extra?`<div class="small">${extra}</div>`:''}</div>
-      ${type?`<button class="add" style="--c:${c};--ci:var(--${type}-ink)" data-act="addAct" data-type="${type}" aria-label="Log ${ACT[type].name.toLowerCase()}">${I.plus}<span>${ACT[type].name}</span></button>`:''}</div>`;
-  };
-  h += `<div class="card"><div class="ct"><b>${ic('cal','var(--accent)')}This week</b><span>${shortDate(ws)} – ${shortDate(addDays(ws,6))}</span></div><div class="wk">`;
-  h += wrow('var(--run)','run','Runs', wp.runs, g.runGoal, `${num(wp.km)} of ${num(g.kmGoal)} km`, 'run');
-  h += wrow('var(--gym)','gym','Gym', wp.gym, g.gymGoal, '', 'gym');
-  shownTrackers().filter(t => !isDaily(t)).forEach(t => {
-    const v = tWeekValue(t,ws);
-    h += wrow(tCol(t), tIc(t), esc(t.name), v, t.goal, t.type==='check'?'days this week':esc(t.unit||''), null);
-  });
-  h += `</div><button class="more" data-act="addAct" data-type="football">${I.plus}Log another activity</button></div>`;
-
-  // logged list
+  // ---- logged list
   const items = [];
   (day(k).w || []).forEach(([t,ml]) => items.push({t, html:`${ic('drop','var(--water)')}<div class="main"><span class="num">${ml} ml</span> water<div class="meta">${keyOf(new Date(t))===k?timeOf(t):'Added later'}</div></div><button class="x" data-act="delWater" data-t="${t}" aria-label="Delete ${ml} ml water">${I.x}</button>`}));
   actsOn(k).forEach(a => items.push({t:a.t||0, html:`${ic(A_ICON[a.type], ACT[a.type].color)}<button class="main" data-act="editAct" data-id="${a.id}">${actText(a)}<div class="meta">${a.note?esc(a.note)+' · ':''}Tap to edit</div></button><button class="x" data-act="delAct" data-id="${a.id}" aria-label="Delete activity">${I.x}</button>`}));
   items.sort((a,b) => b.t - a.t);
-  h += `<div class="card"><div class="ct"><b>${ic('list','var(--ink2)')}Logged ${k===tk?'today':'this day'}</b>${items.length?`<span>${plural(items.length,'entry','entries')}</span>`:''}</div>
-    ${items.length ? items.map(i => `<div class="li">${i.html}</div>`).join('') : `<div class="empty">Nothing logged yet. Water and activities you add show here.</div>`}</div>`;
+  h += sec('Logged', k === tk ? 'today' : 'this day') + `<div class="card">${items.length ? items.map(i => `<div class="li">${i.html}</div>`).join('') : `<div class="empty">Nothing logged yet. Water and activities you add show here.</div>`}</div>`;
 
-  // streaks
+  // ---- streaks
   const st = [], sd = f => [streakDays(f), bestDays(f), 'day'], sw = f => [streakWeeks(f), bestWeeks(f), 'week'];
   if (g.waterGoal>0) st.push(['drop','var(--water)','Water goal', ...sd(waterHit)]);
   st.push(['moon','var(--prayer)','Prayer goal', ...sd(prayerHit)]);
   shownTrackers().forEach(t => isDaily(t) ? st.push([tIc(t), tCol(t), t.name, ...sd(k2 => tDayHit(t,k2))]) : st.push([tIc(t), tCol(t), `${t.name} weekly goal`, ...sw(ws2 => tWeekHit(t,ws2))]));
   st.push(['run','var(--run)','Runs weekly goal', ...sw(runWeekHit)], ['gym','var(--gym)','Gym weekly goal', ...sw(gymWeekHit)]);
-  const live = st.filter(s => s[3] >= 2).sort((a,b) => b[3]-a[3]), un = (n,w) => n===1 ? w : w+'s';
-  h += `<div class="card"><div class="ct"><b>${ic('flame','var(--run)')}Streaks</b></div>${live.length ? live.map(s => `<div class="str">${ic(s[0], s[1], 'lg')}<span class="nm">${esc(s[2])}<small>${s[3] >= s[4] ? '<span class="rec">Record</span>' : `Best ${s[4]} ${un(s[4],s[5])}`}</small></span><span class="v">${s[3]}<small>${un(s[3],s[5])}</small></span></div>`).join('') : `<div class="empty">Hit a goal two days (or weeks) in a row and your streaks appear here.</div>`}</div>`;
+  const live = st.filter(s => s[3] >= 2).sort((a,b) => b[3]-a[3]), un = (n2,w) => n2===1 ? w : w+'s';
+  h += `<div id="streaks"></div>` + sec('Streaks', 'keep them going') + `<div class="card">${live.length ? live.map(s => `<div class="str">${ic(s[0], s[1], 'lg')}<span class="nm">${esc(s[2])}<small>${s[3] >= s[4] ? '<span class="rec">Record</span>' : `Best ${s[4]} ${un(s[4],s[5])}`}</small></span><span class="v">${s[3]}<small>${un(s[3],s[5])}</small></span></div>`).join('') : `<div class="empty">Hit a goal two days (or weeks) in a row and your streaks appear here.</div>`}</div>`;
   return h;
+}
+
+/* ---- quick log (the round + button) and the tracker stepper ---- */
+function quickSheet(){
+  const k = UI.date, kv = (sheetCtx && sheetCtx.kind === 'quick' && sheetCtx.kv) || '';
+  const keys = ['1','2','3','4','5','6','7','8','9','','0','del'];
+  const h = `<div class="qhead"><h3>Log</h3><button class="circ" data-act="close" aria-label="Close">${I.x}</button></div>
+    <div class="chips"><button class="on">Water</button>${['run','gym','football'].map(t => `<button data-act="addAct" data-type="${t}">${ACT[t].name}</button>`).join('')}</div>
+    <div class="kdisp"><span class="num" id="kv">${kv || '0'}</span><small>ml</small></div>
+    <div class="unit">${ic('drop','var(--water)','xs')}<span id="ktoday">Water · ${k === todayKey() ? 'today' : fmtDay(k,{day:'numeric',month:'short'})} ${L(waterTotal(k))} L</span></div>
+    <div class="sugg">${[250,330,500,750].map(ml => `<button class="num" data-act="kPreset" data-ml="${ml}">${ml}</button>`).join('')}</div>
+    <div class="keys">${keys.map(x => x === '' ? '<span></span>' : `<button class="num" data-act="key" data-k="${x}" ${x==='del'?'aria-label="Delete digit"':''}>${x === 'del' ? I.back : x}</button>`).join('')}</div>
+    <div class="act2"><button class="g" data-act="kUndo" ${day(k).w.length?'':'disabled'}>Undo last</button><button data-act="kAdd" id="kadd">${kv ? `Add ${kv} ml` : 'Add'}</button></div>`;
+  openSheet(h, {kind:'quick', kv});
+}
+function syncQuick(){
+  if (!sheetCtx || sheetCtx.kind !== 'quick') return;
+  const kv = sheetCtx.kv || '';
+  $sheet.querySelector('#kv').textContent = kv || '0';
+  $sheet.querySelector('#kadd').textContent = kv ? `Add ${kv} ml` : 'Add';
+  $sheet.querySelector('#ktoday').textContent = `Water · ${UI.date === todayKey() ? 'today' : fmtDay(UI.date,{day:'numeric',month:'short'})} ${L(waterTotal(UI.date))} L`;
+  $sheet.querySelector('[data-act="kUndo"]').disabled = !day(UI.date).w.length;
+}
+function stepSheet(id){
+  const t = tById(id), v = tVal(UI.date, id);
+  openSheet(`<div class="qhead"><h3>${esc(t.name)}</h3><button class="circ" data-act="close" aria-label="Close">${I.x}</button></div>
+    <div class="kdisp"><span class="num" id="tsv">${num(v,2)}</span><small>${esc(t.unit||'')}</small></div>
+    <div class="unit">${ic(tIc(t), tCol(t), 'xs')}<span>Goal ${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}</span></div>
+    <div class="stepper big"><button data-act="step" data-id="${t.id}" data-dir="-1" aria-label="Less">${I.minus}</button><button data-act="step" data-id="${t.id}" data-dir="1" aria-label="More">${I.plus}</button></div>
+    <div class="act2"><button data-act="close">Done</button></div>`, {kind:'tstep', id});
+}
+function setupStack(){
+  const st = document.getElementById('stack'); if (!st) return;
+  let x0 = null, y0 = 0, dx = 0, front = null;
+  st.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; dx = 0; front = st.querySelector('.pos0'); }, {passive:true});
+  st.addEventListener('touchmove', e => {
+    if (x0 == null || !front) return;
+    dx = e.touches[0].clientX - x0;
+    if (Math.abs(dx) > Math.abs(e.touches[0].clientY - y0)) { front.style.transition = 'none'; front.style.transform = `translateX(${dx}px) rotate(${dx/22}deg)`; }
+  }, {passive:true});
+  st.addEventListener('touchend', () => {
+    if (front){ front.style.transition = ''; front.style.transform = ''; }
+    if (Math.abs(dx) > 50){ UI.card = ((UI.card||0) + (dx < 0 ? 1 : 2)) % 3; render(); }
+    x0 = null; front = null;
+  });
+  // tapping a card peeking out behind brings it to the front
+  st.querySelectorAll('.pos1,.pos2').forEach(c => c.addEventListener('click', e => { if (e.target.closest('[data-act]')) return; UI.card = +c.dataset.ci; render(); }));
 }
 const timeOf = t => { const d = new Date(t); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const capFirst = s => s.charAt(0).toUpperCase() + s.slice(1);
@@ -819,31 +1006,7 @@ function prayerWeekdayCard(days, sub){
     const name = PRAYERS[worst.i][1], weak = cnt[worst.i].map((c,wd) => ({wd, v: c.n >= 2 ? pct(c.on,c.n) : 999})).filter(x => x.v <= worst.v + 5).map(x => WD_NAMES[x.wd] + 's');
     s += `<div class="callout">${I.warn}<span>${name} slips most on ${listJoin(weak)}: ${worst.v}% on time.</span></div>`;
   }
-  return card('Prayers by weekday', sub, s, false, 'grid', 'var(--prayer)');
-}
-
-function drinkCard(days){
-  const H0 = 5, H1 = 24, goal = S.settings.waterGoal || 2500;
-  const ds = days.map(k => (day(k).w || []).filter(([t]) => keyOf(new Date(t)) === k)).filter(w => w.length);
-  if (ds.length < 2) return '';
-  const hrs = [...Array(H1-H0+1).keys()].map(i => H0 + i);
-  const curve = hrs.map(h => ds.reduce((s,w) => s + w.filter(([t]) => { const d = new Date(t); return d.getHours() + d.getMinutes()/60 < h; }).reduce((a,e) => a + e[1], 0), 0) / ds.length);
-  const firsts = ds.map(w => { const d = new Date(Math.min(...w.map(e => e[0]))); return d.getHours()*60 + d.getMinutes(); });
-  const firstAvg = Math.round(firsts.reduce((a,b) => a+b, 0) / firsts.length);
-  const by6 = ds.filter(w => w.filter(([t]) => new Date(t).getHours() < 18).reduce((a,e) => a + e[1], 0) >= goal).length;
-  const W = 320, H = 150, t = 12, b = 20, ih = H-t-b, max = Math.max(goal*1.15, ...curve) , x = h => (h-H0)/(H1-H0)*W, y = v => t + ih - v/max*ih;
-  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Average water by time of day">`;
-  for (let v = 1000; v <= max; v += 1000) s += `<line x1="0" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text class="ax" x="0" y="${y(v)-4}">${v/1000} L</text>`;
-  s += `<line x1="${x(7)}" y1="${y(0)}" x2="${x(22)}" y2="${y(goal)}" stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="5 4"/>`;
-  const pts = hrs.map((h,i) => `${x(h).toFixed(1)},${y(curve[i]).toFixed(1)}`).join(' ');
-  s += `<polygon points="0,${y(0)} ${pts} ${W},${y(0)}" fill="var(--water)" opacity=".14"/><polyline points="${pts}" fill="none" stroke="var(--water)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>`;
-  const i6 = 18 - H0, ahead = curve[i6] >= goal * (18-7)/(22-7);
-  s += `<circle cx="${x(18)}" cy="${y(curve[i6])}" r="4.5" fill="var(--card)" stroke="var(--water)" stroke-width="2.4"/><text class="val halo" x="${x(18)}" y="${y(curve[i6])-11}" text-anchor="middle">6pm: ${L(curve[i6])} L</text>`;
-  [6,9,12,15,18,21].forEach(h => s += `<text class="ax" x="${x(h)}" y="${H-4}" text-anchor="middle">${h}:00</text>`);
-  s += `</svg><div class="legend"><span><i style="background:var(--water)"></i>Your average day</span><span><i class="dash"></i>Steady pace, 7am–10pm</span></div>`;
-  s += `<div class="chips2"><div class="chip2"><div class="v">${by6}<small>/${ds.length}</small></div><div class="l">Days goal hit by 6pm</div></div><div class="chip2"><div class="v">${pad(Math.floor(firstAvg/60))}:${pad(firstAvg%60)}</div><div class="l">Average first drink</div></div><div class="chip2"><div class="v">${L(curve[curve.length-1])}<small>L</small></div><div class="l">Average by midnight</div></div></div>`;
-  if (!ahead) s += `<div class="callout">${I.warn}<span>By 6pm you're usually behind pace for ${L(goal)} L.</span></div>`;
-  return card('When you drink', 'Average by hour', s, false, 'drop', 'var(--water)');
+  return card('Prayers|by weekday', sub, s, false, 'grid', 'var(--prayer)');
 }
 
 function paceCard(a, b){
@@ -856,8 +1019,8 @@ function paceCard(a, b){
   const longest = all.reduce((m,x) => Math.max(m, +x.km || 0), 0);
   const fast = all.filter(x => +x.km >= 1 && paceSec(x)).reduce((m,x) => Math.min(m, paceSec(x)), Infinity);
   let bestWk = 0; for (let ws = weekStart(S.start); ws <= todayKey(); ws = addDays(ws,7)) bestWk = Math.max(bestWk, weekProgress(ws).km);
-  const pbs = longest ? `<div class="pbh">All-time bests</div><div class="chips2"><div class="chip2"><div class="v">${num(longest)}<small>km</small></div><div class="l">Longest run</div></div>${isFinite(fast) ? `<div class="chip2"><div class="v">${fmtPace(fast)}<small>/km</small></div><div class="l">Fastest pace</div></div>` : ''}<div class="chip2"><div class="v">${num(bestWk)}<small>km</small></div><div class="l">Best week</div></div></div>` : '';
-  if (runs.length < 2) return longest ? card('Run pace', sub, `<div class="empty">Log at least two runs with a time to see your pace trend.</div>` + pbs, false, 'run', 'var(--run)') : '';
+  const pbs = '';
+  if (runs.length < 2) return longest ? card('Runs|your pace', sub, `<div class="empty">Log at least two runs with a time to see your pace trend.</div>` + pbs, false, 'run', 'var(--run)') : '';
   const W = 320, H = 150, t = 14, bt = 20, ih = H-t-bt, d0 = parseKey(from), dx = r => (parseKey(r.d) - d0) / 864e5, span = Math.max(1, (parseKey(to) - d0) / 864e5);
   const ps = runs.map(paceSec), spread = Math.max(...ps) - Math.min(...ps), padY = Math.max(6, spread * 0.1);
   const lo = Math.min(...ps) - padY, hi = Math.max(...ps) + padY, step = [10,15,30,60,120,300].find(v => (hi - lo) / v <= 3.2) || 600;
@@ -875,7 +1038,7 @@ function paceCard(a, b){
   const amt = Math.abs(change) >= 60 ? `${dur(Math.abs(change))} min/km` : `${Math.abs(change)} s/km`;
   const trend = Math.abs(change) < 3 ? 'Pace is holding steady.' : change < 0 ? `Trend: ${amt} quicker over this span.` : `Trend: ${amt} slower over this span.`;
   s += `<div class="note left">Higher = faster. Latest run (large dot): <b>${fmtPace(paceSec(last))} /km</b>. ${trend}</div>` + pbs;
-  return card('Run pace', sub, s, false, 'run', 'var(--run)');
+  return card('Runs|your pace', sub, s, false, 'run', 'var(--run)');
 }
 
 function streakBestCard(){
@@ -891,7 +1054,7 @@ function streakBestCard(){
   if (!live.length) return '';
   const u = (n,w) => n === 1 ? w : w + 's';
   const body = live.map(([i,c,n,cur,best,w]) => `<div class="sr">${ic(i,c,'lg')}<div class="m"><div class="t"><span class="nm">${esc(n)}${cur && cur >= best ? ' <span class="rec">Record</span>' : ''}</span><span class="v">${cur} <small>/ best ${best} ${u(best,w)}</small></span></div><div class="sb"><i data-k="sb-${esc(n)}" style="width:${Math.min(100, cur/best*100)}%;background:${c}"></i></div></div></div>`).join('');
-  return card('Streaks vs your best', 'All time', body + `<div class="note left">Bar = current streak against your record.</div>`, false, 'flame', 'var(--run)');
+  return card('Streaks|vs your best', 'All time', body + `<div class="note left">Bar = current streak against your record.</div>`, false, 'flame', 'var(--run)');
 }
 
 function yearCard(a){
@@ -907,7 +1070,7 @@ function yearCard(a){
     s += `</div></div>`;
   }
   s += `</div><div class="scale"><span>Daily goals hit</span><i style="background:var(--track)"></i><span>none</span><i style="background:color-mix(in srgb, var(--good) 55%, var(--track))"></i><i style="background:var(--good)"></i><span>all</span></div>`;
-  return card(`${y} at a glance`, 'Tap a day', s, false, 'cal', 'var(--good)');
+  return card(`${y}|day by day`, 'Tap a day for detail', s, false, 'cal', 'var(--good)');
 }
 
 function gymSplitCard(a, b){
@@ -923,16 +1086,53 @@ function gymSplitCard(a, b){
   const gaps = [['upper-body', lastOf(['Upper','Full'])], ['lower-body', lastOf(['Lower','Full'])]]
     .map(([n,d]) => [n, d ? Math.round((parseKey(tk) - parseKey(d)) / 864e5) : null]).filter(([,g]) => g != null && g >= 10).sort((p,q) => q[1] - p[1]);
   if (gaps.length) s += `<div class="callout">${I.warn}<span>Last ${gaps[0][0]} session: ${gaps[0][1]} days ago.</span></div>`;
-  return card('Gym split', UI.per === 'week' ? 'This week' : periodLabel(a,b), s, false, 'gym', 'var(--gym)');
+  return card('Gym|your split', UI.per === 'week' ? 'This week' : periodLabel(a,b), s, false, 'gym', 'var(--gym)');
+}
+
+// sky hero: share of daily goals hit, per day (week/month) or per month (year)
+function summaryHero(a, b, days, pdays, pLabel){
+  const ratio = k => { const gs = dailyGoals(k); return gs.length ? gs.filter(x => x.hit).length / gs.length : 0; };
+  const avg = days.reduce((s,k) => s + ratio(k), 0) / days.length, pavg = pdays.length ? pdays.reduce((s,k) => s + ratio(k), 0) / pdays.length : null;
+  const inSet = new Set(days); let bars = [], labs = [];
+  if (UI.per === 'year'){
+    for (let m = 0; m < 12; m++){ const md = days.filter(k => +k.slice(5,7) === m + 1); bars.push(md.length ? md.reduce((s,k) => s + ratio(k), 0) / md.length : null); labs.push(MONTHS[m].charAt(0)); }
+  } else range(a,b).forEach((k,i) => { bars.push(inSet.has(k) ? ratio(k) : null); labs.push(UI.per === 'week' ? DOW1[i] : ((i===0 || (i+1)%7===0) ? String(i+1) : '')); });
+  // weakest daily goal over the period
+  const by = {}; days.forEach(k => dailyGoals(k).forEach(x => { const r = by[x.name] || (by[x.name] = {hit:0, n:0}); r.n++; if (x.hit) r.hit++; }));
+  const weak = Object.entries(by).sort((p,q) => p[1].hit/p[1].n - q[1].hit/q[1].n)[0];
+  const d = pavg == null ? null : Math.round((avg - pavg) * 100);
+  const line1 = d == null ? 'No earlier days to compare with yet' : d > 0 ? `Up ${d}% on the same days (${pLabel})` : d < 0 ? `Down ${-d}% on the same days (${pLabel})` : `Level with the same days (${pLabel})`;
+  const line2 = weak && weak[1].hit < weak[1].n ? `Weakest: ${capFirst(weak[0])}, hit ${weak[1].hit} of ${weak[1].n} days.` : 'Every daily goal hit on every day so far.';
+  return `<div class="sky"><div class="sk-l">Daily goals hit</div><div class="sk-v">${Math.round(avg*100)}<small>%</small></div>
+    <div class="sbars" aria-hidden="true">${bars.map(v => `<i class="${v == null ? 'dim' : ''}" style="height:${v == null ? 6 : Math.max(6, v*100)}%"></i>`).join('')}</div>
+    <div class="sblab">${labs.map(l => `<span>${l}</span>`).join('')}</div>
+    <div class="inner2">${d == null || d === 0 ? I.minus : d > 0 ? I.arrUp : I.arrDown}<span><b>${line1}</b>${esc(line2)}</span></div></div><div style="height:16px"></div>`;
+}
+// all-time personal bests as big tiles
+function bestsRow(){
+  const runs = S.acts.filter(x => x.type === 'run'), t = [];
+  const long = runs.reduce((m,x) => (+x.km||0) > (m ? +m.km : 0) ? x : m, null);
+  if (long) t.push(['var(--run-fill)', '#fff', num(long.km), 'km', 'Longest run', shortDate(long.d)]);
+  const fast = runs.filter(x => +x.km >= 1 && paceSec(x)).reduce((m,x) => !m || paceSec(x) < paceSec(m) ? x : m, null);
+  if (fast) t.push(['var(--ink)', 'var(--page)', fmtPace(paceSec(fast)), '/km', 'Fastest pace', shortDate(fast.d)]);
+  let bw = 0, bws = ''; for (let ws = weekStart(S.start); ws <= todayKey(); ws = addDays(ws,7)){ const km = weekProgress(ws).km; if (km > bw){ bw = km; bws = ws; } }
+  if (bw) t.push(['var(--accent-fill)', '#fff', num(bw), 'km', 'Best week', `w/c ${shortDate(bws)}`]);
+  const g = S.settings, cand = [];
+  if (g.waterGoal > 0) cand.push(['Water goal', bestDays(waterHit), 'var(--accent-fill)']);
+  cand.push(['Prayer goal', bestDays(prayerHit), 'var(--on-fill)']);
+  shownTrackers().filter(isDaily).forEach(tr => cand.push([tr.name, bestDays(k => tDayHit(tr,k)), tCol(tr)]));
+  cand.sort((p,q) => q[1] - p[1]).slice(0,2).forEach(([n, v, c]) => { if (v > 1) t.push([c, '#fff', v, 'days', `${n} streak`, 'Record']); });
+  if (!t.length) return '';
+  return sec('Your bests', 'all time') + `<div class="bests">${t.map(([bg, fg, v, u, l, sub]) => `<div class="bq"><div class="o" style="background:${bg};color:${fg}"><span class="num">${v}</span><small>${u}</small></div><b>${esc(l)}</b><span>${esc(sub)}</span></div>`).join('')}</div>`;
 }
 
 function renderSummary(){
   const [a,b] = periodRange(), tk = todayKey(), g = S.settings;
   const days = (a <= tk && b >= S.start) ? range(maxK(a,S.start), minK(b,tk)) : [];
   const n = days.length, weeks = weeksIn(a,b);
-  let h = `<div class="hdr"><div><h1>Summary</h1><div class="sub">${periodLabel(a,b)}</div></div>
-    <div class="arrows"><button class="circ" data-act="prevPer" aria-label="Previous">${I.chevL}</button><button class="circ" data-act="nextPer" aria-label="Next" ${b>=tk?'disabled':''}>${I.chevR}</button></div></div>
-    <div class="segctl" role="tablist">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${capFirst(p)}</button>`).join('')}</div>`;
+  let h = dateNav(periodLabel(a,b), 'prevPer', 'nextPer', b >= tk);
+  h += `<h1 class="tt">Your ${UI.per}, <em>at a glance</em></h1>`;
+  h += `<div class="chips" role="tablist">${['week','month','year'].map(p => `<button class="${UI.per===p?'on':''}" data-act="per" data-p="${p}" role="tab" aria-selected="${UI.per===p}">${capFirst(p)}</button>`).join('')}</div>`;
   if (!n) return h + `<div class="card"><div class="empty">No data for this period yet. Days you log show up here.</div></div>`;
 
   // comparison: the same days of the previous period (e.g. 1–18 Oct against 1–18 Nov)
@@ -977,26 +1177,26 @@ function renderSummary(){
     t += tile('var(--gym)','Gym', `${gyms.length}<small> ${gyms.length===1?'session':'sessions'}</small>`, `${capFirst(wkTxt(gymWeekHit))}&nbsp;· ${num(perWeek(gyms.length,n))}/wk`, 'gym', gymCmp);
     if (foots.length) t += tile('var(--foot)','Football', `${foots.length}<small> ${foots.length===1?'game':'games'}</small>`, `${sumMin(foots)} min&nbsp;· ${wkTxt(footWeekHit)}`, 'ball');
   }
+  h += summaryHero(a, b, days, pdays, pLabel);
   if (pn) h += `<div class="cmpnote"><span class="trend up">${I.arrUp}</span><span class="trend down">${I.arrDown}</span><span>Compared with the same days, ${esc(pLabel)}. Tap an arrow for the figure.</span></div>`;
   h += `<div class="tiles">${t}</div>`;
 
   const allDays = range(a,b), counted = new Set(days);
   const lab = allDays.map((k,i) => UI.per==='week' ? DOW1[i] : ((i===0 || (i+1)%5===0) ? String(i+1) : ''));
-  const waterDays = () => card('Water per day', 'Litres · dashed line = goal', barChart({
+  const waterDays = () => card('Water|per day', 'Litres · dashed line = goal', barChart({
       labels: lab, values: allDays.map(k => counted.has(k) ? waterTotal(k)/1000 : null), color:'var(--water)',
       goal: g.waterGoal/1000, tips: allDays.map(k => counted.has(k) ? `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${L(waterTotal(k))} L` : 'No data')}), false, 'drop', 'var(--water)');
-  const prayerDays = () => card('Prayers by day', 'Tap a bar for detail', stackChart({
+  const prayerDays = () => card('Prayers|by day', 'Tap a bar for detail', stackChart({
       labels: lab, stacks: allDays.map(k => counted.has(k) ? (c => [c.on,c.late,c.missed,c.none])(prayerCounts(k)) : null), max:5,
       tips: allDays.map(k => counted.has(k) ? (c => `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${c.on} on time, ${c.late} late, ${c.missed} missed${c.none?`, ${c.none} not logged`:''}`)(prayerCounts(k)) : 'No data')}) + prayerLegend(), false, 'moon', 'var(--prayer)');
 
   if (UI.per === 'week'){
-    h += card('Habit grid', 'Filled = done', habitGrid(allDays, counted), false, 'grid', 'var(--habit)');
+    h += card('Habits|day by day', 'Filled = done', habitGrid(allDays, counted), false, 'grid', 'var(--habit)');
     h += prayerDays();
-    h += card('Which prayer slips', `On time, of ${n} ${n===1?'day':'days'}`, prayerByName(days), false, 'chart', 'var(--prayer)');
+    h += card('Prayers|which one slips', `On time, of ${n} ${n===1?'day':'days'}`, prayerByName(days), false, 'chart', 'var(--prayer)');
     h += waterDays();
-    h += drinkCard(days);
     const wkRuns = allDays.some(k => actsOn(k).some(x => x.type==='run'));
-    h += card('Run distance', 'km per day', !wkRuns ? `<div class="empty">No runs logged this week.</div>` : barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
+    h += card('Runs|km per day', '', !wkRuns ? `<div class="empty">No runs logged this week.</div>` : barChart({labels: DOW1, values: allDays.map(k => counted.has(k) ? sumKm(actsOn(k).filter(x=>x.type==='run')) : null), color:'var(--run)', showVals:true,
       tips: allDays.map(k => { if (!counted.has(k)) return 'No data'; const r = actsOn(k).filter(x=>x.type==='run'); return `${fmtDay(k,{weekday:'short',day:'numeric',month:'short'})}: ${r.length?r.map(x=>`${num(x.km)} km${x.sec?' in '+dur(x.sec):''}`).join(', '):'no run'}`; })}), false, 'run', 'var(--run)');
     h += paceCard(a,b);
     h += gymSplitCard(a,b);
@@ -1005,34 +1205,33 @@ function renderSummary(){
     h += prayerWeekdayCard(days, `On time %, ${MONTHS[parseKey(a).getMonth()]}`);
     h += prayerDays();
     h += waterDays();
-    h += drinkCard(days);
     h += paceCard(a,b);
-    h += card('Run distance by week', 'km', barChart({labels: weeks.map(ws => shortDate(ws)), values: weeks.map(ws => weekProgress(ws).km), color:'var(--run)', showVals:true, goal: g.kmGoal||null,
+    h += card('Runs|km by week', '', barChart({labels: weeks.map(ws => shortDate(ws)), values: weeks.map(ws => weekProgress(ws).km), color:'var(--run)', showVals:true, goal: g.kmGoal||null,
       tips: weeks.map(ws => { const p = weekProgress(ws); return `w/c ${shortDate(ws)}: ${p.runs} runs · ${num(p.km)} km`; })}), false, 'run', 'var(--run)');
     h += gymSplitCard(a,b);
-    h += card('Weekly goals', 'Mon–Sun weeks', weekTable(weeks), true, 'cal', 'var(--accent)');
+    h += card('Weekly goals|week by week', 'Mon–Sun weeks', weekTable(weeks), true, 'cal', 'var(--accent)');
   } else {
     const months = [...Array(12).keys()].map(m => { const y = a.slice(0,4); const ma = `${y}-${pad(m+1)}-01`, mb = keyOf(new Date(+y, m+1, 0)); return {m, a:ma, b:mb, days: days.filter(k => k>=ma && k<=mb)}; });
     const mlab = months.map(x => MONTHS[x.m].charAt(0));
     h += yearCard(a);
     h += prayerWeekdayCard(days, `On time %, ${a.slice(0,4)}`);
-    h += card('Prayers by month', 'Share of all prayers', stackChart({
+    h += card('Prayers|by month', 'Share of all prayers', stackChart({
       labels: mlab, max:100, stacks: months.map(x => { if (!x.days.length) return null; const c = sumP(x.days), T = x.days.length*5; return [c.on/T*100, c.late/T*100, c.missed/T*100, c.none/T*100]; }),
       tips: months.map(x => { if (!x.days.length) return `${MONTHS[x.m]}: no data`; const c = sumP(x.days), T = x.days.length*5; return `${MONTHS[x.m]}: ${pct(c.on,T)}% on time, ${pct(c.late,T)}% late, ${pct(c.missed,T)}% missed`; })}) + prayerLegend(), false, 'moon', 'var(--prayer)');
-    h += card('Water', 'Daily average (L)', barChart({
+    h += card('Water|daily average', 'Litres a day, by month', barChart({
       labels: mlab, values: months.map(x => x.days.length ? x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length/1000 : null),
       color:'var(--water)', goal:g.waterGoal/1000, tips: months.map(x => x.days.length ? `${MONTHS[x.m]}: avg ${L(x.days.reduce((s,k)=>s+waterTotal(k),0)/x.days.length)} L · goal met ${x.days.filter(waterHit).length}/${x.days.length} days` : `${MONTHS[x.m]}: no data`)}), false, 'drop', 'var(--water)');
-    h += drinkCard(days);
-    h += card('Run distance by month', 'km', barChart({labels:mlab, values: months.map(x => x.days.length ? sumKm(actsIn(x.a,x.b,'run')) : null), color:'var(--run)', showVals:true,
+    h += card('Runs|km by month', '', barChart({labels:mlab, values: months.map(x => x.days.length ? sumKm(actsIn(x.a,x.b,'run')) : null), color:'var(--run)', showVals:true,
       tips: months.map(x => { const r = actsIn(x.a,x.b,'run'); return `${MONTHS[x.m]}: ${r.length} runs · ${num(sumKm(r))} km`; })}), false, 'run', 'var(--run)');
     h += paceCard(a,b);
     h += gymSplitCard(a,b);
-    h += card('Month by month', '', monthTable(months), true, 'table', 'var(--grey)');
+    h += card('Every month|in numbers', '', monthTable(months), true, 'table', 'var(--grey)');
   }
+  h += bestsRow();
   h += streakBestCard();
   return h;
 }
-const card = (title, sub, body, flush, icon, c) => `<div class="card"><div class="ct"><b>${icon?ic(icon, c||'var(--accent)'):''}${title}</b><span>${sub||''}</span></div>${flush?`<div class="scrollx">${body}</div>`:body}</div>`;
+const card = (title, sub, body, flush) => { const [ta, tb] = title.split('|'); return sec(ta, tb) + `<div class="card">${sub ? `<div class="cap">${sub}</div>` : ''}${flush ? `<div class="scrollx">${body}</div>` : body}</div>`; };
 const prayerLegend = () => `<div class="legend"><span><i style="background:var(--good)"></i>On time</span><span><i style="background:var(--warn)"></i>Late</span><span><i style="background:var(--bad)"></i>Missed</span><span><i style="background:var(--none)"></i>Not logged</span></div>`;
 
 /* ---------------- charts (hand-drawn SVG, no libraries) ---------------- */
@@ -1119,7 +1318,7 @@ function calendarCard(a,b,counted){
     s += `<div class="d hit ${has?'':'f'} ${k===tk?'today':''}" style="${bg};${r>.55?'color:#fff':''}" data-tip="${esc(tip)}">${parseKey(k).getDate()}<span class="ds">${acts.map(t => `<i style="background:${ACT[t].color}"></i>`).join('')}</span></div>`;
   });
   s += `</div><div class="legend"><span><i style="background:color-mix(in srgb, var(--good) 85%, var(--chip))"></i>All daily goals hit</span><span><i style="background:var(--run)"></i>Run</span><span><i style="background:var(--gym)"></i>Gym</span><span><i style="background:var(--foot)"></i>Football</span></div>`;
-  return card('Month at a glance', 'Darker = more goals', s, false, 'cal', 'var(--good)');
+  return card('This month|day by day', 'Darker = more daily goals hit', s, false, 'cal', 'var(--good)');
 }
 function weekTable(weeks){
   if (!weeks.length) return `<div class="empty">No weeks yet.</div>`;
@@ -1142,35 +1341,43 @@ function monthTable(months){
 
 /* ---------------- SETTINGS ---------------- */
 function renderSettings(){
-  const g = S.settings;
+  const g = S.settings, part = UI.set || 'goals';
   const goalTxt = t => t.type==='check' ? (t.goal>=7?'Every day':`${t.goal} days a week`) : `${num(t.goal,2)} ${esc(t.unit||'')} a ${t.period}`;
-  // one iOS-style row: solid icon tile, label, value, chevron
-  const row = (act, attrs, icon, c, label, value, cls) => `<button class="r ${cls||''}" data-act="${act}" ${attrs||''}>${ic(icon, c, 'solid')}<span class="rl">${label}</span>${value!=null?`<em>${value}</em>`:''}${cls?'':`<span class="chev">${I.chevR}</span>`}</button>`;
-  const info = (icon, c, label, value) => `<div class="r">${ic(icon, c, 'solid')}<span class="rl">${label}</span><em>${value}</em></div>`;
-  const lb = g.lastBackup ? fmtDay(g.lastBackup.slice(0,10),{day:'numeric',month:'long',year:'numeric'}) : 'never';
+  const row = (act, attrs, icon, c, label, value, cls) => `<button class="r ${cls||''}" data-act="${act}" ${attrs||''}>${ic(icon, c, 'round')}<span class="rl">${label}</span>${value!=null?`<em>${value}</em>`:''}${cls?'':`<span class="chev">${I.chevR}</span>`}</button>`;
+  const info = (icon, c, label, value) => `<div class="r">${ic(icon, c, 'round')}<span class="rl">${label}</span><em>${value}</em></div>`;
+  const lb = g.lastBackup ? fmtDay(g.lastBackup.slice(0,10),{day:'numeric',month:'long'}) : 'never';
+  const daysTracked = Math.round((parseKey(todayKey()) - parseKey(S.start)) / 864e5) + 1;
 
-  let h = `<div class="hdr"><div><h1>Settings</h1></div></div>` + backupBanner();
-  h += `<div class="app-card"><img src="icon-180.png" alt="" width="60" height="60"><div><b>Life Log</b><div class="sub">Version ${VERSION} · data stays on this iPhone</div><div class="sub">Last backup: ${lb}</div></div></div>`;
+  let h = `<h1 class="tt solo">Settings</h1>` + backupBanner();
+  h += `<div class="chips" role="tablist">${[['goals','Goals'],['data','Data'],['app','App']].map(([id,l]) => `<button class="${part===id?'on':''}" data-act="setPart" data-p="${id}" role="tab" aria-selected="${part===id}">${l}</button>`).join('')}</div>`;
+  h += `<div class="sky app-card2"><div class="sk-h"><span class="sk-l">Life Log</span><img src="icon-180.png" alt="" width="46" height="46"></div>
+    <div class="sk-v">Tracking <span class="num">${daysTracked}</span> ${daysTracked===1?'day':'days'}</div>
+    <div class="inner2">${I.up}<span><b>Last backup: ${lb}</b>Back up weekly to iCloud Drive so you can restore on a new phone.</span></div>
+    <button class="sk-btn" data-act="backup">Back up now</button></div>`;
 
-  h += `<div class="sh">Your goals</div><div class="set">
-    ${row('goal','data-g="water"','drop','var(--water)','Water', `${L(g.waterGoal)} L a day`)}
-    ${row('goal','data-g="prayers"','moon','var(--prayer)','Prayers', `${g.prayerGoal} a day${g.lateCounts?', late counts':', on time'}`)}
-    ${trackers().map(t => row('tracker',`data-id="${t.id}"`, tIc(t), tCol(t), esc(t.name), `${t.show===false?'Hidden · ':''}${goalTxt(t)}`)).join('')}
-    ${row('goal','data-g="run"','run','var(--run)','Runs', `${g.runGoal} a week · ${num(g.kmGoal)} km`)}
-    ${row('goal','data-g="gym"','gym','var(--gym)','Gym', `${plural(g.gymGoal,'session')} a week`)}
-    <button class="r blue" data-act="tracker" data-id="">${ic('plus','var(--accent)','solid')}<span class="rl">Add your own tracker</span></button></div>
-    <div class="foot">Tap a goal to change it. Your own trackers can be yes/no (e.g. stretching), a count (e.g. pages) or an amount (e.g. minutes).</div>`;
-  h += `<div class="sh">Water buttons</div><div class="set">${row('goal','data-g="quick"','drop','var(--water)','Amounts', `${g.quick.join(' · ')} ml`)}</div>`;
-  h += `<div class="sh">Your data</div><div class="set">
-    ${row('backup','','up','var(--accent)','Back up to Files / iCloud', null)}
-    ${row('restore','','down','var(--gym)','Restore from backup', null)}
-    ${row('csv','','table','var(--grey)','Export spreadsheet (CSV)', null)}</div>
-    <div class="foot">Your data is only stored on this iPhone. Back up weekly and keep the file in iCloud Drive so you can restore it on a new phone. <span id="persist"></span></div>`;
-  h += `<div class="sh">App</div><div class="set">
-    ${info('cal','var(--accent)','Tracking since', fmtDay(S.start,{day:'numeric',month:'long',year:'numeric'}))}
-    ${info('info','var(--grey)','Version', VERSION)}
-    <button class="r red" data-act="erase">${ic('trash','var(--bad)','solid')}<span class="rl">Erase all data</span></button></div>
-    <div class="foot">Light and dark mode follow your iPhone. Works offline.</div>`;
+  if (part === 'goals'){
+    h += sec('Your goals', 'tap to change') + `<div class="set">
+      ${row('goal','data-g="water"','drop','var(--water)','Water', `${L(g.waterGoal)} L a day`)}
+      ${row('goal','data-g="prayers"','moon','var(--prayer)','Prayers', `${g.prayerGoal} a day${g.lateCounts?', late counts':', on time'}`)}
+      ${trackers().map(t => row('tracker',`data-id="${t.id}"`, tIc(t), tCol(t), esc(t.name), `${t.show===false?'Hidden · ':''}${goalTxt(t)}`)).join('')}
+      ${row('goal','data-g="run"','run','var(--run)','Runs', `${g.runGoal} a week · ${num(g.kmGoal)} km`)}
+      ${row('goal','data-g="gym"','gym','var(--gym)','Gym', `${plural(g.gymGoal,'session')} a week`)}
+      <button class="r blue" data-act="tracker" data-id="">${ic('plus','var(--accent)','round')}<span class="rl">Add your own tracker</span></button></div>
+      <div class="foot">Your own trackers can be yes/no (e.g. stretching), a count (e.g. pages) or an amount (e.g. minutes).</div>`;
+    h += sec('Water buttons', 'quick-add amounts') + `<div class="set">${row('goal','data-g="quick"','drop','var(--water)','Amounts', `${g.quick.join(' · ')} ml`)}</div>`;
+  } else if (part === 'data'){
+    h += sec('Your data', 'stays on this iPhone') + `<div class="set">
+      ${row('backup','','up','var(--accent)','Back up to Files / iCloud', null)}
+      ${row('restore','','down','var(--gym)','Restore from backup', null)}
+      ${row('csv','','table','var(--grey)','Export spreadsheet (CSV)', null)}</div>
+      <div class="foot">Your data is only stored on this iPhone. Keep the backup file in iCloud Drive so you can restore it on a new phone. <span id="persist"></span></div>`;
+  } else {
+    h += sec('App', 'about') + `<div class="set">
+      ${info('cal','var(--accent)','Tracking since', fmtDay(S.start,{day:'numeric',month:'long',year:'numeric'}))}
+      ${info('info','var(--grey)','Version', VERSION)}
+      <button class="r red" data-act="erase">${ic('trash','var(--bad)','round')}<span class="rl">Erase all data</span></button></div>
+      <div class="foot">Light and dark mode follow your iPhone. Works offline.</div>`;
+  }
   setTimeout(showPersist, 0);
   return h;
 }
@@ -1366,8 +1573,18 @@ const A = {
   delWater: el => { const w = dayW(UI.date).w, i = w.findIndex(e => String(e[0]) === el.dataset.t); if (i >= 0){ w.splice(i,1); save(); render(); } },
   prayer: el => { const p = dayW(UI.date).p, id = el.dataset.p, s = el.dataset.s; if (p[id] === s) delete p[id]; else p[id] = s; save(); render(); },
   check: el => { const v = dayW(UI.date).v, id = el.dataset.id; if (v[id]) delete v[id]; else v[id] = 1; save(); render(); },
-  step: el => { const t = tById(el.dataset.id), v = dayW(UI.date).v; const nv = Math.max(0, Math.round(((+v[t.id]||0) + (+el.dataset.dir)*(t.step||1))*100)/100); if (nv) v[t.id] = nv; else delete v[t.id]; save(); render(); },
+  step: el => { const t = tById(el.dataset.id), v = dayW(UI.date).v; const nv = Math.max(0, Math.round(((+v[t.id]||0) + (+el.dataset.dir)*(t.step||1))*100)/100); if (nv) v[t.id] = nv; else delete v[t.id]; save(); render(); if (sheetCtx && sheetCtx.kind === 'tstep') $sheet.querySelector('#tsv').textContent = num(tVal(UI.date, t.id), 2); },
   addAct: el => actSheet(el.dataset.type),
+  pcycle: el => { const p = dayW(UI.date).p, id = el.dataset.p, order = [undefined,'on','late','missed'], nx = order[(order.indexOf(p[id]) + 1) % 4]; if (nx) p[id] = nx; else delete p[id]; save(); render(); },
+  card: el => { UI.card = +el.dataset.i; render(); },
+  toStreaks: () => { const e = document.getElementById('streaks'); if (e) e.scrollIntoView({behavior:'smooth', block:'start'}); },
+  quick: () => quickSheet(),
+  key: el => { const c = sheetCtx; if (!c) return; const kk = el.dataset.k; c.kv = kk === 'del' ? (c.kv||'').slice(0,-1) : ((c.kv||'') + kk).replace(/^0+/,'').slice(0,4); syncQuick(); },
+  kPreset: el => { if (!sheetCtx) return; sheetCtx.kv = el.dataset.ml; syncQuick(); },
+  kAdd: () => { const ml = +((sheetCtx && sheetCtx.kv) || 0); if (!(ml > 0)) return toast('Type an amount first'); dayW(UI.date).w.push([Date.now(), ml]); save(); closeSheet(); render(); toast(`Added ${ml} ml`); },
+  kUndo: () => { A.undoWater(); syncQuick(); },
+  tStep: el => stepSheet(el.dataset.id),
+  setPart: el => { UI.set = el.dataset.p; render(); },
   editAct: el => actSheet(null, el.dataset.id),
   delAct: el => { if (!confirm('Delete this activity?')) return; S.acts = S.acts.filter(a => a.id !== el.dataset.id); save(); render(); },
   actType: el => { const c = sheetCtx; if (c.id){ const a = S.acts.find(x => x.id === c.id); if (a && a.type !== el.dataset.type){ toast('Delete and re-add to change type'); return; } } actSheet(el.dataset.type); },
